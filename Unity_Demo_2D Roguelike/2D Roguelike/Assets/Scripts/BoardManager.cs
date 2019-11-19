@@ -27,7 +27,7 @@ namespace Game
         #region Public Fields
         public int Columns = 8;
         public int Rows = 8;
-        public Count WallCount = new Count(5, 9);//最少5面，最多9面
+        public Count InWallCount = new Count(5, 9);//最少5面，最多9面
         public Count FoodCount = new Count(1, 5);
 
         public GameObject Exit;
@@ -101,13 +101,27 @@ namespace Game
 
         void LayoutObjectAtRandom(GameObject[] tileArr,int min,int max)
         {
-            int count = Random.Range(min, max);
+            int count = Random.Range(min, max+1);
             for(int i = 0; i < count; i++)
             {
                 Vector3 randomPos = RandomPos();
                 GameObject tileChoice = tileArr[Random.Range(0, tileArr.Length)];
                 Instantiate(tileChoice, randomPos, Quaternion.identity);
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+        public void SetupScene(int level)
+        {
+            BoardSetup();
+            InitialiseList();
+            LayoutObjectAtRandom(InWallTiles, InWallCount.Minimum, InWallCount.Maximum);
+            LayoutObjectAtRandom(FoodTiles, FoodCount.Minimum, FoodCount.Maximum);
+            int enemyNum = (int)Mathf.Log(level, 2f);
+            LayoutObjectAtRandom(EnemyTiles, enemyNum, enemyNum);
+            Instantiate(Exit, new Vector3(Columns - 1, Rows - 1, 0f), Quaternion.identity);
         }
         #endregion
     }

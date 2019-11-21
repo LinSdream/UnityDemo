@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LS.Common;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -33,13 +33,20 @@ namespace Game
             StartCoroutine(MoveEnemies());
         }
 
-        private void OnLevelWasLoaded(int level)
+        //允许在运行时加载游戏而无需用户采取行动的情况下初始化运行时类方法。
+        //[RuntimeInitializeOnLoadMethod] 加载游戏后，将调用标记的方法。这是在Awake调用方法之后。
+        //[RuntimeInitializeOnLoadMethod]不能保证标记方法的执行顺序。
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static public void CallbackInitialize()
         {
-            Debug.Log("OnLevelWasLoaded");
-            _level++;
-            InitGame();
+            SceneManager.sceneLoaded += OnSceneLoad;
         }
 
+        private static void OnSceneLoad(Scene arg0, LoadSceneMode arg1)
+        {
+            Instance._level++;
+            Instance.InitGame();
+        }
         #endregion
 
         #region Override Methods

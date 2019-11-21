@@ -36,6 +36,7 @@ namespace Game
         #region Override Methods
         protected override void Init()
         {
+            GameManager.Instance.AddEnemyToList(this);
             _target = GameObject.FindGameObjectWithTag("Player").transform;
             _anim = GetComponent<Animator>();
         }
@@ -55,6 +56,7 @@ namespace Game
         protected override void OnCantMove<T>(T component)
         {
             Player playerHit = component as Player;
+            _anim.SetTrigger("EnemyAttack");
             playerHit.LoseFood(PlayerDamage);
         }
         #endregion

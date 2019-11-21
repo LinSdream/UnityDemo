@@ -33,7 +33,7 @@ namespace Game
         public GameObject Exit;
         public GameObject[] FloorTiles;
         public GameObject[] InWallTiles;
-        public GameObject[] OutWallTTilse;
+        public GameObject[] OutWallTilse;
         public GameObject[] FoodTiles;
         public GameObject[] EnemyTiles;
         #endregion
@@ -41,21 +41,6 @@ namespace Game
         #region Private Fields
         Transform _boardHolder;//所有的子物体层级在该transform中
         List<Vector3> _gridPositions = new List<Vector3>();//存放所有可能性的位置
-        #endregion
-
-        #region MonoBehaviours Callbacks
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         #endregion
 
         #region Private Methods
@@ -82,7 +67,7 @@ namespace Game
                 {
                     GameObject toInstantiate = FloorTiles[Random.Range(0, FloorTiles.Length)];
                     if (x == -1 || x == Columns || y == -1 || y == Rows)
-                        toInstantiate = OutWallTTilse[Random.Range(0, OutWallTTilse.Length)];
+                        toInstantiate = OutWallTilse[Random.Range(0, OutWallTilse.Length)];
 
                     GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(_boardHolder);

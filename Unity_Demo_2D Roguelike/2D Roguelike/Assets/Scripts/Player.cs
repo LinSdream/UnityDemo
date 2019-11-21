@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -13,6 +14,7 @@ namespace Game
         public int PointsPerFood = 10;
         public int PointsPerSoda = 20;
         public float RestartLevelDlay = 1f;
+        public Text FoodText;
 
         Animator _anim;
         int _food;
@@ -30,7 +32,11 @@ namespace Game
             if (horizontal != 0)
                 vertical = 0;
 
-            AttemptMove<DestructibleWall>(horizontal, vertical);
+            if(horizontal!=0 || vertical != 0)
+            {
+                AttemptMove<DestructibleWall>(horizontal, vertical);
+            }
+            
         }
 
         private void OnDisable()
@@ -48,10 +54,12 @@ namespace Game
             }else if (tag == "Food")
             {
                 _food += PointsPerFood;
+                FoodText.text = "+" + PointsPerFood + " Food: " + _food;
                 collision.gameObject.SetActive(false);
             }else if (tag == "Soda")
             {
                 _food += PointsPerSoda;
+                FoodText.text = "+" + PointsPerSoda + " Food: " + _food;
                 collision.gameObject.SetActive(false);
             }
         }
@@ -77,11 +85,13 @@ namespace Game
         {
             _anim = GetComponent<Animator>();
             _food = GameManager.Instance.PlayerFoodPoints;
+            FoodText.text = "Food : " + _food;
         }
 
         protected override void AttemptMove<T>(float xDir, float yDir)
         {
             _food--;
+            FoodText.text = "Food : " + _food;
             base.AttemptMove<T>(xDir, yDir);
 
             RaycastHit2D hit;
@@ -103,6 +113,7 @@ namespace Game
         {
             _anim.SetTrigger("PlayerHit");
             _food -= loss;
+            FoodText.text = "-" + loss + " Food: " + _food;
             CheckGameOver();
         }
         #endregion

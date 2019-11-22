@@ -8,6 +8,7 @@ namespace Game
     {
         #region Fields
         public int PlayerDamage = 1;
+        public AudioClip[] AttackSounds;
 
         Transform _target;
         Animator _anim;
@@ -58,6 +59,7 @@ namespace Game
             Player playerHit = component as Player;
             _anim.SetTrigger("EnemyAttack");
             playerHit.LoseFood(PlayerDamage);
+            SoundManager.Instance.RandomPitchSFX(AttackSounds);
         }
         #endregion
     }

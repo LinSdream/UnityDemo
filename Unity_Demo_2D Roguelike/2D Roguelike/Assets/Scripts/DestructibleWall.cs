@@ -8,6 +8,7 @@ namespace Game
     {
         public Sprite DmgSprite;
         public int HP;
+        public AudioClip[] ChopsSounds;
 
         SpriteRenderer _spriteRenderer;
 
@@ -19,6 +20,7 @@ namespace Game
         public void DamageWall(int loss)
         {
             _spriteRenderer.sprite = DmgSprite;
+            SoundManager.Instance.RandomPitchSFX(ChopsSounds);
             HP -= loss;
             if (HP <= 0)
             {

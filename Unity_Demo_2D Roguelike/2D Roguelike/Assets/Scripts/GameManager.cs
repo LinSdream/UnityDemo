@@ -14,6 +14,7 @@ namespace Game
         public float TurnDelay = 0.1f;
         public int PlayerFoodPoints = 100;
         public float LevelStartDelay = 2f;
+        public AudioClip GameOverSound;
         [HideInInspector] public bool PlayersTurn = true;
 
         Text _levelText;
@@ -28,7 +29,6 @@ namespace Game
         #region MonoBehaviour Callbacks
         private void Update()
         {
-            Debug.Log("Update");
             if (PlayersTurn || _enemiesMoving || _doingSetup) return;
             StartCoroutine(MoveEnemies());
         }
@@ -67,6 +67,8 @@ namespace Game
         #region Public Methods
         public void GameOver()
         {
+            SoundManager.Instance.MusicSource.Stop();
+            SoundManager.Instance.PlaySingle(GameOverSound);
             _levelText.text = "After " + _level + " days , you starved.";
             _levelImg.SetActive(true);
             enabled = false;

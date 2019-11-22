@@ -16,6 +16,10 @@ namespace Game
         public float RestartLevelDlay = 1f;
         public Text FoodText;
 
+        public AudioClip[] MoveSounds;
+        public AudioClip[] EatSounds;
+        public AudioClip[] DrinkSounds;
+        
         Animator _anim;
         int _food;
         #endregion
@@ -55,11 +59,13 @@ namespace Game
             {
                 _food += PointsPerFood;
                 FoodText.text = "+" + PointsPerFood + " Food: " + _food;
+                SoundManager.Instance.RandomPitchSFX(EatSounds);
                 collision.gameObject.SetActive(false);
             }else if (tag == "Soda")
             {
                 _food += PointsPerSoda;
                 FoodText.text = "+" + PointsPerSoda + " Food: " + _food;
+                SoundManager.Instance.RandomPitchSFX(DrinkSounds);
                 collision.gameObject.SetActive(false);
             }
         }
@@ -95,6 +101,11 @@ namespace Game
             base.AttemptMove<T>(xDir, yDir);
 
             RaycastHit2D hit;
+
+            if(Move(xDir,yDir,out hit))
+            {
+                SoundManager.Instance.RandomPitchSFX(MoveSounds);
+            }
 
             CheckGameOver();
             GameManager.Instance.PlayersTurn = false;

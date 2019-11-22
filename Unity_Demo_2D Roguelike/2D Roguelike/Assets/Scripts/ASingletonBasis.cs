@@ -51,7 +51,7 @@ namespace LS.Common
         }
 
         /// <summary>
-        /// 初始化该单例
+        /// Awake初始化
         /// </summary>
         public virtual void Init()
         {

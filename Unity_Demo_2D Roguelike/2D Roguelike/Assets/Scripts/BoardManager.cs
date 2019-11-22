@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using LS.Common;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -22,7 +23,7 @@ namespace Game
         }
     }
 
-    public class BoardManager : MonoBehaviour
+    public class BoardManager : ASingletonBasis<BoardManager>
     {
         #region Public Fields
         public int Columns = 8;

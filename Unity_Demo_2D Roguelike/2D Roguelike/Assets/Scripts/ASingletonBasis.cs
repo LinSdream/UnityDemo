@@ -14,9 +14,6 @@ namespace LS.Common
     /// </summary>
     public abstract class ASingletonBasis<T> : MonoBehaviour where T : ASingletonBasis<T>//where 约束子类
     {
-
-        protected bool _IsDestroy = false;
-
         private static T _instance;
         public static T Instance
         {
@@ -48,6 +45,11 @@ namespace LS.Common
             {
                 Destroy(gameObject);
             }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            Release();
         }
 
         /// <summary>

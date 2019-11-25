@@ -150,10 +150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Width: 60
-  Hight: 60
+  Hight: 80
   Seed: 53434fhsgfgzs111
-  UseRandomSeed: 0
-  RandomFillPercent: 61
+  UseRandomSeed: 1
+  SmoothLevel: 5
+  RandomFillPercent: 50
 --- !u!4 &120195837
 Transform:
   m_ObjectHideFlags: 0

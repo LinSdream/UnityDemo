@@ -79,7 +79,6 @@ namespace Game
         #endregion
 
         #region MonoBehaviour Callbacks
-
         private void Awake()
         {
             _vertices = new List<Vector3>();
@@ -88,40 +87,40 @@ namespace Game
 
         private void OnDrawGizmos()
         {
-            //if (mSquareGird != null)
-            //{
-            //    int squareX = mSquareGird.Squares.GetLength(0);
-            //    int squareY = mSquareGird.Squares.GetLength(1);
+            if (mSquareGird != null)
+            {
+                int squareX = mSquareGird.Squares.GetLength(0);
+                int squareY = mSquareGird.Squares.GetLength(1);
 
-            //    for(int x = 0; x < squareX; x++)
-            //    {
-            //        for(int y = 0; y < squareY; y++)
-            //        {
-            //            Square square = mSquareGird.Squares[x, y];
-            //            Gizmos.color = (square.TopLeft.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.TopLeft.Position, Vector3.one * 0.4f);
+                for (int x = 0; x < squareX; x++)
+                {
+                    for (int y = 0; y < squareY; y++)
+                    {
+                        Square square = mSquareGird.Squares[x, y];
+                        Gizmos.color = (square.TopLeft.Active) ? Color.black : Color.white;
+                        Gizmos.DrawCube(square.TopLeft.Position, Vector3.one * 0.4f);
 
-            //            Gizmos.color = (square.TopRight.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.TopRight.Position, Vector3.one * 0.4f);
+                        Gizmos.color = (square.TopRight.Active) ? Color.black : Color.white;
+                        Gizmos.DrawCube(square.TopRight.Position, Vector3.one * 0.4f);
 
-            //            Gizmos.color = (square.BottomLeft.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.BottomLeft.Position, Vector3.one * 0.4f);
+                        Gizmos.color = (square.BottomLeft.Active) ? Color.black : Color.white;
+                        Gizmos.DrawCube(square.BottomLeft.Position, Vector3.one * 0.4f);
 
-            //            Gizmos.color = (square.BottomRight.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.BottomRight.Position, Vector3.one * 0.4f);
+                        Gizmos.color = (square.BottomRight.Active) ? Color.black : Color.white;
+                        Gizmos.DrawCube(square.BottomRight.Position, Vector3.one * 0.4f);
 
-            //            Gizmos.color = Color.grey;
-            //            Gizmos.DrawCube(square.CenterTop.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterBottom.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterRight.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterLeft.Position, Vector3.one * 0.15f);
+                        Gizmos.color = Color.grey;
+                        Gizmos.DrawCube(square.CenterTop.Position, Vector3.one * 0.15f);
+                        Gizmos.DrawCube(square.CenterBottom.Position, Vector3.one * 0.15f);
+                        Gizmos.DrawCube(square.CenterRight.Position, Vector3.one * 0.15f);
+                        Gizmos.DrawCube(square.CenterLeft.Position, Vector3.one * 0.15f);
 
-            //        }
-            //    }
-            //}
+                    }
+                }
+            }
         }
 
-#endregion
+        #endregion
 
         #region Private Methods
 
@@ -169,7 +168,7 @@ namespace Game
                     MeshFromPoints(square.TopLeft, square.TopRight, square.CenterRight, square.CenterLeft);//12CB
                     break;
                 case 5://0101 32
-                    MeshFromPoints(square.CenterTop, square.CenterLeft, square.BottomLeft, square.CenterBottom,square.CenterRight,square.TopRight);//AB3DC2
+                    MeshFromPoints(square.CenterTop, square.TopRight, square.CenterRight, square.CenterBottom,square.BottomLeft,square.CenterLeft);//A2CD3B
                     break;
                 case 10://1010 41
                     MeshFromPoints(square.TopLeft, square.CenterLeft, square.CenterBottom, square.BottomRight, square.CenterRight, square.CenterTop);//1BD4CA
@@ -177,7 +176,7 @@ namespace Game
 
                 //3 points
                 case 7://0111   342
-                    MeshFromPoints(square.CenterLeft, square.BottomLeft, square.BottomRight, square.TopRight,square.CenterTop);//B342A
+                    MeshFromPoints(square.CenterTop, square.TopRight, square.BottomRight, square.BottomLeft,square.CenterLeft);//B342A
                     break;
                 case 11://1011   341
                     MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterRight, square.BottomRight, square.BottomLeft);//1AC43

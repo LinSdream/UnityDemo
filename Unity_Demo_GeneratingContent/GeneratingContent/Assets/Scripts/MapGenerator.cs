@@ -29,7 +29,6 @@ namespace Game
         private void Start()
         {
             GeneratorMap();
-            
         }
 
         private void Update()
@@ -42,18 +41,18 @@ namespace Game
 
         private void OnDrawGizmos()
         {
-            if (_map != null)
-            {
-                for (int x = 0; x < Width; x++)
-                {
-                    for (int y = 0; y < Hight; y++)
-                    {
-                        Gizmos.color = (_map[x, y] == 1) ? Color.black : Color.white;
-                        Vector3 pos = new Vector3(-Width / 2 + x + .5f, 0, Hight / 2 + y + .5f);
-                        Gizmos.DrawCube(pos, Vector3.one);
-                    }
-                }
-            }
+            //if (_map != null)
+            //{
+            //    for (int x = 0; x < Width; x++)
+            //    {
+            //        for (int y = 0; y < Hight; y++)
+            //        {
+            //            Gizmos.color = (_map[x, y] == 1) ? Color.black : Color.white;
+            //            Vector3 pos = new Vector3(-Width / 2 + x + .5f, 0, -Hight / 2 + y + .5f);
+            //            Gizmos.DrawCube(pos, Vector3.one);
+            //        }
+            //    }
+            //}
         }
 
         #endregion
@@ -67,6 +66,9 @@ namespace Game
             {
                 SmoothMap();
             }
+
+            MeshGenerator meshGen = GetComponent<MeshGenerator>();
+            meshGen.GeneratorMesh(_map, 1);
         }
 
         void RandomFillMap()
@@ -127,7 +129,6 @@ namespace Game
                         wallCount++;
                 }
             }
-
             return wallCount;
         }
         #endregion

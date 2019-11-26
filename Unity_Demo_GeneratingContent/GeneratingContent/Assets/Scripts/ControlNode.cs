@@ -2,7 +2,7 @@
 
 namespace Game
 {
-
+    #region Class Node
     public class Node
     {
         public Vector3 Position;
@@ -13,6 +13,7 @@ namespace Game
             Position = pos;
         }
     }
+    #endregion
 
     /// <summary>
     /// A   B   C

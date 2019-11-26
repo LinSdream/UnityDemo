@@ -63,7 +63,7 @@ namespace Game
             {
                 for(int y = 0; y < nodeCountY - 1; y++)
                 {
-                    Squares[x, y] = new Square(controlNode[x, y], controlNode[x, y + 1], controlNode[x + 1, y], controlNode[x + 1, y + 1]);
+                    Squares[x, y] = new Square(controlNode[x, y], controlNode[x+1, y], controlNode[x, y+1], controlNode[x + 1, y + 1]);
                 }
             }
         }

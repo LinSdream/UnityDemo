@@ -33,8 +33,8 @@ namespace Game
         public ControlNode(Vector3 pos, bool active,float squareSize):base(pos)
         {
             Active = active;
-            AboveNode = new Node(Position + Vector3.forward * squareSize / 2);
-            RightNode = new Node(Position + Vector3.right * squareSize / 2);
+            AboveNode = new Node(Position + Vector3.forward * squareSize / 2f);
+            RightNode = new Node(Position + Vector3.right * squareSize / 2f);
         }
     }
 

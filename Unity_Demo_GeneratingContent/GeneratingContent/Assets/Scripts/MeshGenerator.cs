@@ -77,50 +77,50 @@ namespace Game
 
                 // 1 point 
                 case 1://0001   3
-                    MeshFromPoints(square.CenterBottom, square.BottomLeft, square.CenterLeft);//D3B
+                    MeshFromPoints(square.CentreBottom, square.BottomLeft, square.CentreLeft);//D3B
                     break;
                 case 2://0010   4
-                    MeshFromPoints(square.CenterRight, square.BottomRight, square.CenterBottom);//C4D
+                    MeshFromPoints(square.CentreRight, square.BottomRight, square.CentreBottom);//C4D
                     break;
                 case 4://0100   2
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.CenterRight);//A2C
+                    MeshFromPoints(square.CentreTop, square.TopRight, square.CentreRight);//A2C
                     break;
                 case 8://1000   1
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterLeft);//1AB
+                    MeshFromPoints(square.TopLeft, square.CentreTop, square.CentreLeft);//1AB
                     break;
 
                 //2 points
                 case 3://0011 34
-                    MeshFromPoints(square.CenterRight, square.BottomRight, square.BottomLeft, square.CenterLeft);//BC43
+                    MeshFromPoints(square.CentreRight, square.BottomRight, square.BottomLeft, square.CentreLeft);//BC43
                     break;
                 case 6://0110 24
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.BottomRight, square.CenterBottom);//A24D
+                    MeshFromPoints(square.CentreTop, square.TopRight, square.BottomRight, square.CentreBottom);//A24D
                     break;
                 case 9://1001 31
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterBottom, square.BottomLeft);//1AD3
+                    MeshFromPoints(square.TopLeft, square.CentreTop, square.CentreBottom, square.BottomLeft);//1AD3
                     break;
                 case 12://1100 12
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.CenterRight, square.CenterLeft);//12CB
+                    MeshFromPoints(square.TopLeft, square.TopRight, square.CentreRight, square.CentreLeft);//12CB
                     break;
                 case 5://0101 32
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.CenterRight, square.CenterBottom, square.BottomLeft, square.CenterLeft);//A2CD3B
+                    MeshFromPoints(square.CentreTop, square.TopRight, square.CentreRight, square.CentreBottom, square.BottomLeft, square.CentreLeft);//A2CD3B
                     break;
                 case 10://1010 41
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterRight, square.BottomRight, square.CenterBottom, square.CenterLeft);//1AC4DB
+                    MeshFromPoints(square.TopLeft, square.CentreTop, square.CentreRight, square.BottomRight, square.CentreBottom, square.CentreLeft);//1AC4DB
                     break;
 
                 //3 points
                 case 7://0111   342
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.BottomRight, square.BottomLeft, square.CenterLeft);//A243B
+                    MeshFromPoints(square.CentreTop, square.TopRight, square.BottomRight, square.BottomLeft, square.CentreLeft);//A243B
                     break;
                 case 11://1011   341
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterRight, square.BottomRight, square.BottomLeft);//1AC43
+                    MeshFromPoints(square.TopLeft, square.CentreTop, square.CentreRight, square.BottomRight, square.BottomLeft);//1AC43
                     break;
                 case 13://1101   321
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.CenterRight, square.CenterBottom, square.BottomLeft);//12CD3
+                    MeshFromPoints(square.TopLeft, square.TopRight, square.CentreRight, square.CentreBottom, square.BottomLeft);//12CD3
                     break;
                 case 14://1110   421
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.BottomRight, square.CenterBottom, square.CenterLeft);//124DB
+                    MeshFromPoints(square.TopLeft, square.TopRight, square.BottomRight, square.CentreBottom, square.CentreLeft);//124DB
                     break;
 
                 //4 points
@@ -197,65 +197,3 @@ namespace Game
     }
 
 }
-
-/*
- switch (square.Configuration)
-            {
-                case 0:
-                    break;
-
-                // 1 points:
-                case 1:
-                    MeshFromPoints(square.CenterBottom, square.BottomLeft, square.CenterLeft);
-                    break;
-                case 2:
-                    MeshFromPoints(square.CenterRight, square.BottomRight, square.CenterBottom);
-                    break;
-                case 4:
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.CenterRight);
-                    break;
-                case 8:
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterLeft);
-                    break;
-
-                // 2 points:
-                case 3:
-                    MeshFromPoints(square.CenterRight, square.BottomRight, square.BottomLeft, square.CenterLeft);
-                    break;
-                case 6:
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.BottomRight, square.CenterBottom);
-                    break;
-                case 9:
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterBottom, square.BottomLeft);
-                    break;
-                case 12:
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.CenterRight, square.CenterLeft);
-                    break;
-                case 5:
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.CenterRight, square.CenterBottom, square.BottomLeft, square.CenterLeft);
-                    break;
-                case 10:
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterRight, square.BottomRight, square.CenterBottom, square.CenterLeft);
-                    break;
-
-                // 3 point:
-                case 7:
-                    MeshFromPoints(square.CenterTop, square.TopRight, square.BottomRight, square.BottomLeft, square.CenterLeft);
-                    break;
-                case 11:
-                    MeshFromPoints(square.TopLeft, square.CenterTop, square.CenterRight, square.BottomRight, square.BottomLeft);
-                    break;
-                case 13:
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.CenterRight, square.CenterBottom, square.BottomLeft);
-                    break;
-                case 14:
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.BottomRight, square.CenterBottom, square.CenterLeft);
-                    break;
-
-                // 4 point:
-                case 15:
-                    MeshFromPoints(square.TopLeft, square.TopRight, square.BottomRight, square.BottomLeft);
-                    break;
-            }
-     
-     */

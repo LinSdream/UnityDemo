@@ -6,7 +6,7 @@ namespace Game
     public class Square
     {
         public ControlNode TopLeft, TopRight, BottomLeft, BottomRight;
-        public Node CenterTop, CenterBottom, CenterRight, CenterLeft;
+        public Node CentreTop, CentreBottom, CentreRight, CentreLeft;
         public int Configuration;//8个点的方块，三角网格配置有16种，即4位二进制0000 - 1111
 
         public Square(ControlNode topLeft, ControlNode topRight, ControlNode bottomRight, ControlNode bottomLeft)
@@ -16,10 +16,10 @@ namespace Game
             BottomRight = bottomRight;
             BottomLeft = bottomLeft;
 
-            CenterTop = TopLeft.RightNode;
-            CenterRight = BottomRight.AboveNode;
-            CenterBottom = BottomLeft.RightNode;
-            CenterLeft = BottomLeft.AboveNode;
+            CentreTop = TopLeft.RightNode;
+            CentreRight = BottomRight.AboveNode;
+            CentreBottom = BottomLeft.RightNode;
+            CentreLeft = BottomLeft.AboveNode;
 
             if (TopLeft.Active)
                 Configuration += 8;

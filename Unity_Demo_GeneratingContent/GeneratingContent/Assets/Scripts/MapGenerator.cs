@@ -20,6 +20,8 @@ namespace Game
         [Range(0, 10)] public int SmoothLevel = 5;
         [Tooltip("黑色块占比")]
         [Range(0, 100)] public int RandomFillPercent;
+        [Tooltip("边缘轮廓尺寸")]
+        public int BorderSize = 5;
 
         int[,] _map;
 
@@ -39,21 +41,6 @@ namespace Game
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            //if (_map != null)
-            //{
-            //    for (int x = 0; x < Width; x++)
-            //    {
-            //        for (int y = 0; y < Hight; y++)
-            //        {
-            //            Gizmos.color = (_map[x, y] == 1) ? Color.black : Color.white;
-            //            Vector3 pos = new Vector3(-Width / 2 + x + .5f, 0, -Hight / 2 + y + .5f);
-            //            Gizmos.DrawCube(pos, Vector3.one);
-            //        }
-            //    }
-            //}
-        }
 
         #endregion
 
@@ -65,6 +52,27 @@ namespace Game
             for (int i = 0; i < SmoothLevel; i++)
             {
                 SmoothMap();
+            }
+
+            
+            int[,] borderMap = new int[Width + BorderSize * 2, Hight + BorderSize * 2];
+
+            int borderX = borderMap.GetLength(0);
+            int borderY = borderMap.GetLength(1);
+
+            for(int x = 0; x < borderX; x++)
+            {
+                for(int y = 0; y < borderY; y++)
+                {
+                    if((x >= BorderSize && x < BorderSize + Width) && (y >= BorderSize && y < BorderSize + Hight))
+                    {
+                        borderMap[x, y] = _map[x - BorderSize, y - BorderSize];
+                    }
+                    else
+                    {
+                        borderMap[x, y] = 1;
+                    }
+                }
             }
 
             MeshGenerator meshGen = GetComponent<MeshGenerator>();

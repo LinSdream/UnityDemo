@@ -2,15 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Triangle Mesh 相关连接：https://www.cnblogs.com/haoyul/p/5738364.html
+
 namespace Game
 {
+    #region Struct Triangle
+
+    /// <summary>
+    /// 三角形级别信息
+    /// </summary>
+    public struct Triangle
+    {
+        int[] _vertexs;
+
+        public Triangle(int a,int b,int c)
+        {
+            _vertexs = new int[3];
+            _vertexs[0] = a;
+            _vertexs[0] = b;
+            _vertexs[0] = c;
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                return _vertexs[index];
+            }
+        }
+
+        public bool Contains(int vertexIndex)
+        {
+            return vertexIndex == _vertexs[0] || vertexIndex == _vertexs[1] || vertexIndex == _vertexs[2];
+        }
+    }
+    #endregion
     public class MeshGenerator : MonoBehaviour
     {
         #region Fields
         public SquareGird mSquareGird;
 
-        List<Vector3> _vertices;
-        List<int> _triangles;
+        List<Vector3> _vertices;//顶点表
+        List<int> _triangles;//维护所有三角形的数组，内部存储的数据数是顶点表的下角标
+        Dictionary<int, List<Triangle>> _triangleDic;
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -18,41 +52,7 @@ namespace Game
         {
             _vertices = new List<Vector3>();
             _triangles = new List<int>();
-        }
-
-        private void OnDrawGizmos()
-        {
-            //if (mSquareGird != null)
-            //{
-            //    int squareX = mSquareGird.Squares.GetLength(0);
-            //    int squareY = mSquareGird.Squares.GetLength(1);
-
-            //    for (int x = 0; x < squareX; x++)
-            //    {
-            //        for (int y = 0; y < squareY; y++)
-            //        {
-            //            Square square = mSquareGird.Squares[x, y];
-            //            Gizmos.color = (square.TopLeft.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.TopLeft.Position, Vector3.one * 0.4f);
-
-            //            Gizmos.color = (square.TopRight.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.TopRight.Position, Vector3.one * 0.4f);
-
-            //            Gizmos.color = (square.BottomLeft.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.BottomLeft.Position, Vector3.one * 0.4f);
-
-            //            Gizmos.color = (square.BottomRight.Active) ? Color.black : Color.white;
-            //            Gizmos.DrawCube(square.BottomRight.Position, Vector3.one * 0.4f);
-
-            //            Gizmos.color = Color.grey;
-            //            Gizmos.DrawCube(square.CenterTop.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterBottom.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterRight.Position, Vector3.one * 0.15f);
-            //            Gizmos.DrawCube(square.CenterLeft.Position, Vector3.one * 0.15f);
-
-            //        }
-            //    }
-            //}
+            _triangleDic = new Dictionary<int, List<Triangle>>();
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace Game
         #region Private Methods
 
         /// <summary>
-        /// 三角网格
+        /// 方块内计算三角形个数，生成单个方块内存在多个三角形
         /// </summary>
         void TriangulateSquare(Square square)
         {
@@ -131,11 +131,12 @@ namespace Game
         }
 
         /// <summary>
-        /// 点网格
+        /// 创建三角网格中的三角块
         /// </summary>
         void MeshFromPoints(params Node[] points)
         {
             AssignVertices(points);
+            //三角扇维护方式，第一个顶点为所有的三角形共同的点
             if (points.Length >= 3)
                 CreateTriangle(points[0], points[1], points[2]);
             if (points.Length >= 4)
@@ -146,6 +147,9 @@ namespace Game
                 CreateTriangle(points[0], points[4], points[5]);
         }
 
+        /// <summary>
+        /// 填写顶点表
+        /// </summary>
         void AssignVertices(Node[] points)
         {
             for(int i = 0; i < points.Length; i++)
@@ -158,20 +162,86 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// 建立三角网格中的三角关系
+        /// </summary>
         void CreateTriangle(Node a,Node b,Node c)
         {
             _triangles.Add(a.VertexIndex);
             _triangles.Add(b.VertexIndex);
             _triangles.Add(c.VertexIndex);
+
+            Triangle triangle = new Triangle(a.VertexIndex, b.VertexIndex, c.VertexIndex);
+
+            AddTriangleToDictionary(a.VertexIndex, triangle);
+            AddTriangleToDictionary(b.VertexIndex, triangle);
+            AddTriangleToDictionary(c.VertexIndex, triangle);
         }
+
+        /// <summary>
+        /// 添加三角网格到字典中
+        /// </summary>
+        void AddTriangleToDictionary(int vertexIndexKey,Triangle triangleValue)
+        {
+            if (_triangleDic.ContainsKey(vertexIndexKey))
+            {
+                _triangleDic[vertexIndexKey].Add(triangleValue);
+            }
+            else
+            {
+                List<Triangle> triangles = new List<Triangle>();
+                triangles.Add(triangleValue);
+                _triangleDic.Add(vertexIndexKey, triangles);
+            }
+        }
+
+        /// <summary>
+        /// 判断是否为边缘
+        /// </summary>
+        bool IsOutlineEdge(int vertexA,int vertexB)
+        {
+            List<Triangle> triangleContainingVertexA = _triangleDic[vertexA];
+            int sharderTriangleCount = 0;
+            for(int i = 0; i < triangleContainingVertexA.Count; i++)
+            {
+                if (triangleContainingVertexA[i].Contains(vertexB))
+                {
+                    sharderTriangleCount++;
+                    if (sharderTriangleCount > 1)
+                        break;
+                }
+            }
+            return sharderTriangleCount == 1;
+        }
+
+        int GetConnectedOutlineVertex(int vertexIndex)
+        {
+            List<Triangle> trianglesContainingVertex = _triangleDic[vertexIndex];
+            for(int i = 0; i < trianglesContainingVertex.Count; i++)
+            {
+                Triangle triangle = trianglesContainingVertex[i];
+                for(int j = 0; j < 3; j++)
+                {
+                    int vertexB = triangle[j];
+                    if (vertexB != vertexIndex)
+                    {
+                        if (IsOutlineEdge(vertexIndex, vertexB))
+                        {
+                            return vertexB;
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
 #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// 基于map生成网格
+        /// 基于map生成三角网格
         /// </summary>
-        /// <param name="squareSize">网格大小</param>
         public void GeneratorMesh(int[,] map, float squareSize)
         {
             mSquareGird = new SquareGird(map, squareSize);
@@ -186,6 +256,7 @@ namespace Game
                 }
             }
 
+            //Creator Triangle Mesh
             Mesh mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;
             mesh.vertices = _vertices.ToArray();

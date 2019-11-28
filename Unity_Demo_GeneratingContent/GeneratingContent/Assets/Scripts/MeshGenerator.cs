@@ -212,6 +212,7 @@ namespace Game
         {
             List<Triangle> triangleContainingVertexA = _triangleDic[vertexA];
             int sharderTriangleCount = 0;
+
             for(int i = 0; i < triangleContainingVertexA.Count; i++)
             {
                 if (triangleContainingVertexA[i].Contains(vertexB))
@@ -226,6 +227,10 @@ namespace Game
 
         int GetConnectedOutlineVertex(int vertexIndex)
         {
+
+            Debug.LogFormat("GetConnectedOutlineVertex Log : the _triangleDic index is {0},has exist ？ {1}",
+                vertexIndex, _triangleDic.ContainsKey(vertexIndex));
+
             List<Triangle> trianglesContainingVertex = _triangleDic[vertexIndex];
 
             for (int i = 0; i < trianglesContainingVertex.Count; i++)
@@ -234,9 +239,9 @@ namespace Game
                 for(int j = 0; j < 3; j++)
                 {
                     int vertexB = triangle[j];
-                    if (vertexB != vertexIndex)
+                    if (vertexB != vertexIndex && !_checkedVertices.Contains(vertexB))
                     {
-                        if (IsOutlineEdge(vertexIndex, vertexB) && !_checkedVertices.Contains(vertexB))
+                        if (IsOutlineEdge(vertexIndex, vertexB))
                         {
                             return vertexB;
                         }
@@ -261,7 +266,7 @@ namespace Game
                         newOutlines.Add(i);
                         _outlines.Add(newOutlines);
                         FollowOutline(newOutlineVertex, _outlines.Count - 1);
-                        _outlines[_outlines.Count - 1].Add(newOutlineVertex);
+                        _outlines[_outlines.Count - 1].Add(i);
                     }
                 }
             }
@@ -272,7 +277,7 @@ namespace Game
             _outlines[outlineIndex].Add(vertexIndex);
             _checkedVertices.Add(vertexIndex);
             int nextVertexIndex = GetConnectedOutlineVertex(vertexIndex);
-            if (nextVertexIndex == -1)
+            if (nextVertexIndex != -1)
             {
                 FollowOutline(nextVertexIndex, outlineIndex);
             }
@@ -288,15 +293,15 @@ namespace Game
             Mesh wallMesh = new Mesh();
             float wallHeight = 5;
             
-            foreach(List<int> cell in _outlines)
+            foreach(List<int> group in _outlines)
             {
-                for (int i = 0; i < cell.Count - 1; i++) 
+                for (int i = 0; i < group.Count - 1; i++) 
                 {
                     int startIndex = wallVertices.Count;
-                    wallVertices.Add(_vertices[i]);//left
-                    wallVertices.Add(_vertices[i+1]);//right
-                    wallVertices.Add(_vertices[i] - Vector3.up * wallHeight);//bottomLeft
-                    wallVertices.Add(_vertices[i + 1] - Vector3.up * wallHeight);//bottomRight
+                    wallVertices.Add(_vertices[group[i]]);//left
+                    wallVertices.Add(_vertices[group[i+1]]);//right
+                    wallVertices.Add(_vertices[group[i]] - Vector3.up * wallHeight);//bottomLeft
+                    wallVertices.Add(_vertices[group[i+1]] - Vector3.up * wallHeight);//bottomRight
 
                     wallTriangles.Add(startIndex + 0);
                     wallTriangles.Add(startIndex + 2);
@@ -337,6 +342,7 @@ namespace Game
                 }
             }
 
+            Debug.Log(_triangleDic.Count);
             //Create Triangle Mesh
             Mesh mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;

@@ -76,7 +76,7 @@ namespace Game
             }
 
             MeshGenerator meshGen = GetComponent<MeshGenerator>();
-            meshGen.GeneratorMesh(_map, 1);
+            meshGen.GeneratorMesh(borderMap, 1);
         }
 
         void RandomFillMap()

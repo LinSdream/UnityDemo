@@ -22,7 +22,7 @@ namespace Game
         [Range(0, 100)] public int RandomFillPercent;
         [Tooltip("边缘轮廓尺寸")]
         public int BorderSize = 5;
-
+        
         int[,] _map;
 
         #endregion
@@ -83,7 +83,7 @@ namespace Game
         {
             if (UseRandomSeed)
             {
-                Seed = Time.time.ToString();//伪随机取值以时间为种子
+                Seed = DateTime.Now.ToString();
             }
             Random pseuaoRandom = new Random(Seed.GetHashCode());
             for (int x = 0; x < Width; x++)

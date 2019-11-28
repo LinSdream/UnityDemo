@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,10 +42,13 @@ namespace Game
     {
         #region Fields
         public SquareGird mSquareGird;
+        public MeshFilter WallMeshFilter;
 
         List<Vector3> _vertices;//顶点表
         List<int> _triangles;//维护所有三角形的数组，内部存储的数据数是顶点表的下角标
         Dictionary<int, List<Triangle>> _triangleDic;
+        List<List<int>> _outlines;
+        HashSet<int> _checkedVertices;
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -53,6 +57,8 @@ namespace Game
             _vertices = new List<Vector3>();
             _triangles = new List<int>();
             _triangleDic = new Dictionary<int, List<Triangle>>();
+            _outlines = new List<List<int>>();
+            _checkedVertices = new HashSet<int>();
         }
 
         #endregion
@@ -126,6 +132,10 @@ namespace Game
                 //4 points
                 case 15://1111  1243
                     MeshFromPoints(square.TopLeft, square.TopRight, square.BottomRight, square.BottomLeft);//1243
+                    _checkedVertices.Add(square.TopLeft.VertexIndex);
+                    _checkedVertices.Add(square.TopRight.VertexIndex);
+                    _checkedVertices.Add(square.BottomRight.VertexIndex);
+                    _checkedVertices.Add(square.BottomLeft.VertexIndex);
                     break;
             }
         }
@@ -217,7 +227,8 @@ namespace Game
         int GetConnectedOutlineVertex(int vertexIndex)
         {
             List<Triangle> trianglesContainingVertex = _triangleDic[vertexIndex];
-            for(int i = 0; i < trianglesContainingVertex.Count; i++)
+
+            for (int i = 0; i < trianglesContainingVertex.Count; i++)
             {
                 Triangle triangle = trianglesContainingVertex[i];
                 for(int j = 0; j < 3; j++)
@@ -225,7 +236,7 @@ namespace Game
                     int vertexB = triangle[j];
                     if (vertexB != vertexIndex)
                     {
-                        if (IsOutlineEdge(vertexIndex, vertexB))
+                        if (IsOutlineEdge(vertexIndex, vertexB) && !_checkedVertices.Contains(vertexB))
                         {
                             return vertexB;
                         }
@@ -235,7 +246,74 @@ namespace Game
             return -1;
         }
 
-#endregion
+        void CalculateMeshOutlines()
+        {
+            for(int i = 0; i < _vertices.Count; i++)
+            {
+                if (!_checkedVertices.Contains(i))
+                {
+                    int newOutlineVertex = GetConnectedOutlineVertex(i);
+                    if (newOutlineVertex != -1)
+                    {
+                        _checkedVertices.Add(i);
+
+                        List<int> newOutlines = new List<int>();
+                        newOutlines.Add(i);
+                        _outlines.Add(newOutlines);
+                        FollowOutline(newOutlineVertex, _outlines.Count - 1);
+                        _outlines[_outlines.Count - 1].Add(newOutlineVertex);
+                    }
+                }
+            }
+        }
+
+        void FollowOutline(int vertexIndex, int outlineIndex)
+        {
+            _outlines[outlineIndex].Add(vertexIndex);
+            _checkedVertices.Add(vertexIndex);
+            int nextVertexIndex = GetConnectedOutlineVertex(vertexIndex);
+            if (nextVertexIndex == -1)
+            {
+                FollowOutline(nextVertexIndex, outlineIndex);
+            }
+        }
+
+        void CreateWallMesh()
+        {
+            CalculateMeshOutlines();
+
+            List<Vector3> wallVertices = new List<Vector3>();
+            List<int> wallTriangles = new List<int>();
+
+            Mesh wallMesh = new Mesh();
+            float wallHeight = 5;
+            
+            foreach(List<int> cell in _outlines)
+            {
+                for (int i = 0; i < cell.Count - 1; i++) 
+                {
+                    int startIndex = wallVertices.Count;
+                    wallVertices.Add(_vertices[i]);//left
+                    wallVertices.Add(_vertices[i+1]);//right
+                    wallVertices.Add(_vertices[i] - Vector3.up * wallHeight);//bottomLeft
+                    wallVertices.Add(_vertices[i + 1] - Vector3.up * wallHeight);//bottomRight
+
+                    wallTriangles.Add(startIndex + 0);
+                    wallTriangles.Add(startIndex + 2);
+                    wallTriangles.Add(startIndex + 3);
+
+                    wallTriangles.Add(startIndex + 3);
+                    wallTriangles.Add(startIndex + 1);
+                    wallTriangles.Add(startIndex + 0);
+                }
+            }
+
+            wallMesh.vertices = wallVertices.ToArray();
+            wallMesh.triangles = wallTriangles.ToArray();
+
+            WallMeshFilter.mesh = wallMesh;
+        }
+        #endregion
 
         #region Public Methods
 
@@ -244,6 +322,9 @@ namespace Game
         /// </summary>
         public void GeneratorMesh(int[,] map, float squareSize)
         {
+            _outlines.Clear();
+            _checkedVertices.Clear();
+
             mSquareGird = new SquareGird(map, squareSize);
             int squareX = mSquareGird.Squares.GetLength(0);
             int squareY = mSquareGird.Squares.GetLength(1);
@@ -256,14 +337,18 @@ namespace Game
                 }
             }
 
-            //Creator Triangle Mesh
+            //Create Triangle Mesh
             Mesh mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;
             mesh.vertices = _vertices.ToArray();
             mesh.triangles = _triangles.ToArray();
 
             mesh.RecalculateNormals();
+
+            //Create the wall's triangle mesh
+            CreateWallMesh();
         }
+
         #endregion
     }
 

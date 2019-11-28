@@ -77,13 +77,13 @@ namespace Game
 
                 // 1 point 
                 case 1://0001   3
-                    MeshFromPoints(square.CentreBottom, square.BottomLeft, square.CentreLeft);//D3B
+                    MeshFromPoints(square.CentreLeft, square.CentreBottom, square.BottomLeft);//BD3
                     break;
                 case 2://0010   4
-                    MeshFromPoints(square.CentreRight, square.BottomRight, square.CentreBottom);//C4D
+                    MeshFromPoints(square.BottomRight, square.CentreBottom, square.CentreRight);//4DC
                     break;
                 case 4://0100   2
-                    MeshFromPoints(square.CentreTop, square.TopRight, square.CentreRight);//A2C
+                    MeshFromPoints(square.TopRight, square.CentreRight, square.CentreTop);//2CA
                     break;
                 case 8://1000   1
                     MeshFromPoints(square.TopLeft, square.CentreTop, square.CentreLeft);//1AB

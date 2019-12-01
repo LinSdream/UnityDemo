@@ -6,6 +6,20 @@ using Random = System.Random;
 
 namespace Game
 {
+    #region Struct Coord
+    struct Coord
+    {
+        public int TileX;
+        public int TileY;
+
+        public Coord(int x,int y)
+        {
+            TileX = x;
+            TileY = y;
+        }
+    }
+    #endregion
+
     public class MapGenerator : MonoBehaviour
     {
         #region Fields
@@ -126,7 +140,7 @@ namespace Game
             {
                 for (int neighbourY = girY - 1; neighbourY <= girY + 1; neighbourY++)
                 {
-                    if (neighbourX >= 0 && neighbourX < Width && neighbourY >= 0 && neighbourY < Hight)
+                    if (IsInWallRange(neighbourX,neighbourY))
                     {
                         if (neighbourX != girX || neighbourY != girY)
                         {
@@ -139,6 +153,48 @@ namespace Game
             }
             return wallCount;
         }
+
+        List<Coord> GetRegionTiles(int startX,int startY)
+        {
+            List<Coord> tiles = new List<Coord>();
+            Queue<Coord> queue = new Queue<Coord>();
+
+            int[,] mapFlags = new int[Width, Hight];
+            int tileType = _map[startX, startY];
+
+            //第一个点进入
+            queue.Enqueue(new Coord(startX, startY));
+            _map[startX, startY] = 1;
+            
+            while(queue.Count>0)
+            {
+                Coord tile = queue.Dequeue();
+                tiles.Add(tile);
+
+                for(int x=tile.TileX-1;x<=tile.TileX+1;x++)
+                {
+                    for(int y=tile.TileY-1;y<=tile.TileY+1;y++)
+                    {
+                        //只需要上下左右四个点的贴图信息，因此必然存在一个x or y 等于该点的x or y
+                        if (IsInWallRange(x, y) && (y == tile.TileY || x == tile.TileX))
+                        {
+                            if(mapFlags[x,y]==0&&mapFlags[x,y]==tileType)
+                            {
+                                mapFlags[x, y] = 1;
+                                queue.Enqueue(new Coord(x, y));
+                            }
+                        }
+                    }
+                }
+            }
+            return tiles;
+        }
+
+        bool IsInWallRange(int x,int y)
+        {
+            return (x >= 0 && x < Width) && (y >- 0 && y < Hight);
+        }
+
         #endregion
     }
 

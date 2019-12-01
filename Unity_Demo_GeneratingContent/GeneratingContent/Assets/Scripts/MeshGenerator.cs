@@ -38,6 +38,7 @@ namespace Game
         }
     }
     #endregion
+
     public class MeshGenerator : MonoBehaviour
     {
         #region Fields

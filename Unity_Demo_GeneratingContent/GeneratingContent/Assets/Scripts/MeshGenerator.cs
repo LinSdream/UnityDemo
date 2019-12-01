@@ -20,8 +20,8 @@ namespace Game
         {
             _vertexs = new int[3];
             _vertexs[0] = a;
-            _vertexs[0] = b;
-            _vertexs[0] = c;
+            _vertexs[1] = b;
+            _vertexs[2] = c;
         }
 
         public int this[int index]
@@ -183,9 +183,9 @@ namespace Game
 
             Triangle triangle = new Triangle(a.VertexIndex, b.VertexIndex, c.VertexIndex);
 
-            AddTriangleToDictionary(a.VertexIndex, triangle);
-            AddTriangleToDictionary(b.VertexIndex, triangle);
-            AddTriangleToDictionary(c.VertexIndex, triangle);
+            AddTriangleToDictionary(triangle[0], triangle);
+            AddTriangleToDictionary(triangle[1], triangle);
+            AddTriangleToDictionary(triangle[2], triangle);
         }
 
         /// <summary>
@@ -327,6 +327,7 @@ namespace Game
         /// </summary>
         public void GeneratorMesh(int[,] map, float squareSize)
         {
+            _triangleDic.Clear();
             _outlines.Clear();
             _checkedVertices.Clear();
 

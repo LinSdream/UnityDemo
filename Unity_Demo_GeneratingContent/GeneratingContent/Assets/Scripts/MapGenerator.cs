@@ -37,6 +37,7 @@ namespace Game
         [Tooltip("边缘轮廓尺寸")]
         public int BorderSize = 5;
         public int WallThresholdSize = 50;
+        public int RoomThresholdSize = 50;
 
         int[,] _map;
 
@@ -69,7 +70,7 @@ namespace Game
                 SmoothMap();
             }
 
-           // ProcessMap();
+           ProcessMap();
 
             int[,] borderMap = new int[Width + BorderSize * 2, Hight + BorderSize * 2];
 
@@ -180,7 +181,7 @@ namespace Game
                         //只需要上下左右四个点的贴图信息，因此必然存在一个x or y 等于该点的x or y
                         if (IsInWallRange(x, y) && (y == tile.TileY || x == tile.TileX))
                         {
-                            if (mapFlags[x, y] == 0 && mapFlags[x, y] == tileType)
+                            if (mapFlags[x, y] == 0 && _map[x, y] == tileType)
                             {
                                 mapFlags[x, y] = 1;
                                 queue.Enqueue(new Coord(x, y));
@@ -227,6 +228,18 @@ namespace Game
                     foreach(Coord tile in cell)
                     {
                         _map[tile.TileX, tile.TileY] = 0;
+                    }
+                }
+            }
+
+            List<List<Coord>> roomRegions = GetRegions(0);
+            foreach (List<Coord> cell in roomRegions)
+            {
+                if (cell.Count < RoomThresholdSize)
+                {
+                    foreach (Coord tile in cell)
+                    {
+                        _map[tile.TileX, tile.TileY] = 1;
                     }
                 }
             }

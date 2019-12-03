@@ -228,10 +228,6 @@ namespace Game
 
         int GetConnectedOutlineVertex(int vertexIndex)
         {
-
-            Debug.LogFormat("GetConnectedOutlineVertex Log : the _triangleDic index is {0},has exist ？ {1}",
-                vertexIndex, _triangleDic.ContainsKey(vertexIndex));
-
             List<Triangle> trianglesContainingVertex = _triangleDic[vertexIndex];
 
             for (int i = 0; i < trianglesContainingVertex.Count; i++)

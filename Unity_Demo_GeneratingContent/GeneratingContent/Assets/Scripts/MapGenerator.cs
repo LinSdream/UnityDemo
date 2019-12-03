@@ -20,6 +20,54 @@ namespace Game
     }
     #endregion
 
+    #region Class Room
+
+    class Room
+    {
+        public List<Coord> Tiles;
+        public List<Coord> EdgeTiles;
+        public List<Room> ConnectedRooms;
+
+        public int RoomSize;
+
+        public Room() { }
+
+        public Room(List<Coord> roomTiles,int [,] map)
+        {
+            Tiles = roomTiles;
+            RoomSize = Tiles.Count;
+            ConnectedRooms = new List<Room>();
+
+            EdgeTiles = new List<Coord>();
+            foreach(Coord cell in Tiles)
+            {
+                for(int x=cell.TileX-1;x<=cell.TileX+1;x++)
+                {
+                    for(int y=cell.TileY;y<=cell.TileY+1;y++)
+                    {
+                        if(x==cell.TileX||y==cell.TileY)
+                        {
+                            if (map[x, y] == 1)
+                                EdgeTiles.Add(cell);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void ConnectRooms(Room roomA,Room roomB)
+        {
+            roomA.ConnectedRooms.Add(roomB);
+            roomB.ConnectedRooms.Add(roomA);
+        }
+
+        public bool IsConnected(Room otherRoom)
+        {
+            return ConnectedRooms.Contains(otherRoom);
+        }
+    }
+    #endregion
+
     public class MapGenerator : MonoBehaviour
     {
         #region Fields
@@ -70,7 +118,7 @@ namespace Game
                 SmoothMap();
             }
 
-           ProcessMap();
+            ProcessMap();
 
             int[,] borderMap = new int[Width + BorderSize * 2, Hight + BorderSize * 2];
 
@@ -221,11 +269,11 @@ namespace Game
         {
             List<List<Coord>> wallRegions = GetRegions(1);
 
-            foreach(List<Coord> cell in wallRegions)
+            foreach (List<Coord> cell in wallRegions)
             {
                 if (cell.Count < WallThresholdSize)
                 {
-                    foreach(Coord tile in cell)
+                    foreach (Coord tile in cell)
                     {
                         _map[tile.TileX, tile.TileY] = 0;
                     }
@@ -233,6 +281,7 @@ namespace Game
             }
 
             List<List<Coord>> roomRegions = GetRegions(0);
+            List<Room> survivingRooms = new List<Room>();
             foreach (List<Coord> cell in roomRegions)
             {
                 if (cell.Count < RoomThresholdSize)
@@ -242,7 +291,62 @@ namespace Game
                         _map[tile.TileX, tile.TileY] = 1;
                     }
                 }
+                else
+                {
+                    survivingRooms.Add(new Room(cell, _map));
+                }
             }
+        }
+
+        void ConnectClosestRooms(List<Room> allRooms)
+        {
+            int bestDistance = 0;
+            Coord bestTileA = new Coord();
+            Coord bestTileB = new Coord();
+            Room bestRoomA = new Room();
+            Room bestRoomB = new Room();
+
+            bool possibleConnectionFound = false;
+
+            foreach(Room roomA in allRooms)
+            {
+                possibleConnectionFound = false;
+                foreach (Room roomB in allRooms)
+                {
+                    if (roomA == roomB)
+                        continue;
+                    if (roomA.IsConnected(roomB))
+                        break;
+                    for (int tileIndexA = 0; tileIndexA < roomA.EdgeTiles.Count; tileIndexA++)
+                    {
+                        for (int tileIndexB = 0; tileIndexB < roomB.EdgeTiles.Count; tileIndexB++)
+                        {
+                            Coord tileA = roomA.EdgeTiles[tileIndexA];
+                            Coord tileB = roomB.EdgeTiles[tileIndexB];
+
+                            int distanceBetweenRooms = (int)(Mathf.Pow(tileA.TileX - tileB.TileX, 2) + Mathf.Pow(tileA.TileY - tileB.TileY, 2));
+                            if (distanceBetweenRooms < bestDistance || !possibleConnectionFound)
+                            {
+                                bestDistance = distanceBetweenRooms;
+                                possibleConnectionFound = true;
+                                bestTileA = tileA;
+                                bestTileB = tileB;
+                                bestRoomA = roomA;
+                                bestRoomB = roomB;
+                            }
+                        }
+                    }
+
+                    if (possibleConnectionFound)
+                        CreatePassage(bestRoomA, bestRoomB, bestTileA, bestTileB);
+
+                }
+            }
+        }
+
+        void CreatePassage(Room roomA,Room roomB,Coord tileA,Coord coord)
+        {
+
         }
 
         bool IsInWallRange(int x, int y)

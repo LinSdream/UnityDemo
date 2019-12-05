@@ -340,7 +340,6 @@ namespace Game
                 }
             }
 
-            Debug.Log(_triangleDic.Count);
             //Create Triangle Mesh
             Mesh mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;

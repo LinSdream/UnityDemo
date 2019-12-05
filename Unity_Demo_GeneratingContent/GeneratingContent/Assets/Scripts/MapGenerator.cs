@@ -296,6 +296,7 @@ namespace Game
                     survivingRooms.Add(new Room(cell, _map));
                 }
             }
+            ConnectClosestRooms(survivingRooms);
         }
 
         void ConnectClosestRooms(List<Room> allRooms)
@@ -308,7 +309,7 @@ namespace Game
 
             bool possibleConnectionFound = false;
 
-            foreach(Room roomA in allRooms)
+            foreach (Room roomA in allRooms)
             {
                 possibleConnectionFound = false;
                 foreach (Room roomB in allRooms)
@@ -316,7 +317,10 @@ namespace Game
                     if (roomA == roomB)
                         continue;
                     if (roomA.IsConnected(roomB))
+                    {
+                        possibleConnectionFound = false;
                         break;
+                    }
                     for (int tileIndexA = 0; tileIndexA < roomA.EdgeTiles.Count; tileIndexA++)
                     {
                         for (int tileIndexB = 0; tileIndexB < roomB.EdgeTiles.Count; tileIndexB++)
@@ -324,7 +328,8 @@ namespace Game
                             Coord tileA = roomA.EdgeTiles[tileIndexA];
                             Coord tileB = roomB.EdgeTiles[tileIndexB];
 
-                            int distanceBetweenRooms = (int)(Mathf.Pow(tileA.TileX - tileB.TileX, 2) + Mathf.Pow(tileA.TileY - tileB.TileY, 2));
+                            int distanceBetweenRooms = (int)(Mathf.Pow(tileA.TileX - tileB.TileX, 2) +
+                                Mathf.Pow(tileA.TileY - tileB.TileY, 2));
                             if (distanceBetweenRooms < bestDistance || !possibleConnectionFound)
                             {
                                 bestDistance = distanceBetweenRooms;
@@ -335,18 +340,28 @@ namespace Game
                                 bestRoomB = roomB;
                             }
                         }
+
+
                     }
-
-                    if (possibleConnectionFound)
-                        CreatePassage(bestRoomA, bestRoomB, bestTileA, bestTileB);
-
+                   
+                }
+                if (possibleConnectionFound)
+                {
+                    CreatePassage(bestRoomA, bestRoomB, bestTileA, bestTileB);
                 }
             }
         }
 
-        void CreatePassage(Room roomA,Room roomB,Coord tileA,Coord coord)
+        void CreatePassage(Room roomA,Room roomB,Coord tileA,Coord tileB)
         {
+            Room.ConnectRooms(roomA, roomB);
+            Debug.DrawLine(CoordWorldPoint(tileA), CoordWorldPoint(tileB), Color.green, 100);
 
+        }
+
+        Vector3 CoordWorldPoint(Coord tile)
+        {
+            return new Vector3(-Width / 2 + tile.TileX + .5f, 2, -Hight / 2 + tile.TileY + .5f);
         }
 
         bool IsInWallRange(int x, int y)

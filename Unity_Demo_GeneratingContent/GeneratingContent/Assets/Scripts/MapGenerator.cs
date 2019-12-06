@@ -112,6 +112,7 @@ namespace Game
         public int BorderSize = 5;
         public int WallThresholdSize = 50;
         public int RoomThresholdSize = 50;
+        public int PrassageWaysCircleRadiu = 1;
 
         int[,] _map;
 
@@ -409,11 +410,83 @@ namespace Game
                 ConnectClosestRooms(allRooms, true);
         }
 
+        List<Coord> GetLine(Coord from,Coord to)
+        {
+            List<Coord> line = new List<Coord>();
+
+            int x = from.TileX;
+            int y = from.TileY;
+
+            int dx = to.TileX - from.TileX;
+            int dy = to.TileY - from.TileY;
+
+            bool inverted = false;
+            int stup = Math.Sign(dx);
+            int gradientStep = Math.Sign(dy);
+
+            int longest = Mathf.Abs(dx);
+            int shortest = Mathf.Abs(dy);
+            if (longest < shortest)
+            {
+                inverted = true;
+                stup = Math.Sign(dy);
+                gradientStep = Math.Sign(dx);
+
+                longest = Mathf.Abs(dy);
+                shortest = Mathf.Abs(dx);
+            }
+
+            int gradientAccumulation = longest / 2;
+            for(int i=0;i<longest;i++)
+            {
+                line.Add(new Coord(x,y));
+                if(inverted)
+                {
+                    y += stup;
+                }
+                else
+                {
+                    x+=stup;
+                }
+                gradientAccumulation += shortest;
+                if (gradientAccumulation >= longest)
+                {
+                    if (inverted)
+                    {
+                        x += gradientStep;
+                    }
+                    else
+                        y += gradientStep;
+                    gradientAccumulation -= longest;
+                }
+            }
+            return line;
+        }
+
         void CreatePassage(Room roomA,Room roomB,Coord tileA,Coord tileB)
         {
             Room.ConnectRooms(roomA, roomB);
             Debug.DrawLine(CoordWorldPoint(tileA), CoordWorldPoint(tileB), Color.green, 100);
+            List<Coord> lines = GetLine(tileA, tileB);
+            foreach (Coord cell in lines)
+                DrawCircle(cell, PrassageWaysCircleRadiu);
+        }
 
+        void DrawCircle(Coord c,int r)
+        {
+            for(int x=-r;x<=r;x++)
+            {
+                for(int y=-r;y<=r;y++)
+                {
+                    if(x*x+y*y<=r*r)
+                    {
+                        int drawX = c.TileX + x;
+                        int drawY = c.TileY + y;
+                        if (IsInWallRange(drawX, drawY))
+                            _map[drawX, drawY] = 0;
+                    }
+                }
+            }
         }
 
         Vector3 CoordWorldPoint(Coord tile)

@@ -126,10 +126,10 @@ namespace Game
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GeneratorMap();
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    GeneratorMap();
+            //}
         }
 
 

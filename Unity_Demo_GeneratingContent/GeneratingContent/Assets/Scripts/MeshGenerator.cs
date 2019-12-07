@@ -44,6 +44,9 @@ namespace Game
         #region Fields
         public SquareGird mSquareGird;
         public MeshFilter WallMeshFilter;
+        public MeshFilter CaveMesh;
+        public int TileAmount = 10;
+        public bool Is2D;
 
         List<Vector3> _vertices;//顶点表
         List<int> _triangles;//维护所有三角形的数组，内部存储的数据数是顶点表的下角标
@@ -314,7 +317,34 @@ namespace Game
             wallMesh.triangles = wallTriangles.ToArray();
 
             WallMeshFilter.mesh = wallMesh;
+
+            MeshCollider meshCollider = WallMeshFilter.gameObject.AddComponent<MeshCollider>();
+            meshCollider.sharedMesh = wallMesh;
         }
+
+        void Generator2DColliders()
+        {
+            EdgeCollider2D[] currentCollider = gameObject.GetComponents<EdgeCollider2D>();
+            for(int i=0;i<currentCollider.Length;i++)
+            {
+                Destroy(currentCollider[i]);
+            }
+
+            CalculateMeshOutlines();
+
+            foreach(List<int> outline in _outlines)
+            {
+                EdgeCollider2D collider = gameObject.AddComponent<EdgeCollider2D>();
+                Vector2[] edgePoints = new Vector2[outline.Count];
+                for (int i = 0; i < edgePoints.Length; i++)
+                {
+                    edgePoints[i] = new Vector2(_vertices[outline[i]].x, _vertices[outline[i]].z);
+
+                }
+                collider.points = edgePoints;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -342,16 +372,31 @@ namespace Game
 
             //Create Triangle Mesh
             Mesh mesh = new Mesh();
-            GetComponent<MeshFilter>().mesh = mesh;
+            CaveMesh.mesh = mesh;
             mesh.vertices = _vertices.ToArray();
             mesh.triangles = _triangles.ToArray();
 
             mesh.RecalculateNormals();
 
+            Vector2[] uv = new Vector2[_vertices.Count];
+            for(int i=0;i<uv.Length;i++)
+            {
+                float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize,-map.GetLength(0)/2*squareSize,
+                    _vertices[i].x) * TileAmount;
+                float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, -map.GetLength(0) / 2 * squareSize,
+                    _vertices[i].z) * TileAmount;
+                uv[i] = new Vector2(percentX, percentY);
+            }
+            mesh.uv = uv;
+
             //Create the wall's triangle mesh
-            CreateWallMesh();
+            if (Is2D)
+                Generator2DColliders();
+            else
+                CreateWallMesh();
         }
 
+        
         #endregion
     }
 

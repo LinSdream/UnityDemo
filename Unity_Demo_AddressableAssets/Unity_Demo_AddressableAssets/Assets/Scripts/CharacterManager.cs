@@ -37,6 +37,9 @@ public class CharacterManager : MonoBehaviour
     #endregion
 
     #region Callbacks Events
+    /// <summary>
+    /// 资源加载完成后的回调
+    /// </summary>
     void OnCharacterAssetLoaded(AsyncOperationHandle<GameObject> obj)
     {
         //所有待加载资源数--
@@ -44,6 +47,16 @@ public class CharacterManager : MonoBehaviour
         //如果所有资源加载完成
         if (_charactorsAssetsCount <= 0)
             _isAssetsReady = true;//解锁
+    }
+
+    /// <summary>
+    /// 资源实例化后的回调
+    /// </summary>
+    private void InstantiateCompleted(AsyncOperationHandle<GameObject> obj)
+    {
+        GameObject gameObj = obj.Result;
+        gameObj.name = "Character";
+        Debug.Log(gameObj.name);
     }
     #endregion
 
@@ -56,9 +69,11 @@ public class CharacterManager : MonoBehaviour
         {
             Vector3 pos = Random.insideUnitSphere * 5;
             pos.Set(pos.x, 0, pos.z);
-            Characters[characterType].InstantiateAsync(pos, Quaternion.identity);//异步实例化
+            var obj = Characters[characterType].InstantiateAsync(pos, Quaternion.identity);//异步实例化
+            obj.Completed += InstantiateCompleted;
         }
     }
+
     #endregion
 
 

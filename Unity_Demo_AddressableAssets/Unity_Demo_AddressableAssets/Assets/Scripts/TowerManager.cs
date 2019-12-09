@@ -6,21 +6,44 @@ using UnityEngine.ResourceManagement.AsyncOperations; // TODO: Mention that this
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.UI;
 
+
 public class TowerManager : MonoBehaviour
 {
     #region Fileds
+    public AssetLabelReference AssetLabel;
     public List<AssetLabelReference> AssetLabels;
-    public IList<GameObject> Towers;
     public Button[] TowerCards;
+    public bool IsAddressableToInit = false;
+
+    //two ways to instantiate
+    //youtube:https://www.youtube.com/watch?v=iauWgEXjkEY
+    public IList<GameObject> Towers;//GameObject.Instantate
+    public IList<IResourceLocation> TowersResources;//Addressable.Instantate
 
     #endregion
 
     #region MonoBehaviour Callbacks
     private void Start()
     {
-        ///TODO:研究多标签loadassets
-        //Addressables.LoadAssetsAsync<GameObject>()
-        Addressables.LoadAssetsAsync<GameObject>(AssetLabels, null).Completed += OnLoadCompleted;
+
+        if(IsAddressableToInit)
+        {
+            Addressables.LoadAssetsAsync<IResourceLocation>(AssetLabel, null).Completed += OnLoadCompletedByIResourceLocaion;
+        }
+        else
+        {
+            Addressables.LoadAssetsAsync<GameObject>(AssetLabel, null).Completed += OnLoadCompleted;
+        }
+
+    }
+
+    private void OnLoadCompletedByIResourceLocaion(AsyncOperationHandle<IList<IResourceLocation>> obj)
+    {
+        TowersResources = obj.Result;
+        foreach (var cell in TowerCards)
+        {
+            cell.interactable = true;
+        }
     }
 
     private void OnLoadCompleted(AsyncOperationHandle<IList<GameObject>> obj)
@@ -36,13 +59,30 @@ public class TowerManager : MonoBehaviour
     #region Buttons
     public void InstantiateTower(int index)
     {
-        if(Towers!=null)
+        Vector3 pos = Random.insideUnitSphere * 5;
+        pos.Set(pos.x, 0, pos.z);
+
+        if (IsAddressableToInit)
         {
-            Vector3 pos = Random.insideUnitSphere * 5;
-            pos.Set(pos.x, 0, pos.z);
-            Instantiate(Towers[index],pos, Quaternion.identity);
+            if(TowersResources!=null)//利用Addressable来实例化，该实例化为异步实例
+            {
+                Addressables.InstantiateAsync(TowersResources[index], pos, Quaternion.identity).Completed += InstantiateCompleted;
+            }
+        }
+        else
+        {
+            if (Towers != null)//以往的实例方法
+            {
+                Instantiate(Towers[index], pos, Quaternion.identity);
+            }
         }
     }
+
+    private void InstantiateCompleted(AsyncOperationHandle<GameObject> obj)
+    {
+        Debug.Log("Addressables.InstantiateAsync completed");
+    }
+
     #endregion
 
     #region Completed

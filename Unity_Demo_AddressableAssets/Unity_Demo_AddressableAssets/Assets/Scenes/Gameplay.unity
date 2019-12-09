@@ -163,8 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86833df9ecfe7d54b926a14081761cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_archerObject: {fileID: 5537164977549460556, guid: f7e6e31c5324d874db515c8ca4922190,
-    type: 3}
+  Characters:
+  - m_AssetGUID: 93ddf5fff26bcb642a6f1f94462963b2
+  - m_AssetGUID: 4d4319dde2f198845ac34608a1013ffc
+  - m_AssetGUID: 3d7094a1663ab0a44ab8e11c1defd922
 --- !u!4 &168390370
 Transform:
   m_ObjectHideFlags: 0
@@ -186,14 +188,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168390368}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8c8d0abb536454468df73f3bb66a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TowerLabel:
-    m_LabelString: default
-  m_TowerCards:
+  AssetLabels: []
+  TowerCards:
   - {fileID: 1899667838}
   - {fileID: 1562315773}
   - {fileID: 1658656579}
@@ -266,6 +267,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: ArcherTowerCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ba5530ce5d2d0048ade5e9b5a3ae2d5,
+        type: 3}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -371,16 +388,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: ArcherTowerCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -391,12 +398,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
       objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1ba5530ce5d2d0048ade5e9b5a3ae2d5,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
     - {fileID: 3118508716536056786, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
@@ -969,6 +970,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: MageTowerCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2e3cfa50340cc247af17393a545fc65,
+        type: 3}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1074,16 +1091,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: MageTowerCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1094,12 +1101,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
       objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a2e3cfa50340cc247af17393a545fc65,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
     - {fileID: 3118508716536056786, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
@@ -1198,6 +1199,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: VikingTowerCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a57b9d7eb2dee465fa9612b31bb5e774,
+        type: 3}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1303,16 +1325,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: VikingTowerCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1322,17 +1334,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
-      objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a57b9d7eb2dee465fa9612b31bb5e774,
-        type: 3}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
@@ -46574,6 +46575,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: MageCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3415124df9670482e8a472b92854a834,
+        type: 3}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46679,16 +46696,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: MageCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -46699,12 +46706,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
       objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3415124df9670482e8a472b92854a834,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
     - {fileID: 3118508716536056786, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
@@ -46767,6 +46768,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855446539181488}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: BackupCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46886,16 +46897,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: BackupCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
@@ -47173,6 +47174,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: VikingCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfdb5693d94394e0c966e8791e82b981,
+        type: 3}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47278,16 +47295,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: VikingCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -47298,12 +47305,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
       objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cfdb5693d94394e0c966e8791e82b981,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
     - {fileID: 3118508716536056786, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
@@ -47316,6 +47317,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5535855445854242596}
     m_Modifications:
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Name
+      value: ArcherCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2bf4029e327b74068936cf64d3fdbc9d,
+        type: 3}
     - target: {fileID: 7411280008316006496, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47421,16 +47438,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Name
-      value: ArcherCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8698353954436608165, guid: 2e58b9faf30c146c3bd5a34149b92896,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -47441,12 +47448,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -4.9450073
       objectReference: {fileID: 0}
-    - target: {fileID: 6847066528026466117, guid: 2e58b9faf30c146c3bd5a34149b92896,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2bf4029e327b74068936cf64d3fdbc9d,
-        type: 3}
     m_RemovedComponents:
     - {fileID: 3860979476220542173, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}
     - {fileID: 3118508716536056786, guid: 2e58b9faf30c146c3bd5a34149b92896, type: 3}

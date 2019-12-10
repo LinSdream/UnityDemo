@@ -13,23 +13,22 @@ public class TowerManager : MonoBehaviour
     public AssetLabelReference AssetLabel;
     public List<AssetLabelReference> AssetLabels;
     public Button[] TowerCards;
-    [HideInInspector]public bool IsAddressableToInit = false;
+    public bool IsAddressableToInit = false;
 
     //two ways to instantiate
     //youtube:https://www.youtube.com/watch?v=iauWgEXjkEY
     public IList<GameObject> Towers;//GameObject.Instantate
     public IList<IResourceLocation> TowersResources;//Addressable.Instantate
-
     #endregion
 
     #region MonoBehaviour Callbacks
     private void Start()
     {
 
-        //var a = Addressables.LoadResourceLocationsAsync(AssetLabel,null);
-        if(false)
+        if(IsAddressableToInit)
         {
-            Addressables.LoadAssetsAsync<IResourceLocation>(AssetLabel.RuntimeKey, null).Completed += OnLoadCompletedByIResourceLocaion;
+            ///TODO:can't use LoadAssetsAsync ,but can use LoadResourceLocationsAsync
+            Addressables.LoadResourceLocationsAsync(AssetLabel.labelString).Completed += OnLoadCompletedByIResourceLocaion;
         }
         else
         {
@@ -40,7 +39,7 @@ public class TowerManager : MonoBehaviour
 
     private void OnLoadCompletedByIResourceLocaion(AsyncOperationHandle<IList<IResourceLocation>> obj)
     {
-        TowersResources = obj.Result;
+        TowersResources = new List<IResourceLocation>( obj.Result );
         foreach (var cell in TowerCards)
         {
             cell.interactable = true;

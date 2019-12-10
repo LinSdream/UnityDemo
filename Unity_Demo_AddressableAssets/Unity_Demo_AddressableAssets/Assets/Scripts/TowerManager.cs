@@ -13,7 +13,7 @@ public class TowerManager : MonoBehaviour
     public AssetLabelReference AssetLabel;
     public List<AssetLabelReference> AssetLabels;
     public Button[] TowerCards;
-    public bool IsAddressableToInit = false;
+    [HideInInspector]public bool IsAddressableToInit = false;
 
     //two ways to instantiate
     //youtube:https://www.youtube.com/watch?v=iauWgEXjkEY
@@ -26,9 +26,10 @@ public class TowerManager : MonoBehaviour
     private void Start()
     {
 
-        if(IsAddressableToInit)
+        //var a = Addressables.LoadResourceLocationsAsync(AssetLabel,null);
+        if(false)
         {
-            Addressables.LoadAssetsAsync<IResourceLocation>(AssetLabel, null).Completed += OnLoadCompletedByIResourceLocaion;
+            Addressables.LoadAssetsAsync<IResourceLocation>(AssetLabel.RuntimeKey, null).Completed += OnLoadCompletedByIResourceLocaion;
         }
         else
         {

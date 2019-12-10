@@ -200,7 +200,7 @@ MonoBehaviour:
   - {fileID: 1899667838}
   - {fileID: 1562315773}
   - {fileID: 1658656579}
-  IsAddressableToInit: 1
+  IsAddressableToInit: 0
 --- !u!1 &317194877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7411280008316006559, guid: 2e58b9faf30c146c3bd5a34149b92896,

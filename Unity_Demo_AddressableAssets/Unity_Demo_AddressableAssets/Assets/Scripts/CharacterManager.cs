@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets; //TODO: Mention the use of this namespace
 using UnityEngine.ResourceManagement.AsyncOperations; // TODO: Mention that this is needed to do the async operations over the lists?
+using Random = UnityEngine.Random;
 
 public class CharacterManager : MonoBehaviour
 {

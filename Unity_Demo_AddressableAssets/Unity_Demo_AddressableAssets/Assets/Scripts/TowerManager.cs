@@ -19,20 +19,21 @@ public class TowerManager : MonoBehaviour
     //youtube:https://www.youtube.com/watch?v=iauWgEXjkEY
     public IList<GameObject> Towers;//GameObject.Instantate
     public IList<IResourceLocation> TowersResources;//Addressable.Instantate
+
     #endregion
 
     #region MonoBehaviour Callbacks
     private void Start()
     {
 
-        if(IsAddressableToInit)
+        if (IsAddressableToInit)
         {
             ///TODO:can't use LoadAssetsAsync ,but can use LoadResourceLocationsAsync
             Addressables.LoadResourceLocationsAsync(AssetLabel.labelString).Completed += OnLoadCompletedByIResourceLocaion;
         }
         else
         {
-            Addressables.LoadAssetsAsync<GameObject>(AssetLabel, null).Completed += OnLoadCompleted;
+            Addressables.LoadAssetsAsync<GameObject>(new List<object>(AssetLabels), null, Addressables.MergeMode.Intersection).Completed += OnLoadCompleted;
         }
 
     }

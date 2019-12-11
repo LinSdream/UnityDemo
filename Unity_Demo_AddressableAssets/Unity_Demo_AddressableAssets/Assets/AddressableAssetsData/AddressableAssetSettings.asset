@@ -24,6 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a93032e0a40ad4342ae44b8b1dea55e4, type: 2}
   - {fileID: 11400000, guid: b9a040df660f3a043b3b3b83934aae86, type: 2}
   - {fileID: 11400000, guid: 20936fcb52c77ae449ec3f4d25dc8ee2, type: 2}
+  - {fileID: 11400000, guid: 9754c03ccfa858b468cf91b75c13ec93, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -83,6 +84,9 @@ MonoBehaviour:
     - Red
     - Character
     - Tower
+    - HD
+    - SD
+    - Scene
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: d8b97bf1bca926e4180587993aa704a8, type: 2}
@@ -109,7 +113,7 @@ MonoBehaviour:
           m_Key: HostingServicePort
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/StreamingAssetsCopy/aa/Windows/StandaloneWindows64;HostedData/StandaloneWindows64
+          m_Data: Library/com.unity.addressables/StreamingAssetsCopy/aa/Windows/StandaloneWindows64;HostedData/StandaloneWindows64;StandaloneWindows64
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean

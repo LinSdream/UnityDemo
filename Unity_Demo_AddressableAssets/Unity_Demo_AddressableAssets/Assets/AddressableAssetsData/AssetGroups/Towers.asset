@@ -36,7 +36,7 @@ MonoBehaviour:
     - Red
     - Tower
   - m_GUID: b6269ce7e4b3aa440a7adee70f27456f
-    m_Address: Assets/Prefabs/Towers/Archer Tower Red.prefab
+    m_Address: BlueArcherTower
     m_ReadOnly: 0
     m_SerializedLabels:
     - Red

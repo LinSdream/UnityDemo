@@ -7,16 +7,30 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class SceneManager : MonoBehaviour
 {
-    public string m_SceneAddressToLoad;
+    public AssetReference NextLoadScene;
 
-    public void LoadGameplayScene()
+    public void Btn_LoadSceneAsync()
     {
-        Addressables.LoadSceneAsync(m_SceneAddressToLoad, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += OnSceneLoaded;
+        Addressables.LoadSceneAsync(NextLoadScene, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += LoadScene_Completed_Event;
     }
 
-    void OnSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
+    private void LoadScene_Completed_Event(AsyncOperationHandle<SceneInstance> obj)
     {
-        //Addressables.UnloadSceneAsync(new SceneInstance());
-        // LOGIC THAT KICKSTARTS THE GAMEPLAY
+        Debug.Log("End"); 
     }
+
+    #region Completed
+    //public string m_SceneAddressToLoad;
+
+    //public void LoadGameplayScene()
+    //{
+    //    Addressables.LoadSceneAsync(m_SceneAddressToLoad, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += OnSceneLoaded;
+    //}
+
+    //void OnSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
+    //{
+    //    //Addressables.UnloadSceneAsync(new SceneInstance());
+    //    // LOGIC THAT KICKSTARTS THE GAMEPLAY
+    //}
+    #endregion
 }

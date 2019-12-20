@@ -1,0 +1,81 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace LS.Helper.Characters
+{
+
+    public delegate void MovementAnimatorHandle(float h, float v);
+
+    [RequireComponent(typeof(CharacterController),typeof(Rigidbody))]
+    public class ThirdPersonMovement : MonoBehaviour
+    {
+        #region Public Fields
+
+        public float MoveSpeed = 10f;
+        public float TurnSpeed = 100f;
+        public float JumpPower = 12f;
+
+        [HideInInspector] public event MovementAnimatorHandle MovementInGroundAnimEvent;
+        [HideInInspector] public event MovementAnimatorHandle MovementJumpAnimEvent;
+        [HideInInspector] public event MovementAnimatorHandle MovementDefaultEvent;
+        #endregion
+
+        #region Private Fields
+        CharacterController _character;
+        Rigidbody _body;
+        float _capsuleHeight;
+        Vector3 _capsuleCenter;
+        bool _crouching;
+        #endregion
+        private void Awake()
+        {
+            _character = GetComponent<CharacterController>();
+        }
+
+        private void Update()
+        {
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
+
+            Move(h, v);
+            Rotate(h, v);
+        }
+
+        void Move(float h,float v)
+        {
+            Vector3 dir = Vector3.zero;
+
+            MovementDefaultEvent?.Invoke(h, v);
+
+            if (_character.isGrounded)
+            {
+                dir = transform.TransformDirection(h, 0, v);
+                dir *= MoveSpeed;
+
+                MovementInGroundAnimEvent?.Invoke(h, v);
+            }
+            else
+            {
+                dir = transform.TransformDirection(h, JumpPower, v);
+                dir *= MoveSpeed;
+                MovementJumpAnimEvent?.Invoke(h, v);
+            }
+
+            dir.y -= Physics.gravity.y * Time.deltaTime;
+
+            _character.Move(dir * Time.deltaTime);
+        }
+
+        public void Rotate(float h,float v)
+        {
+            //float turnSpeed = Mathf.Lerp(StationaryTurnSpeed, MovingTurnSpeed, _forwardAmount);
+            //transform.Rotate(0, _turnAmount * turnSpeed * Time.deltaTime, 0);
+            Vector3 originEuler = transform.eulerAngles;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, h * 90, 0) + originEuler);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * TurnSpeed);
+        }
+
+    }
+
+}

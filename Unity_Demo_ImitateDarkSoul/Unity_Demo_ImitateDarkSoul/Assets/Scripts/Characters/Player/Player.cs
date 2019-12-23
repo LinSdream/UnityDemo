@@ -10,6 +10,7 @@ namespace Game
 
     public enum PlayerStatus
     {
+
         Default,
         Idle,
         Run,
@@ -44,12 +45,8 @@ namespace Game
             _movement.MovementInGroundAnimEvent += Walk_AnimtorEvent;
 
             _animInfo = _anim.GetCurrentAnimatorStateInfo(0);
-            _movement.BeforeInputAction += CheckStatus;
-            _movement.BeforeInputAction += () =>
-            {
-                if (Input.GetButtonDown("Attack"))
-                    Attack();
-            };
+            _movement.BeforeInputAction += CheckStatusEvent;
+            _movement.BeforeInputAction += GetButtomDownEvent;
         }
 
         private void Update()
@@ -87,7 +84,7 @@ namespace Game
             }
         }
         #endregion
-        #region Animator Events
+        #region Events
         private void Walk_AnimtorEvent(float h, float v)
         {
             if (h == 0 && v == 0)
@@ -101,13 +98,19 @@ namespace Game
             }
 
         }
-        #endregion
 
-        #region Public Methods
-
-        public void CheckStatus()
+        public void CheckStatusEvent()
         {
             _animInfo = _anim.GetCurrentAnimatorStateInfo(0);
+
+
+            if(_animInfo.normalizedTime<1f)
+            {
+                if (_animInfo.IsName("Unarmed-Attack01"))
+                    Status = PlayerStatus.Attack;
+                if (_animInfo.IsName("Unarmed-SpecialAttack"))
+                    Status = PlayerStatus.SpecialAttack;
+            }
 
             if (_animInfo.normalizedTime > 1f)
             {
@@ -117,9 +120,27 @@ namespace Game
                 {
                     _anim.SetInteger("ActionCMD", 0);
                     CurrentCombo = 0;
+
+                    Status = PlayerStatus.Idle;
                 }
+                else if (_animInfo.IsName("Unarmed-Idle"))
+                    Status = PlayerStatus.Idle;
+                else if (_animInfo.IsName("Unarmed-Run"))
+                    Status = PlayerStatus.Run;
             }
         }
+
+        private void GetButtomDownEvent()
+        {
+            if (Input.GetButtonDown("Attack"))
+                Attack();
+            if (Input.GetButtonDown("SpecialAttack") && Status != PlayerStatus.SpecialAttack)
+                SpecialAttack();
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public void Run()
         {
@@ -153,6 +174,11 @@ namespace Game
                 CurrentCombo = 3;
                 _anim.SetInteger("ActionCMD", 3);
             }
+        }
+
+        public void SpecialAttack()
+        {
+            _anim.SetTrigger("SpecialAttack");
         }
         #endregion
     }

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Audios
+  m_EditorClassIdentifier: 
+  m_GroupName: Audios
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 644d0af8dd74c634784088753bb09c4a
+  m_SerializeEntries:
+  - m_GUID: 33f65e888d59d0a4bb020e6b712fb9fd
+    m_Address: FirePlace
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: e56d88a1eb639af4481e0e6faedc72fe
+    m_Address: ChangeSelection
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: fbe023bc33a67d444b341614f9827845
+    m_Address: Drink
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d1398916415d0bd4894f7ce6d39c8254, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b5b729a0bffc28b4b83d684fd9fac932, type: 2}
+    - {fileID: 11400000, guid: d11109a6c9c60bd4d9bf75140ff3876d, type: 2}

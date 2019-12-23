@@ -23,6 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05e82ec213d21a94c8ec9dcfa0ea14fb, type: 2}
   - {fileID: 11400000, guid: 54b1f4e9af6081c4a9fde16bc463673a, type: 2}
   - {fileID: 11400000, guid: 9b0096e1198f8fa489d632dfa6bc059c, type: 2}
+  - {fileID: 11400000, guid: a69206f6423e6a84ba53bce4ee95f658, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -65,6 +66,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - AudioGroup
+    - Audio
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: d2682707dc8bd9f48b35e20d2e463e17, type: 2}

@@ -241,7 +241,6 @@ namespace LS.Common
             audioSource.clip = GetAudioClip(name);
             audioSource.volume = _soundVolume;
             _playingSounds.Add(audioSource);
-            Debug.Log("Play");
             audioSource.Play();
             StartCoroutine(WaitOfPlaySfxEnd(audioSource, audioSource.clip.length, callback));//协程，一个音效一个协程
 

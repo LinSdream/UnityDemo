@@ -6,6 +6,8 @@ namespace LS.Helper.Characters
 {
 
     public delegate void MovementAnimatorHandle(float h, float v);
+    public delegate void InputHandle(ref float h, ref float v);
+    public delegate void InputCustomActionHandle();
 
     [RequireComponent(typeof(CharacterController),typeof(Rigidbody))]
     public class ThirdPersonMovement : MonoBehaviour
@@ -19,6 +21,9 @@ namespace LS.Helper.Characters
         [HideInInspector] public event MovementAnimatorHandle MovementInGroundAnimEvent;
         [HideInInspector] public event MovementAnimatorHandle MovementJumpAnimEvent;
         [HideInInspector] public event MovementAnimatorHandle MovementDefaultEvent;
+
+        [HideInInspector] public event InputCustomActionHandle BeforeInputAction;
+        [HideInInspector] public event InputHandle CharacterInputBeforeMoveEvent;
         #endregion
 
         #region Private Fields
@@ -35,9 +40,10 @@ namespace LS.Helper.Characters
 
         private void Update()
         {
+            BeforeInputAction?.Invoke();
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
-
+            CharacterInputBeforeMoveEvent?.Invoke(ref h, ref v);
             Move(h, v);
             Rotate(h, v);
         }
@@ -50,20 +56,16 @@ namespace LS.Helper.Characters
 
             if (_character.isGrounded)
             {
-                dir = transform.TransformDirection(h, 0, v);
-                dir *= MoveSpeed;
-
+                dir = transform.TransformDirection(new Vector3(h, 0, v) * MoveSpeed);
                 MovementInGroundAnimEvent?.Invoke(h, v);
             }
             else
             {
-                dir = transform.TransformDirection(h, JumpPower, v);
-                dir *= MoveSpeed;
+                dir = transform.TransformDirection(new Vector3(h, 0, v) * MoveSpeed);
+                dir.y = JumpPower;
                 MovementJumpAnimEvent?.Invoke(h, v);
             }
-
-            dir.y -= Physics.gravity.y * Time.deltaTime;
-
+            dir.y += Physics.gravity.y * Time.deltaTime;
             _character.Move(dir * Time.deltaTime);
         }
 

@@ -313,6 +313,49 @@ MonoBehaviour:
   TargetObj: {fileID: 97829597664981853}
   DistanceForward: 4
   DistanceUp: 4.5
+--- !u!1 &1623099533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1623099535}
+  - component: {fileID: 1623099534}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Manager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1623099534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623099533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4ed06774e61c54e954f61fa34ffb88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1623099535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623099533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &97829597664981849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3351471541013668124, guid: 8dc56b988d972eb4ba5b1cb555966d66,
@@ -334,7 +377,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 2.3, z: 0}
 --- !u!54 &97829597664981851
@@ -386,15 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 10
-  TurnSpeed: 100
-  MovingTurnSpeed: 360
-  StationaryTurnSpeed: 180
+  TurnSpeed: 3
   JumpPower: 12
-  GravityMultiplier: 2
-  RunCycleLeOffset: 0.2
-  MoveSpeedMultiplier: 1
-  AnimSpeedMultiplier: 1
-  GroundCheckDistance: 0.1
 --- !u!114 &97829597664981856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +557,7 @@ PrefabInstance:
     - target: {fileID: 3351471541013773628, guid: 8dc56b988d972eb4ba5b1cb555966d66,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3351471541013773628, guid: 8dc56b988d972eb4ba5b1cb555966d66,
         type: 3}

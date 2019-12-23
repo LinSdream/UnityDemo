@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Audios
+  m_Name: Player Audios
   m_EditorClassIdentifier: 
-  m_GroupName: Audios
+  m_GroupName: Player Audios
   m_Data:
     m_SerializedData: []
   m_GUID: 644d0af8dd74c634784088753bb09c4a
   m_SerializeEntries:
+  - m_GUID: 0e58317324109e84d8f4a84a15397a34
+    m_Address: SwordSpecial
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   - m_GUID: 2bab43d39791ce54c95025b6f0956dcc
     m_Address: SwitchWeapon
     m_ReadOnly: 0
@@ -27,10 +32,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+  - m_GUID: 830069ef16a026748a74a0fd2d6863b5
+    m_Address: Sword02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   - m_GUID: 8dcc662918874a7409a4976c210d0d91
     m_Address: Punch
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 90e2d724006394c4b89fb957f0f28419
+    m_Address: Sword
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: fbe023bc33a67d444b341614f9827845
+    m_Address: Drink
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d1398916415d0bd4894f7ce6d39c8254, type: 2}
   m_SchemaSet:

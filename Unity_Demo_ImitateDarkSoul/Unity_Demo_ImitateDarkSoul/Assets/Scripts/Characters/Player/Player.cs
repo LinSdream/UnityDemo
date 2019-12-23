@@ -40,6 +40,13 @@ namespace Game
         public PlayerStatus Status = PlayerStatus.Default;
         #endregion
         #region MonoBehaviour Callbacks
+
+        private void Awake()
+        {
+            WeaponManager.Instance.WeaponList.Clear();
+            WeaponManager.Instance.FindAndAddList();
+        }
+
         private void Start()
         {
             _movement = GetComponent<ThirdPersonMovement>();
@@ -196,7 +203,12 @@ namespace Game
         {
             AudioManager.Instance.PlaySFX(name);
         }
-
+        
+        public void HideWeapon()
+        {
+            WeaponManager.Instance.GetCurrentWeapon().SetActive(false);
+            WeaponManager.Instance.GetNextWeapon().SetActive(true);
+        }
         #endregion
 
     }

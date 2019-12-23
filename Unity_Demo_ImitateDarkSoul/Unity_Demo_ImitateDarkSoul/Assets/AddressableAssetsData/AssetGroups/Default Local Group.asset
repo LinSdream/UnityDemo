@@ -16,7 +16,147 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a935e7e8cf3c4f84a9567362dd66835b
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 02592986213ec584eb040be049790ecd
+    m_Address: Assets/CompletedAssets/Audio/PlayerHitScream.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 06d430116131aa04f90725f30b5e394d
+    m_Address: Assets/CompletedAssets/Audio/Hit.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 0c145c999e9c7fa469aaca7955c9d513
+    m_Address: Assets/CompletedAssets/Audio/Revive.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 14177103eea43464b892a8ddd82585de
+    m_Address: Assets/CompletedAssets/Audio/Fire.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 1e23042d644355b4e88e8b5ac955314e
+    m_Address: Assets/CompletedAssets/Audio/Explosion.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 29591192b4061674a92ce538defc16bf
+    m_Address: Assets/CompletedAssets/Audio/MenuAudio/OpenMenu.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 2c60f6477ecf7d447a24ab35144ec703
+    m_Address: Assets/CompletedAssets/Audio/MenuAudio/Select.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 30c182c125ba3c04a98392a51dcb37ea
+    m_Address: Assets/CompletedAssets/Audio/Roll.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 33f65e888d59d0a4bb020e6b712fb9fd
+    m_Address: Assets/CompletedAssets/Audio/FirePlace.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 3655a7dcc82afd9499f616dd788e52f0
+    m_Address: Assets/CompletedAssets/Audio/Recover.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 3bfe5f7d737985a44927de5de0cecdd8
+    m_Address: Assets/CompletedAssets/Audio/EnemySword.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 4bd2284a00fee2349a533410cd3c8560
+    m_Address: Assets/CompletedAssets/Audio/Die.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 4df7afc24c3246a46bcb531505cfda1d
+    m_Address: Assets/CompletedAssets/Audio/FireWall.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 5e4246b9be17fa041b128838f83ea126
+    m_Address: Assets/CompletedAssets/Audio/EnemyDie.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 5e9ba5416cd1ad94fba4e92c1fbd4c9f
+    m_Address: BossAnger
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 681f20dcb96e4ea4080c75640a29fd57
+    m_Address: Assets/CompletedAssets/Audio/PlayerGetHit.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 6b86aaa5214d5b94bb8d31d064342c7b
+    m_Address: BoosStep
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 6ced299fae3cb3e47b0f99a8945a0341
+    m_Address: SwordHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 7994561b30686fc4cb6dd7996c56a51a
+    m_Address: Assets/CompletedAssets/Audio/EnemyGetHit.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: 9e9431d99bdfb1941a77d55a23dbdfee
+    m_Address: BossBGM
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: a6cb48ca87265d242b295bb8e2d3e0c1
+    m_Address: Assets/CompletedAssets/Audio/StartBGM.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: aa4f7d75b6e63a54a8249e92e2c4dbbb
+    m_Address: BGM
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: b506a549857396c48bd5a404abc3a155
+    m_Address: Assets/CompletedAssets/Audio/MenuAudio/CloseAndExit.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: b7f864aa1046bbb44a826e38b6249253
+    m_Address: Assets/CompletedAssets/Audio/GetSouls.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: d4b6aaf02139a8c4792f06bc23f4490e
+    m_Address: Virtory
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: d5599c9379db64028adcb18ec9596452
+    m_Address: BigSword
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: da0f03784661f1b4ca9ff3a8cb26b37c
+    m_Address: Assets/CompletedAssets/Audio/PlayerDeathAudio.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+  - m_GUID: e56d88a1eb639af4481e0e6faedc72fe
+    m_Address: Assets/CompletedAssets/Audio/MenuAudio/ChangeSelection.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d1398916415d0bd4894f7ce6d39c8254, type: 2}
   m_SchemaSet:

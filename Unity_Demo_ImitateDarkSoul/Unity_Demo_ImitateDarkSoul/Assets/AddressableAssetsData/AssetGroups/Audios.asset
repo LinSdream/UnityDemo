@@ -17,21 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 644d0af8dd74c634784088753bb09c4a
   m_SerializeEntries:
-  - m_GUID: 33f65e888d59d0a4bb020e6b712fb9fd
-    m_Address: FirePlace
+  - m_GUID: 2bab43d39791ce54c95025b6f0956dcc
+    m_Address: SwitchWeapon
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: e56d88a1eb639af4481e0e6faedc72fe
-    m_Address: ChangeSelection
+  - m_GUID: 69658257b476d2d4180683d8d3579954
+    m_Address: FootSetp
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-  - m_GUID: fbe023bc33a67d444b341614f9827845
-    m_Address: Drink
+  - m_GUID: 8dcc662918874a7409a4976c210d0d91
+    m_Address: Punch
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d1398916415d0bd4894f7ce6d39c8254, type: 2}
   m_SchemaSet:

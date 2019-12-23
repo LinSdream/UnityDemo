@@ -17,8 +17,18 @@ namespace Game
 
         private void Awake()
         {
+
+            if (_instance == null)
+                _instance = this as GameManager;
+
             AudioManager.Instance.LoadGroupAssetsLabel = "AudioGroup";
-            AudioManager.Instance.LoadAudioGroupAssets(()=> { Debug.Log("Completed"); });
+            AudioManager.Instance.LoadAudioGroupAssets(()=> { Debug.Log("Completed");
+
+                string[] names = AudioManager.Instance.GetAudiosNames(AudioManager.Instance.DefaultGroup);
+                foreach (string cell in names)
+                    Debug.Log(cell);
+                
+            });
         }
 
         // Update is called once per frame

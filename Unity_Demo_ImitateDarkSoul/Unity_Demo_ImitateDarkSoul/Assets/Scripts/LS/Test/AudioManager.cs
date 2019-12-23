@@ -27,8 +27,8 @@ namespace LS.Test
         public string LoadGroupAssetsLabel = "AudioGroupAsset";
         public string DefaultGroup = "DefaultGroup";
 
-        public float MusicVolume;
-        public float SfxVolume;
+        public float MusicVolume = 1f;
+        public float SfxVolume = 1f;
 
         public List<AudioSource> PlayingSounds => _playingSounds;
         public AudioSource BgmAudioSource => _musicAudioSource;

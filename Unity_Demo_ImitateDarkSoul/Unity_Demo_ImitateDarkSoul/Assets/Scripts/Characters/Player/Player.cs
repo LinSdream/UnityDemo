@@ -8,6 +8,7 @@ using AudioManager = LS.Test.AudioManager;
 namespace Game
 {
 
+    #region Enum PlayerStatus
     public enum PlayerStatus
     {
 
@@ -24,6 +25,7 @@ namespace Game
         PowerOver,
         Dead
     }
+    #endregion
 
     public class Player : MonoBehaviour
     {
@@ -51,7 +53,7 @@ namespace Game
 
         private void Update()
         {
-            
+
             switch (Status)
             {
                 case PlayerStatus.Default:
@@ -65,7 +67,7 @@ namespace Game
                 case PlayerStatus.Roll:
                     break;
                 case PlayerStatus.Attack:
-                    
+
                     break;
                 case PlayerStatus.SpecialAttack:
                     break;
@@ -104,7 +106,7 @@ namespace Game
             _animInfo = _anim.GetCurrentAnimatorStateInfo(0);
 
 
-            if(_animInfo.normalizedTime<1f)
+            if (_animInfo.normalizedTime < 1f)
             {
                 if (_animInfo.IsName("Unarmed-Attack01"))
                     Status = PlayerStatus.Attack;
@@ -136,6 +138,8 @@ namespace Game
                 Attack();
             if (Input.GetButtonDown("SpecialAttack") && Status != PlayerStatus.SpecialAttack)
                 SpecialAttack();
+            if (Input.GetButtonDown("SwitchWeapon"))
+                SwitchWeapon();
         }
 
         #endregion
@@ -144,18 +148,18 @@ namespace Game
 
         public void Run()
         {
-           
+
         }
 
         public void Idle()
         {
-            
+
         }
 
         public void Attack()
         {
-            
-            if ((_animInfo.IsName("Unarmed-Idle")||_animInfo.IsName("Unarmed-Run"))
+
+            if ((_animInfo.IsName("Unarmed-Idle") || _animInfo.IsName("Unarmed-Run"))
                 && _animInfo.normalizedTime > 0 && CurrentCombo == 0)
             {
                 Status = PlayerStatus.Attack;
@@ -180,6 +184,20 @@ namespace Game
         {
             _anim.SetTrigger("SpecialAttack");
         }
+
+        public void SwitchWeapon()
+        {
+            _anim.SetTrigger("SwitchWeapon");
+        }
         #endregion
+
+        #region Animtor  Events
+        public void Animtor_Audio(string name)
+        {
+            AudioManager.Instance.PlaySFX(name);
+        }
+
+        #endregion
+
     }
 }

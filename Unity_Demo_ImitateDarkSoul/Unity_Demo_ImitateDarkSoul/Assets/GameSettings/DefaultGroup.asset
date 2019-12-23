@@ -15,7 +15,10 @@ MonoBehaviour:
   Preload: 1
   Name: DefaultGroup
   Volume: 1
-  Pool: 11
+  Pool: 10
   AudioMixer: {fileID: 0}
-  AudioAssets: []
+  AudioAssets:
+  - m_AssetGUID: 69658257b476d2d4180683d8d3579954
+  - m_AssetGUID: 2bab43d39791ce54c95025b6f0956dcc
+  - m_AssetGUID: 8dcc662918874a7409a4976c210d0d91
   AudioAssetsLabel: []

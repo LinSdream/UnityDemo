@@ -22,7 +22,17 @@ namespace Game
         public List<GameObject> WeaponList = new List<GameObject>();
         public int CurrentWeapon = 0;
 
-        public int GetChangeWeapon=> CurrentWeapon >= WeaponList.Count - 1 ? 0 : CurrentWeapon++;
+        public int GetChangeWeapon
+        {
+            get
+            {
+                if (CurrentWeapon >= WeaponList.Count - 1)
+                    CurrentWeapon = 0;
+                else
+                    CurrentWeapon++;
+                return CurrentWeapon;
+            }
+        }
         #endregion
 
         #region Public Methods
@@ -33,17 +43,19 @@ namespace Game
             GameObject sickle = GameObject.Find(WeaponPath + "Sickle");
 
             WeaponList.Add(unamred);
-            WeaponList.Add(sickle);
             WeaponList.Add(sword);
+            WeaponList.Add(sickle);
         }
 
         public GameObject GetCurrentWeapon()
         {
+            Debug.Log("CurrentWeapon index:" + CurrentWeapon);
             return WeaponList[CurrentWeapon];
         }
 
         public GameObject GetNextWeapon()
         {
+            Debug.Log("NextWeapon" + CurrentWeapon);
             return WeaponList[GetChangeWeapon];
         }
         #endregion

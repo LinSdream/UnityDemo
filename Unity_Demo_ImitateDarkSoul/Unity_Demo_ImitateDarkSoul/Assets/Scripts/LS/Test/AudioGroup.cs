@@ -73,12 +73,8 @@ namespace LS.Test
 
         AudioSource GetAudioSource(MonoBehaviour mono, List<AudioSourceInfo> list)
         {
-            Debug.Log(_unusedSoundAudioSourceList == null ? "Yes" : "No");
-            Debug.Log(_unusedSoundAudioSourceList.Count);
             if (_unusedSoundAudioSourceList.Count != 0)
                 return UnusedToUsed();
-            Debug.Log("!!!!!!!!!!!!");
-
             //var audioSource = mono.gameObject.AddComponent<AudioSource>();
             //list.Add(new AudioSourceInfo()
             //{
@@ -144,7 +140,6 @@ namespace LS.Test
             List<AudioSourceInfo> info, bool openCoroutine = true)
         {
             AudioSource audioSource = GetAudioSource(mono, info);
-            Debug.Log(audioSource == null ? "Yes" : "No");
             var clip = await GetAudioClip(name);
             if (clip == null)
                 return;

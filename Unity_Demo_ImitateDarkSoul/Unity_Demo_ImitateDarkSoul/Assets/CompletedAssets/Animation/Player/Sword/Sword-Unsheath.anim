@@ -76109,3 +76109,11 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.33333334
+    functionName: HideWeapon
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: efe982c713a22404597efb621f62fa2a,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

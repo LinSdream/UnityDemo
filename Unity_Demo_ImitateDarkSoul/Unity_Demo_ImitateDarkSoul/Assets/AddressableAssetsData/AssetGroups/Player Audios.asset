@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+  - m_GUID: 30c182c125ba3c04a98392a51dcb37ea
+    m_Address: Roll
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
   - m_GUID: 69658257b476d2d4180683d8d3579954
     m_Address: FootSetp
     m_ReadOnly: 0

@@ -5,7 +5,6 @@ using UnityEngine.AddressableAssets;
 
 namespace LS.Test.Audio
 {
-    [CreateAssetMenu(menuName ="LS/Test/Audio/AudioGroup")]
     public class AudioGroup : ScriptableObject
     {
         #region Public Fields

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Game;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace LS.Helper.Characters
         #endregion
 
         #region Private Fields
+        Player _player;
         CharacterController _character;
         Rigidbody _body;
         float _capsuleHeight;
@@ -36,6 +38,7 @@ namespace LS.Helper.Characters
         private void Awake()
         {
             _character = GetComponent<CharacterController>();
+            _player = GetComponent<Player>();
         }
 
         private void Update()
@@ -53,6 +56,16 @@ namespace LS.Helper.Characters
             Vector3 dir = Vector3.zero;
 
             MovementDefaultEvent?.Invoke(h, v);
+
+            //翻滚状态下，禁止移动
+            if (_player.Status == PlayerStatus.Roll
+                ||_player.Status==PlayerStatus.Drinking)
+            {
+                dir = new Vector3(h, 0, v).normalized;
+                dir.y += Physics.gravity.y * Time.deltaTime;
+                _character.Move(dir * Time.deltaTime);
+                return;
+            }
 
             if (_character.isGrounded)
             {

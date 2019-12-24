@@ -34,10 +34,13 @@ namespace Game
         Animator _anim;
         AnimatorStateInfo _animInfo;
         int CurrentCombo;
+        CharacterController _characterController;
         #endregion
 
         #region Public Fields
         public PlayerStatus Status = PlayerStatus.Default;
+        public int DrinkNum = 3;
+        public float DrinkSpeed = 2f;
         #endregion
         #region MonoBehaviour Callbacks
 
@@ -45,6 +48,8 @@ namespace Game
         {
             WeaponManager.Instance.WeaponList.Clear();
             WeaponManager.Instance.FindAndAddList();
+            PlayerAnimManager.Instance.GetAnimByWeaponName("Unarmed");
+            _characterController = GetComponent<CharacterController>();
         }
 
         private void Start()
@@ -66,10 +71,8 @@ namespace Game
                 case PlayerStatus.Default:
                     break;
                 case PlayerStatus.Idle:
-                    Idle();
                     break;
                 case PlayerStatus.Run:
-                    Run();
                     break;
                 case PlayerStatus.Roll:
                     break;
@@ -112,29 +115,40 @@ namespace Game
         {
             _animInfo = _anim.GetCurrentAnimatorStateInfo(0);
 
-
             if (_animInfo.normalizedTime < 1f)
             {
-                if (_animInfo.IsName("Unarmed-Attack01"))
+                if (_animInfo.IsName(PlayerAnimManager.Instance.Attack01))
                     Status = PlayerStatus.Attack;
-                if (_animInfo.IsName("Unarmed-SpecialAttack"))
+                if (_animInfo.IsName(PlayerAnimManager.Instance.SpecialAttack))
                     Status = PlayerStatus.SpecialAttack;
+                if(_animInfo.IsName(PlayerAnimManager.Instance.Roll))
+                {
+                    if(Status!=PlayerStatus.Roll)
+                    {
+                        _characterController.SimpleMove(transform.forward * _movement.MoveSpeed);
+                    }
+                    Status = PlayerStatus.Roll;
+                }
+                if (_animInfo.IsName(PlayerAnimManager.Instance.Idle))
+                    Status = PlayerStatus.Idle;
+                if (_animInfo.IsName(PlayerAnimManager.Instance.Drink))
+                    Status = PlayerStatus.Drinking;
             }
 
             if (_animInfo.normalizedTime > 1f)
             {
-                if (!_animInfo.IsName("Unarmed-Attack01") ||
-                    !_animInfo.IsName("Unarmed-Attack02") ||
-                    !_animInfo.IsName("Unarmed-Attack03"))
+                if (!_animInfo.IsName(PlayerAnimManager.Instance.Attack01) ||
+                    !_animInfo.IsName(PlayerAnimManager.Instance.Attack02) ||
+                    !_animInfo.IsName(PlayerAnimManager.Instance.Attack03))
                 {
-                    _anim.SetInteger("ActionCMD", 0);
+                    _anim.SetInteger(PlayerAnimManager.Instance.Parameters_PlayerActionCMD, 0);
                     CurrentCombo = 0;
 
                     Status = PlayerStatus.Idle;
                 }
-                else if (_animInfo.IsName("Unarmed-Idle"))
+                else if (_animInfo.IsName(PlayerAnimManager.Instance.Idle))
                     Status = PlayerStatus.Idle;
-                else if (_animInfo.IsName("Unarmed-Run"))
+                else if (_animInfo.IsName(PlayerAnimManager.Instance.Run))
                     Status = PlayerStatus.Run;
             }
         }
@@ -147,44 +161,46 @@ namespace Game
                 SpecialAttack();
             if (Input.GetButtonDown("SwitchWeapon"))
                 SwitchWeapon();
+            if (Input.GetButtonDown("Roll"))
+                Roll();
+            //if (Input.GetButtonDown("Drink"))
+            //    Drink();
         }
 
         #endregion
 
         #region Public Methods
 
-        public void Run()
-        {
-
-        }
-
-        public void Idle()
-        {
-
-        }
 
         public void Attack()
         {
 
-            if ((_animInfo.IsName("Unarmed-Idle") || _animInfo.IsName("Unarmed-Run"))
+            if ((_animInfo.IsName(PlayerAnimManager.Instance.Idle) 
+                || _animInfo.IsName(PlayerAnimManager.Instance.Run))
                 && _animInfo.normalizedTime > 0 && CurrentCombo == 0)
             {
                 Status = PlayerStatus.Attack;
                 CurrentCombo = 1;
-                _anim.SetInteger("ActionCMD", 1);
+                _anim.SetInteger(PlayerAnimManager.Instance.Parameters_PlayerActionCMD, 1);
             }
-            if (_animInfo.IsName("Unarmed-Attack01") && _animInfo.normalizedTime > 0 && CurrentCombo == 1)
+            if (_animInfo.IsName(PlayerAnimManager.Instance.Attack01) 
+                && _animInfo.normalizedTime > 0 && CurrentCombo == 1)
             {
                 Status = PlayerStatus.Attack;
                 CurrentCombo = 2;
-                _anim.SetInteger("ActionCMD", 2);
+                _anim.SetInteger(PlayerAnimManager.Instance.Parameters_PlayerActionCMD, 2);
             }
-            if (_animInfo.IsName("Unarmed-Attack02") && _animInfo.normalizedTime > 0 && CurrentCombo == 2)
+            if (_animInfo.IsName(PlayerAnimManager.Instance.Attack02) && _animInfo.normalizedTime > 0 && CurrentCombo == 2)
             {
                 Status = PlayerStatus.Attack;
                 CurrentCombo = 3;
-                _anim.SetInteger("ActionCMD", 3);
+                _anim.SetInteger(PlayerAnimManager.Instance.Parameters_PlayerActionCMD, 3);
             }
+        }
+
+        public void Roll()
+        {
+            _anim.SetTrigger("Roll");
         }
 
         public void SpecialAttack()
@@ -195,6 +211,11 @@ namespace Game
         public void SwitchWeapon()
         {
             _anim.SetTrigger("SwitchWeapon");
+        }
+
+        public void Drink()
+        {
+            _anim.SetTrigger("Drink");
         }
         #endregion
 
@@ -207,7 +228,24 @@ namespace Game
         public void HideWeapon()
         {
             WeaponManager.Instance.GetCurrentWeapon().SetActive(false);
-            WeaponManager.Instance.GetNextWeapon().SetActive(true);
+            string name;
+            WeaponManager.Instance.GetNextWeapon(out name).SetActive(true);
+            if (name == string.Empty)
+            {
+                Debug.LogError("Player/HideWeapon Error : Unable to obtain the mapping name of the animator !");
+                return;
+            }
+            PlayerAnimManager.Instance.GetAnimByWeaponName(name);
+        }
+
+        public void ChangeAnimatorSpeed()
+        {
+            _anim.speed = DrinkSpeed;
+        }
+
+        public void ResetAnimatorSpeed()
+        {
+            _anim.speed = 1f;
         }
         #endregion
 

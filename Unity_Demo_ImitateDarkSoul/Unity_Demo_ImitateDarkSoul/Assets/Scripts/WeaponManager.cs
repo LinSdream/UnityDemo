@@ -49,14 +49,28 @@ namespace Game
 
         public GameObject GetCurrentWeapon()
         {
-            Debug.Log("CurrentWeapon index:" + CurrentWeapon);
             return WeaponList[CurrentWeapon];
         }
 
-        public GameObject GetNextWeapon()
+        public GameObject GetNextWeapon(out string name)
         {
-            Debug.Log("NextWeapon" + CurrentWeapon);
-            return WeaponList[GetChangeWeapon];
+            int next = GetChangeWeapon;
+            switch(next)
+            {
+                case 0:
+                    name = "Unarmed";
+                    break;
+                case 1:
+                    name = "Sword";
+                    break;
+                case 2:
+                    name = "Sickle";
+                    break;
+                default:
+                    name = string.Empty;
+                    break;
+            }
+            return WeaponList[next];
         }
         #endregion
 

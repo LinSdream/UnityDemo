@@ -154,7 +154,7 @@ namespace Game
         }
 
         private void GetButtomDownEvent()
-        {
+        {  
             if (Input.GetButtonDown("Attack"))
                 Attack();
             if (Input.GetButtonDown("SpecialAttack") && Status != PlayerStatus.SpecialAttack)

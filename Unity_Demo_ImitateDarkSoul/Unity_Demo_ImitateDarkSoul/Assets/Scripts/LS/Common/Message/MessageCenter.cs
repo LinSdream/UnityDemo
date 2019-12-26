@@ -91,6 +91,21 @@ namespace LS.Common.Message
             }
             _listeners[name](null, null);
         }
+
+        /// <summary>
+        /// 获取已存在的消息名
+        /// </summary>
+        public string[] GetRegisteredMessagesName()
+        {
+            string[] names = new string[_listeners.Count];
+            int index = 0;
+            foreach(KeyValuePair<string,CustomMessageHandle> pair in _listeners)
+            {
+                names[index] = pair.Key;
+                index++;
+            }
+            return names;
+        }
     }
 
 }

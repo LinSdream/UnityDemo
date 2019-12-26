@@ -1,5 +1,6 @@
 ﻿using LS.Common.Math;
 using LS.Common.Message;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Souls
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
         [HideInInspector] public Vector3 ThrustVec;
+        [HideInInspector] public bool IsGrounded = true;
         #endregion
 
         #region Private Fields
@@ -39,6 +41,7 @@ namespace Souls
             _anim = Model.GetComponent<Animator>();
             _input = GetComponent<PlayerInput>();
             _rigidboy = GetComponent<Rigidbody>();
+
         }
 
         private void Update()
@@ -53,9 +56,11 @@ namespace Souls
         {
             Movement();
         }
+
         #endregion
 
         #region Private Methdos
+
         void Rotation()
         {
             ///TODO:可以进一步优化
@@ -91,7 +96,13 @@ namespace Souls
         {
             if (_input.IsJump)
                 _anim.SetTrigger("Jump");
+
+            if (IsGrounded)
+                _anim.SetBool("IsInGround", true);
+            else
+                _anim.SetBool("IsInGround", false);
         }
+
         #endregion
 
     }

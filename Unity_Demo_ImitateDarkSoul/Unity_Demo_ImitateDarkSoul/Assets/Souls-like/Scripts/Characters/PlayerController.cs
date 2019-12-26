@@ -1,4 +1,5 @@
 ﻿using LS.Common.Math;
+using LS.Common.Message;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,12 @@ namespace Souls
         public float RotationSpeed;
         public float WalkSpeed;
         public float RunMultiplier=2f;
+        public float JumpPower;
+
+
+        /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
+        [HideInInspector] public bool LockPlanar = false;
+        [HideInInspector] public Vector3 ThrustVec;
         #endregion
 
         #region Private Fields
@@ -21,7 +28,7 @@ namespace Souls
         Rigidbody _rigidboy;
 
         Vector3 _moveDir;
-
+        
         float u;
         float v;
         #endregion
@@ -38,7 +45,8 @@ namespace Souls
         {
             Rotation();
             Jump();
-            _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier*WalkSpeed : WalkSpeed);
+            if (!LockPlanar)
+                _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
         }
 
         private void FixedUpdate()
@@ -50,10 +58,11 @@ namespace Souls
         #region Private Methdos
         void Rotation()
         {
+            ///TODO:可以进一步优化
             //取x2+y2=1范围内的0-1的值
             SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, ref u, ref v);
             _anim.SetFloat("Forward",
-                Mathf.Sqrt(u * u + v * v)
+               (u * u + v * v)
                 * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun ? 2f : 1f), 0.5f));
 
             //角色旋转
@@ -72,6 +81,10 @@ namespace Souls
         void Movement()
         {
             _rigidboy.MovePosition(_rigidboy.transform.position + _moveDir * Time.fixedDeltaTime);
+
+            //向上的冲量
+            _rigidboy.velocity += ThrustVec;
+            ThrustVec = Vector3.zero;
         }
 
         void Jump()
@@ -80,6 +93,7 @@ namespace Souls
                 _anim.SetTrigger("Jump");
         }
         #endregion
+
     }
 
 }

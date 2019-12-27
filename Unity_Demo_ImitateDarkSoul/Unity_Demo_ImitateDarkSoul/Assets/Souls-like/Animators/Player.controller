@@ -115,8 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 495a49bc77a2e1c4ab00608a83a2debe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MessageNames:
-  - OnJumpExit
+  MessageNames: []
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -131,19 +130,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Jump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsInGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -171,8 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearAtEnter:
   - Jump
-  ClearAtExit:
-  - Jump
+  ClearAtExit: []
 --- !u!1102 &1197443674432960255
 AnimatorState:
   serializedVersion: 5
@@ -187,6 +185,7 @@ AnimatorState:
   - {fileID: 3634467295983245501}
   m_StateMachineBehaviours:
   - {fileID: 610792018570445649}
+  - {fileID: 4974964033815290615}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -275,6 +274,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &4974964033815290615
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495a49bc77a2e1c4ab00608a83a2debe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MessageNames:
+  - OnGroundEnter
 --- !u!1107 &6133004667679298418
 AnimatorStateMachine:
   serializedVersion: 5

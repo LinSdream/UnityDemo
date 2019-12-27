@@ -16,8 +16,7 @@ namespace Souls
         public float WalkSpeed;
         public float RunMultiplier=2f;
         public float JumpPower;
-
-
+        
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
         [HideInInspector] public Vector3 ThrustVec;

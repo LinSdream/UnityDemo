@@ -75,16 +75,18 @@ namespace Souls
                 _playerController.RollVelocity.z * _playerController.Forward.z);
         }
 
+        /// TODO:修改后退动画
         private void OnJabEnter(GameObject sender, EventArgs e)
         {
-            _playerController.ThrustVec = new Vector3(0, _playerController.JabVerlocity.x, 0);
+            //_playerController.ThrustVec = new Vector3(-_playerController.Forward.x, _playerController.JabVerlocity.x,
+            //    -_playerController.Forward.z * _playerController.JabVerlocity.y);
         }
 
-        private void OnJabUpdate(GameObject sender,EventArgs e)
+        private void OnJabUpdate(GameObject sender, EventArgs e)
         {
-            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVerlocityCurve")
-                * _playerController.JabVerlocity.y;
+            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve");
         }
+
         #endregion
     }
 

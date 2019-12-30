@@ -459,17 +459,17 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
-      - name: JabVerlocityCurve
+      - name: JabVelocityCurve
         curve:
           serializedVersion: 2
           curve:
@@ -483,10 +483,28 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
+            time: 0.08738458
+            value: -1.5921283
+            inSlope: -44.803146
+            outSlope: -44.803146
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 0.1
             value: -3
             inSlope: 0
             outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.70314133
+            value: -1.7805617
+            inSlope: 4.9948225
+            outSlope: 4.9948225
             tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334

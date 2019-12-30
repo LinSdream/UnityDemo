@@ -20,6 +20,7 @@ namespace Souls
             MessageCenter.Instance.AddListener("InGround", InGround);
             MessageCenter.Instance.AddListener("NotInGround", NotInGround);
             MessageCenter.Instance.AddListener("OnGroundEnter", OnGroundEnter);
+            MessageCenter.Instance.AddListener("OnFallEnter", OnFallEnter);
         }
 
         private void OnDestroy()
@@ -29,6 +30,7 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("InGround", InGround);
             MessageCenter.Instance.RemoveListener("NotInGround", NotInGround);
             MessageCenter.Instance.RemoveListener("OnGroundEnter", OnGroundEnter);
+            MessageCenter.Instance.RemoveListener("OnFallEnter", OnFallEnter);
         }
 
         #region Events
@@ -46,11 +48,18 @@ namespace Souls
         private void InGround(GameObject render, EventArgs e)
         {
             _playerController.IsGrounded = true;
+            _playerController.LockPlanar = false;
         }
 
         private void OnGroundEnter(GameObject render,EventArgs e)
         {
             _playerController.LockPlanar = false;
+        }
+
+        private void OnFallEnter(GameObject render, EventArgs e)
+        {
+            if (_playerController.IsRun)
+                _playerController.LockPlanar = true;
         }
         #endregion
     }

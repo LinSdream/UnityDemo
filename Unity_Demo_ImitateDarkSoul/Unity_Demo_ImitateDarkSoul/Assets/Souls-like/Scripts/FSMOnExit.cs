@@ -1,10 +1,12 @@
 ﻿using LS.Common.Message;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Souls
 {
+
     public class FSMOnExit : StateMachineBehaviour
     {
         public string[] MessageNames;

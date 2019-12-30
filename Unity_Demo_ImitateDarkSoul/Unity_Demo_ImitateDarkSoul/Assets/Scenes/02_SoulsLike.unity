@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 35711451}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35711448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.89, y: 0.809, z: 7.12}
+  m_LocalPosition: {x: 8.74, y: -0.07, z: -9.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1369952357}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 215365199}
   m_Layer: 9
   m_Name: Sensor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 256
+  SensorGroundOffset: 0.1
 --- !u!1 &990550023
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,13 +457,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365491627}
-  m_LocalRotation: {x: 0, y: 0.36487678, z: 0, w: 0.93105584}
-  m_LocalPosition: {x: -1.6, y: 2.18, z: -2.95}
+  m_LocalRotation: {x: 0, y: 0.69653916, z: 0, w: 0.7175188}
+  m_LocalPosition: {x: -1.28, y: 2.18, z: -1.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 42.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 88.3, z: 0}
 --- !u!1001 &1369952356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -754,6 +755,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 100138, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 400138, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -832,7 +837,7 @@ GameObject:
   - component: {fileID: 1467596184}
   - component: {fileID: 1467596183}
   - component: {fileID: 1467596182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestSlope
   m_TagString: Untagged
   m_Icon: {fileID: 0}

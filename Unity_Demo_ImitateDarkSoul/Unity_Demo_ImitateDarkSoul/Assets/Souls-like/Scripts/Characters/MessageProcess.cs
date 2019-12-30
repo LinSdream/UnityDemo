@@ -80,11 +80,12 @@ namespace Souls
         {
             //_playerController.ThrustVec = new Vector3(-_playerController.Forward.x, _playerController.JabVerlocity.x,
             //    -_playerController.Forward.z * _playerController.JabVerlocity.y);
+            _playerController.ThrustVec = new Vector3(0, _playerController.JabVerlocity.x, 0);
         }
 
         private void OnJabUpdate(GameObject sender, EventArgs e)
         {
-            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve");
+            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve")*0.08f;
         }
 
         #endregion

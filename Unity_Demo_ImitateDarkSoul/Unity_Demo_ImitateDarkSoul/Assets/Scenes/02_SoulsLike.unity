@@ -191,7 +191,7 @@ MonoBehaviour:
   RunMultiplier: 2
   JumpVerlocity: 5
   RollVelocity: {x: 0, y: 2.5, z: 4}
-  JabVerlocity: {x: 1, y: 4}
+  JabVerlocity: {x: 1.5, y: 4}
   HightFallStiff: 5
   HightFallDead: 15
   LockPlanar: 0

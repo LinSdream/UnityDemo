@@ -23,7 +23,7 @@ namespace Souls
         [HideInInspector] public bool IsRun;
 
         //trigger signal
-        public bool IsJump = false;
+        [HideInInspector] public bool IsJump = false;
 
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
 

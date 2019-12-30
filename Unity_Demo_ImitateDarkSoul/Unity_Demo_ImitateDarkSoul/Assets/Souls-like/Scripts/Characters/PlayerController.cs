@@ -13,17 +13,21 @@ namespace Souls
         #region Public Fields
         public GameObject Model;
         [Tooltip("旋转速度")] public float RotationSpeed;
-        [Tooltip("行走速度")]public float WalkSpeed;
-        [Tooltip("跑步系数")]public float RunMultiplier=2f;
-        [Tooltip("跳跃力(换算向上速度)")]public float JumpPower;
-        [Tooltip("高处落地硬值")]public float HightFallStiff = 5f;
+        [Tooltip("行走速度")] public float WalkSpeed;
+        [Tooltip("跑步系数")] public float RunMultiplier = 2f;
+        [Tooltip("跳跃速度(垂直向上)")] public float JumpVerlocity;
+        [Tooltip("翻滚速度")] public Vector3 RollVelocity;
+        [Tooltip("后跳速度,x分量为up，y分量为back")] public Vector2 JabVerlocity;
+        [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
+        [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
         [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public bool IsGrounded = true;
-        
-        [HideInInspector] public bool IsRun
+
+        [HideInInspector] public Vector3 Forward => Model.transform.forward;
+        public bool IsRun
         {
             get
             {
@@ -64,10 +68,6 @@ namespace Souls
             Jump();
             if (!LockPlanar)
                 _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
-
-            var names = MessageCenter.Instance.GetRegisteredMessagesName();
-            foreach (var name in names)
-                Debug.Log(name);
         }
 
         private void FixedUpdate()
@@ -105,7 +105,7 @@ namespace Souls
         {
             _rigidboy.MovePosition(_rigidboy.transform.position + _moveDir * Time.fixedDeltaTime);
 
-            //向上的冲量
+            //冲量
             _rigidboy.velocity += ThrustVec;
             ThrustVec = Vector3.zero;
         }
@@ -126,6 +126,12 @@ namespace Souls
 
         #endregion
 
+        #region Public Methods
+        public float GetAnimFloat(string name)
+        {
+            return _anim.GetFloat(name);
+        }
+        #endregion
     }
 
 }

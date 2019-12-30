@@ -187,12 +187,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Model: {fileID: 1407243895}
   RotationSpeed: 50
-  WalkSpeed: 1.2
-  RunMultiplier: 2.7
-  JumpPower: 3
+  WalkSpeed: 2.4
+  RunMultiplier: 2
+  JumpVerlocity: 5
+  RollVelocity: {x: 0, y: 2.5, z: 4}
+  JabVerlocity: {x: 1, y: 1}
+  HightFallStiff: 5
+  HightFallDead: 15
   LockPlanar: 0
   ThrustVec: {x: 0, y: 0, z: 0}
-  IsGrounded: 0
+  IsGrounded: 1
 --- !u!114 &35711452
 MonoBehaviour:
   m_ObjectHideFlags: 0

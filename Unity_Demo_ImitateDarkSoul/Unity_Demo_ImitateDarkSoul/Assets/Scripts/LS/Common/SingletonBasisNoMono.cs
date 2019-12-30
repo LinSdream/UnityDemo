@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace LS.Common
 {
-    public class SingletonBasisNoMono<T> where T :new()
+    public class SingletonBasisNoMono<T> where T : class, new()
     {
         private static T _instance;
         private static readonly object _syncObj = new object();
@@ -12,9 +12,9 @@ namespace LS.Common
         {
             get
             {
-                if(_instance==null)
+                if (_instance == null)
                 {
-                    lock(_syncObj)
+                    lock (_syncObj)
                     {
                         if (_instance == null)
                             _instance = new T();

@@ -7,6 +7,8 @@ namespace Souls
     public class CameraController : MonoBehaviour
     {
         public PlayerInput _input;
+        public GameObject Camera;
+        [Tooltip("平滑阻尼")][Range(0, 1)] public float DampCoefficient;
 
         [Header("Inversion")]
         public bool HorizontalInversion = false;
@@ -23,6 +25,7 @@ namespace Souls
         Transform HorizontalAxis;
         float _tmpEulerX = 0;
         Transform _model;
+        Vector3 _dampVec;
 
         private void Awake()
         {
@@ -61,7 +64,15 @@ namespace Souls
             HorizontalAxis.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
             //VerticalAxis.Rotate(Vector3.right, _input.CameraVertical * VerticalSpeed * Time.deltaTime);
 
-            _model.eulerAngles = modelEuler; 
+            _model.eulerAngles = modelEuler;
+
+            Camera.transform.position = transform.position;
+            Camera.transform.eulerAngles = transform.eulerAngles;
+        }
+
+        private void FixedUpdate()
+        {
+            Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position, ref _dampVec, DampCoefficient);
         }
 
         public void Inversion(bool horizontal,bool vertical)

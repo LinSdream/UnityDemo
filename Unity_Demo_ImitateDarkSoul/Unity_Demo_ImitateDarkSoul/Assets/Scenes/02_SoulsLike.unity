@@ -195,6 +195,7 @@ MonoBehaviour:
   JabVerlocity: {x: 1.5, y: 4}
   HightFallStiff: 5
   HightFallDead: 15
+  DurationThrustMultiplier: 0.3
   LockPlanar: 0
   ThrustVec: {x: 0, y: 0, z: 0}
   IsGrounded: 1
@@ -217,12 +218,14 @@ MonoBehaviour:
   RunButton: Run
   JumpButton: Jump
   LockCursorButton: Esc
+  AttackButton: Attack
   Horizontal: 0
   Vertical: 0
   CameraHorizontal: 0
   CameraVertical: 0
   IsRun: 0
   IsJump: 0
+  IsAttack: 0
   LockCursor: 0
 --- !u!54 &35711453
 Rigidbody:

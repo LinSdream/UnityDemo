@@ -17,6 +17,7 @@ namespace Souls
             _playerController = GetComponent<PlayerController>();
 
             //注册监听事件
+            //Base Layer
             MessageCenter.Instance.AddListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.AddListener("InGround", InGround);
             MessageCenter.Instance.AddListener("NotInGround", NotInGround);
@@ -25,11 +26,17 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnRollEnter", OnRollEnter);
             MessageCenter.Instance.AddListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.AddListener("OnJabUpdate", OnJabUpdate);
+
+            //Attack Layer
+            MessageCenter.Instance.AddListener("OnAttackMaskEnter", OnAttackMaskEnter);
+            MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
+            MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
 
         private void OnDestroy()
         {
             //注销监听事件
+            //Base Layer
             MessageCenter.Instance.RemoveListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.RemoveListener("InGround", InGround);
             MessageCenter.Instance.RemoveListener("NotInGround", NotInGround);
@@ -38,10 +45,14 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnRollEnter", OnRollEnter);
             MessageCenter.Instance.RemoveListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
+
+            //Attack Layer
+            MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
+            MessageCenter.Instance.RemoveListener("OnAttackMaskEnter", OnAttackMaskEnter);
         }
 
-        #region Events
-        void OnJumpEnter(GameObject sender,EventArgs e)
+        #region Base Layer Events
+        void OnJumpEnter(GameObject sender, EventArgs e)
         {
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
@@ -85,10 +96,36 @@ namespace Souls
 
         private void OnJabUpdate(GameObject sender, EventArgs e)
         {
-            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve")*0.08f;
+            _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve")
+                * _playerController.DurationThrustMultiplier * 0.33f;
         }
 
         #endregion
+
+        #region Attack Layer Events
+
+        private void OnAttackMaskEnter(GameObject sender, EventArgs e)
+        {
+            _playerController.LockPlanar = false;
+            _playerController.SetLayerWeight("Attack Layer", 0);
+        }
+
+        private void OnAttack_RightHand_A_01_Enter(GameObject sender, EventArgs e)
+        {
+
+            ///TODO:锁定平面移动的时候，仍然有细微的位移发生
+            _playerController.LockPlanar = true;
+            _playerController.ResetMoveDir();
+            _playerController.SetLayerWeight("Attack Layer", 1f);
+        }
+
+        private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
+        {
+            //_playerController.ThrustVec = _playerController.Forward *
+            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
+        }
+        #endregion
+
     }
 
 }

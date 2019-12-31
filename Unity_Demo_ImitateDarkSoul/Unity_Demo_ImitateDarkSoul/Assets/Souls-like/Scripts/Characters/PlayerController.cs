@@ -20,6 +20,7 @@ namespace Souls
         [Tooltip("后跳速度,x分量为up，y分量为back")] public Vector2 JabVerlocity;
         [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
+        [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
@@ -68,6 +69,7 @@ namespace Souls
             Jump();
             if (!LockPlanar)
                 _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+            Attack();
         }
 
         private void FixedUpdate()
@@ -103,10 +105,15 @@ namespace Souls
 
         void Movement()
         {
-            _rigidboy.MovePosition(_rigidboy.transform.position + _moveDir * Time.fixedDeltaTime);
 
+            _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);
+            
             //冲量
             _rigidboy.velocity += ThrustVec;
+
+            //冲量这里需要优化，如果使用如下优化，需要把MovePosition删除，用每帧对_rigidbody添加一个初速度移动
+            //_rigidboy.velocity += new Vector3(_moveDir.x, _rigidboy.velocity.y, _moveDir.z) + ThrustVec;
+
             ThrustVec = Vector3.zero;
         }
 
@@ -124,12 +131,28 @@ namespace Souls
                 _anim.SetBool("IsInGround", false);
         }
 
+        void Attack()
+        {
+            if (_input.IsAttack)
+                _anim.SetTrigger("Attack");
+        }
+
         #endregion
 
         #region Public Methods
         public float GetAnimFloat(string name)
         {
             return _anim.GetFloat(name);
+        }
+
+        public void SetLayerWeight(string layerName, float weight)
+        {
+            _anim.SetLayerWeight(_anim.GetLayerIndex(layerName), weight);
+        }
+
+        public void ResetMoveDir()
+        {
+            _moveDir = Vector3.zero;
         }
         #endregion
     }

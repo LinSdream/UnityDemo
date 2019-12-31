@@ -18,6 +18,7 @@ namespace Souls
         public string RunButton = "Run";
         public string JumpButton = "Jump";
         public string LockCursorButton = "Esc";
+        public string AttackButton = "Attack";
 
         //output signal
         [HideInInspector] public float Horizontal;
@@ -30,9 +31,10 @@ namespace Souls
 
         //trigger signal
         [HideInInspector] public bool IsJump = false;
+        [HideInInspector] public bool IsAttack = false;
 
         //others
-        [HideInInspector] public bool LockCursor = true;
+        public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
 
         private void Awake()
@@ -40,6 +42,7 @@ namespace Souls
             IsRun = false;
             IsJump = false;
             LockCursor = true;
+            IsAttack = false;
         }
 
         void Update()
@@ -54,8 +57,6 @@ namespace Souls
                 CameraVertical = Input.GetAxis(CameraVerticalAxis);
             }
 
-            Debug.Log(new Vector3(CameraHorizontal, 0, CameraVertical));
-
             Horizontal = Input.GetAxis(HorizontalAxis);
             Vertical = Input.GetAxis(VerticalAxis);
 
@@ -63,6 +64,7 @@ namespace Souls
 
             IsJump = Input.GetButtonDown(JumpButton);
 
+            IsAttack = Input.GetButtonDown(AttackButton);
         }
     }
 

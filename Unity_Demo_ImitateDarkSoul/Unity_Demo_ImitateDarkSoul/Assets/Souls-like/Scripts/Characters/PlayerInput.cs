@@ -36,6 +36,7 @@ namespace Souls
         //others
         public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
+        [HideInInspector] public bool LockInput = false;
 
         private void Awake()
         {
@@ -43,10 +44,14 @@ namespace Souls
             IsJump = false;
             LockCursor = true;
             IsAttack = false;
+            LockInput = false;
         }
 
         void Update()
         {
+
+            if (LockInput)
+                return;
 
             if (Input.GetButtonDown(LockCursorButton))
                 LockCursor = !LockCursor;

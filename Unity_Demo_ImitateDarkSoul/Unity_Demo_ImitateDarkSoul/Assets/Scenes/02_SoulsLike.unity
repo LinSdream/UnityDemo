@@ -227,6 +227,7 @@ MonoBehaviour:
   IsJump: 0
   IsAttack: 0
   LockCursor: 0
+  LockInput: 0
 --- !u!54 &35711453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1007,13 +1008,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467596181}
-  m_LocalRotation: {x: -0.15232706, y: -0, z: -0, w: 0.9883301}
-  m_LocalPosition: {x: 8.46, y: 1.04, z: -3.74}
+  m_LocalRotation: {x: -0.22639626, y: 0, z: 0, w: 0.9740353}
+  m_LocalPosition: {x: 8.46, y: 0.01, z: -7}
   m_LocalScale: {x: 9.601463, y: 0.17430839, z: 11.423637}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -17.524, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -26.17, y: 0, z: 0}
 --- !u!1001 &1856153592
 PrefabInstance:
   m_ObjectHideFlags: 0

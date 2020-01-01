@@ -24,9 +24,8 @@ namespace Souls
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
-        [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public bool IsGrounded = true;
-
+        [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
         public bool IsRun
         {
@@ -113,7 +112,6 @@ namespace Souls
 
             //冲量这里需要优化，如果使用如下优化，需要把MovePosition删除，用每帧对_rigidbody添加一个初速度移动
             //_rigidboy.velocity += new Vector3(_moveDir.x, _rigidboy.velocity.y, _moveDir.z) + ThrustVec;
-
             ThrustVec = Vector3.zero;
         }
 
@@ -133,7 +131,7 @@ namespace Souls
 
         void Attack()
         {
-            if (_input.IsAttack)
+            if (_input.IsAttack && CheckAnimatorState("Ground") && IsGrounded)
                 _anim.SetTrigger("Attack");
         }
 
@@ -153,6 +151,17 @@ namespace Souls
         public void ResetMoveDir()
         {
             _moveDir = Vector3.zero;
+        }
+
+        public void SetInputLock(bool on)
+        {
+            _input.LockInput = on;
+        }
+
+        public bool CheckAnimatorState(string animtorName,string maskName= "Base Layer")
+        {
+            return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
+                .IsName(animtorName);
         }
         #endregion
     }

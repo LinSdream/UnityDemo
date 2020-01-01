@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LS.Common.Message;
 using System;
+using LS.Helper.Timer;
 
 namespace Souls
 {
@@ -13,7 +14,6 @@ namespace Souls
 
         private void Awake()
         {
-
             _playerController = GetComponent<PlayerController>();
 
             //注册监听事件
@@ -106,6 +106,7 @@ namespace Souls
 
         private void OnAttackMaskEnter(GameObject sender, EventArgs e)
         {
+            //_playerController.SetInputLock(false);
             _playerController.LockPlanar = false;
             _playerController.SetLayerWeight("Attack Layer", 0);
         }
@@ -113,16 +114,16 @@ namespace Souls
         private void OnAttack_RightHand_A_01_Enter(GameObject sender, EventArgs e)
         {
 
-            ///TODO:锁定平面移动的时候，仍然有细微的位移发生
             _playerController.LockPlanar = true;
-            _playerController.ResetMoveDir();
             _playerController.SetLayerWeight("Attack Layer", 1f);
         }
 
         private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
         {
-            //_playerController.ThrustVec = _playerController.Forward *
-            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
+            ///TODO:锁定平面移动的时候，仍然有细微的位移发生 暂时解决，但是移动过于死板，需要进行进一步的优化
+            _playerController.ResetMoveDir();
+            _playerController.ThrustVec = _playerController.Forward *
+                _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
         }
         #endregion
 

@@ -143,6 +143,12 @@ namespace Souls
             return _anim.GetFloat(name);
         }
 
+        public float GetCurrentAnimatorLayerWeight(string name)
+        {
+            return _anim.GetLayerWeight(_anim.GetLayerIndex(name));
+        }
+
+
         public void SetLayerWeight(string layerName, float weight)
         {
             _anim.SetLayerWeight(_anim.GetLayerIndex(layerName), weight);

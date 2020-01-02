@@ -12,6 +12,8 @@ namespace Souls
 
         PlayerController _playerController;
 
+        float AnimatorLayerWeightValue = 0f;
+
         private void Awake()
         {
             _playerController = GetComponent<PlayerController>();
@@ -28,7 +30,8 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnJabUpdate", OnJabUpdate);
 
             //Attack Layer
-            MessageCenter.Instance.AddListener("OnAttackMaskEnter", OnAttackMaskEnter);
+            MessageCenter.Instance.AddListener("OnAttackMaskIdleEnter", OnAttackMaskIdleEnter);
+            MessageCenter.Instance.AddListener("OnAttackMaskIdleUpdate", OnAttackMaskIdleUpdate);
             MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
             MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
@@ -47,8 +50,10 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
 
             //Attack Layer
+            MessageCenter.Instance.RemoveListener("OnAttackMaskIdleEnter", OnAttackMaskIdleEnter);
+            MessageCenter.Instance.RemoveListener("OnAttackMaskIdleUpdate", OnAttackMaskIdleUpdate);
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
-            MessageCenter.Instance.RemoveListener("OnAttackMaskEnter", OnAttackMaskEnter);
+            MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
 
         #region Base Layer Events
@@ -104,22 +109,34 @@ namespace Souls
 
         #region Attack Layer Events
 
-        private void OnAttackMaskEnter(GameObject sender, EventArgs e)
+        private void OnAttackMaskIdleEnter(GameObject sender, EventArgs e)
         {
             //_playerController.SetInputLock(false);
             _playerController.LockPlanar = false;
-            _playerController.SetLayerWeight("Attack Layer", 0);
+            AnimatorLayerWeightValue = 0f;
+        }
+
+        private void OnAttackMaskIdleUpdate(GameObject sender,EventArgs e)
+        {
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
+
+            _playerController.SetLayerWeight("Attack Layer", currentWeight);
         }
 
         private void OnAttack_RightHand_A_01_Enter(GameObject sender, EventArgs e)
         {
 
             _playerController.LockPlanar = true;
-            _playerController.SetLayerWeight("Attack Layer", 1f);
+            AnimatorLayerWeightValue = 1f;
         }
 
         private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
         {
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
+
+            _playerController.SetLayerWeight("Attack Layer",currentWeight);
             ///TODO:锁定平面移动的时候，仍然有细微的位移发生 暂时解决，但是移动过于死板，需要进行进一步的优化
             _playerController.ResetMoveDir();
             _playerController.ThrustVec = _playerController.Forward *

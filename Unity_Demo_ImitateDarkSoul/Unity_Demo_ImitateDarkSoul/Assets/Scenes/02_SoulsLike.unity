@@ -195,10 +195,10 @@ MonoBehaviour:
   JabVerlocity: {x: 1.5, y: 4}
   HightFallStiff: 5
   HightFallDead: 15
-  DurationThrustMultiplier: 0.3
+  DurationThrustMultiplier: 0.2
   LockPlanar: 0
-  ThrustVec: {x: 0, y: 0, z: 0}
   IsGrounded: 1
+  ThrustVec: {x: 0, y: 0, z: 0}
 --- !u!114 &35711452
 MonoBehaviour:
   m_ObjectHideFlags: 0

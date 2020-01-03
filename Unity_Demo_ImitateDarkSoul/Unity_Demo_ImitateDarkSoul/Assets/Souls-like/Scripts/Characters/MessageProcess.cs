@@ -19,6 +19,9 @@ namespace Souls
             _playerController = GetComponent<PlayerController>();
 
             //注册监听事件
+            //Animator Root Motion 
+            MessageCenter.Instance.AddListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
+
             //Base Layer
             MessageCenter.Instance.AddListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.AddListener("InGround", InGround);
@@ -39,6 +42,9 @@ namespace Souls
         private void OnDestroy()
         {
             //注销监听事件
+            //Animator Root Motion 
+            MessageCenter.Instance.RemoveListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
+
             //Base Layer
             MessageCenter.Instance.RemoveListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.RemoveListener("InGround", InGround);
@@ -55,6 +61,14 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
+
+        #region  Animator Root Motion
+        private void OnUpdateRootMotionDeltaPosition(GameObject sender, EventArgs e)
+        {
+            var arg = e as AnimatorMoveEventArgs;
+            _playerController.DeltaPos += arg.deltaPosition;
+        }
+        #endregion
 
         #region Base Layer Events
         void OnJumpEnter(GameObject sender, EventArgs e)
@@ -137,10 +151,10 @@ namespace Souls
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
 
             _playerController.SetLayerWeight("Attack Layer",currentWeight);
-            ///TODO:锁定平面移动的时候，仍然有细微的位移发生 暂时解决，但是移动过于死板，需要进行进一步的优化
             _playerController.ResetMoveDir();
-            _playerController.ThrustVec = _playerController.Forward *
-                _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
+            ///TODO:锁定平面移动的时候，仍然有细微的位移发生 暂时解决，但是移动过于死板，需要进行进一步的优化
+            //_playerController.ThrustVec = _playerController.Forward *
+            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
         }
         #endregion
 

@@ -36,7 +36,7 @@ namespace Souls
         //others
         public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
-        [HideInInspector] public bool LockInput = false;
+        [HideInInspector] public bool LockMovementInput = false;
 
         private void Awake()
         {
@@ -44,14 +44,11 @@ namespace Souls
             IsJump = false;
             LockCursor = true;
             IsAttack = false;
-            LockInput = false;
+            LockMovementInput = false;
         }
 
         void Update()
         {
-
-            if (LockInput)
-                return;
 
             if (Input.GetButtonDown(LockCursorButton))
                 LockCursor = !LockCursor;
@@ -61,9 +58,11 @@ namespace Souls
                 CameraHorizontal = Input.GetAxis(CameraHorizontalAxis);
                 CameraVertical = Input.GetAxis(CameraVerticalAxis);
             }
-
-            Horizontal = Input.GetAxis(HorizontalAxis);
-            Vertical = Input.GetAxis(VerticalAxis);
+            if (!LockMovementInput)
+            {
+                Horizontal = Input.GetAxis(HorizontalAxis);
+                Vertical = Input.GetAxis(VerticalAxis);
+            }
 
             IsRun = Input.GetButton(RunButton);
 

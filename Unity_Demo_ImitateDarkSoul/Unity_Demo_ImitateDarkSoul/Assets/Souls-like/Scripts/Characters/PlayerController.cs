@@ -24,9 +24,12 @@ namespace Souls
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
+        /// <summary>  Root Motion DeltaPosition </summary>
+        [HideInInspector]public Vector3 DeltaPos;
         [HideInInspector] public bool IsGrounded = true;
         [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
+
         public bool IsRun
         {
             get
@@ -104,7 +107,9 @@ namespace Souls
 
         void Movement()
         {
-
+            Debug.Log("Before:"+_rigidboy.position.x);
+            _rigidboy.position += DeltaPos;
+            Debug.Log("After:"+_rigidboy.position.x);
             _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);
             
             //冲量
@@ -113,6 +118,7 @@ namespace Souls
             //冲量这里需要优化，如果使用如下优化，需要把MovePosition删除，用每帧对_rigidbody添加一个初速度移动
             //_rigidboy.velocity += new Vector3(_moveDir.x, _rigidboy.velocity.y, _moveDir.z) + ThrustVec;
             ThrustVec = Vector3.zero;
+            DeltaPos = Vector3.zero;
         }
 
         void Jump()
@@ -161,7 +167,7 @@ namespace Souls
 
         public void SetInputLock(bool on)
         {
-            _input.LockInput = on;
+            _input.LockMovementInput = on;
         }
 
         public bool CheckAnimatorState(string animtorName,string maskName= "Base Layer")

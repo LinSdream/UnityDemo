@@ -107,11 +107,10 @@ namespace Souls
 
         void Movement()
         {
-            Debug.Log("Before:"+_rigidboy.position.x);
+
             _rigidboy.position += DeltaPos;
-            Debug.Log("After:"+_rigidboy.position.x);
             _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);
-            
+
             //冲量
             _rigidboy.velocity += ThrustVec;
 
@@ -125,7 +124,6 @@ namespace Souls
         {
             if (_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff)
                 _anim.SetTrigger("Roll");
-
             if (_input.IsJump)
                 _anim.SetTrigger("Jump");
 

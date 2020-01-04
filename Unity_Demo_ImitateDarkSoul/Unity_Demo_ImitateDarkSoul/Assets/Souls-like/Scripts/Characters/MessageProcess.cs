@@ -85,7 +85,7 @@ namespace Souls
         private void InGround(GameObject sender, EventArgs e)
         {
             _playerController.IsGrounded = true;
-            _playerController.LockPlanar = false;
+            //_playerController.LockPlanar = false;
         }
 
         private void OnGroundEnter(GameObject sender, EventArgs e)
@@ -125,7 +125,7 @@ namespace Souls
 
         private void OnAttackMaskIdleEnter(GameObject sender, EventArgs e)
         {
-            //_playerController.SetInputLock(false);
+            _playerController.SetInputLock(false);
             _playerController.LockPlanar = false;
             AnimatorLayerWeightValue = 0f;
         }
@@ -140,8 +140,9 @@ namespace Souls
 
         private void OnAttack_RightHand_A_01_Enter(GameObject sender, EventArgs e)
         {
-
+            _playerController.SetInputLock(true);
             _playerController.LockPlanar = true;
+            _playerController.ResetMoveDir();
             AnimatorLayerWeightValue = 1f;
         }
 
@@ -151,8 +152,6 @@ namespace Souls
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
 
             _playerController.SetLayerWeight("Attack Layer",currentWeight);
-            _playerController.ResetMoveDir();
-            ///TODO:锁定平面移动的时候，仍然有细微的位移发生 暂时解决，但是移动过于死板，需要进行进一步的优化
             //_playerController.ThrustVec = _playerController.Forward *
             //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
         }

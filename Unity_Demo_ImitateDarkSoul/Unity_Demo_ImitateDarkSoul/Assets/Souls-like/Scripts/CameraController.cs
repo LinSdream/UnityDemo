@@ -6,7 +6,7 @@ namespace Souls
 {
     public class CameraController : MonoBehaviour
     {
-        public PlayerInput _input;
+        public UserInput _input;
         public GameObject Camera;
         [Tooltip("平滑阻尼")][Range(0, 1)] public float DampCoefficient;
 

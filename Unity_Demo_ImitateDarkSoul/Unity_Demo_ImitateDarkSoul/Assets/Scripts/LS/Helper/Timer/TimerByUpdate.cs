@@ -24,7 +24,7 @@ namespace LS.Helper.Timer
         Action _updateAction;
         Action _callAction;
 
-        private bool _isPause;
+        private bool _isPause = false;
         public bool TimePause { set; private get; }
 
         /// <summary>

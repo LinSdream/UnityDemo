@@ -40,6 +40,7 @@ namespace LS.Test
             _groups = new Dictionary<string, AudioGroup>();
             _playingSounds = new List<AudioSource>();
             _musicAudioSource = gameObject.AddComponent<AudioSource>();
+             _audioSourceInfoList= new List<AudioSourceInfo>();
         }
         #endregion
 

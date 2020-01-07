@@ -73,6 +73,7 @@ namespace Souls
         #region Base Layer Events
         void OnJumpEnter(GameObject sender, EventArgs e)
         {
+            ///TODO:跳到空中的时候，可以更改方位，导致moveDir有问题
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
         }
@@ -155,6 +156,7 @@ namespace Souls
             //_playerController.ThrustVec = _playerController.Forward *
             //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
         }
+
         #endregion
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Souls
 {
-    public class PlayerInput : MonoBehaviour
+    public class PlayerInput : UserInput
     {
 
         [Header("Key Axis")]
@@ -20,32 +20,25 @@ namespace Souls
         public string LockCursorButton = "Esc";
         public string AttackButton = "Attack";
 
-        //output signal
-        [HideInInspector] public float Horizontal;
-        [HideInInspector] public float Vertical;
-        [HideInInspector] public float CameraHorizontal;
-        [HideInInspector] public float CameraVertical;
+        ////output signal
+        //[HideInInspector] public float Horizontal;
+        //[HideInInspector] public float Vertical;
+        //[HideInInspector] public float CameraHorizontal;
+        //[HideInInspector] public float CameraVertical;
 
-        //pressing signal
-        [HideInInspector] public bool IsRun;
+        ////pressing signal
+        //[HideInInspector] public bool IsRun;
 
-        //trigger signal
-        [HideInInspector] public bool IsJump = false;
-        [HideInInspector] public bool IsAttack = false;
+        ////trigger signal
+        //[HideInInspector] public bool IsJump = false;
+        //[HideInInspector] public bool IsAttack = false;
 
-        //others
-        public bool LockCursor = true;
-        [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
-        [HideInInspector] public bool LockMovementInput = false;
+        ////others
+        //public bool LockCursor = true;
+        //[HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
+        //[HideInInspector] public bool LockMovementInput = false;
 
-        private void Awake()
-        {
-            IsRun = false;
-            IsJump = false;
-            LockCursor = true;
-            IsAttack = false;
-            LockMovementInput = false;
-        }
+       
 
         void Update()
         {

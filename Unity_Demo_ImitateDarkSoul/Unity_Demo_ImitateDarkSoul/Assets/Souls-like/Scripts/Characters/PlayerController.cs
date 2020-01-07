@@ -45,7 +45,7 @@ namespace Souls
 
         #region Private Fields
         Animator _anim;
-        PlayerInput _input;
+        UserInput _input;
         Rigidbody _rigidboy;
 
         Vector3 _moveDir;
@@ -59,7 +59,7 @@ namespace Souls
         private void Awake()
         {
             _anim = Model.GetComponent<Animator>();
-            _input = GetComponent<PlayerInput>();
+            _input = GetComponent<UserInput>();
             _rigidboy = GetComponent<Rigidbody>();
 
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;

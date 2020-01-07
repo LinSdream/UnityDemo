@@ -52,6 +52,11 @@ namespace Souls
         void Update()
         {
 
+        }
+
+        private void FixedUpdate()
+        {
+
             Vector3 modelEuler = _model.eulerAngles;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -67,11 +72,8 @@ namespace Souls
             _model.eulerAngles = modelEuler;
 
             Camera.transform.position = transform.position;
-            Camera.transform.eulerAngles = transform.eulerAngles;
-        }
-
-        private void FixedUpdate()
-        {
+            //Camera.transform.eulerAngles = transform.eulerAngles;
+            Camera.transform.LookAt(VerticalAxis);
             Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position, ref _dampVec, DampCoefficient);
         }
 

@@ -31,6 +31,7 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnRollEnter", OnRollEnter);
             MessageCenter.Instance.AddListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.AddListener("OnJabUpdate", OnJabUpdate);
+            MessageCenter.Instance.AddListener("OnRollExit", OnRollExit);
 
             //Attack Layer
             MessageCenter.Instance.AddListener("OnAttackMaskIdleEnter", OnAttackMaskIdleEnter);
@@ -38,6 +39,7 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
             MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
+
 
         private void OnDestroy()
         {
@@ -73,7 +75,6 @@ namespace Souls
         #region Base Layer Events
         void OnJumpEnter(GameObject sender, EventArgs e)
         {
-            ///TODO:跳到空中的时候，可以更改方位，导致moveDir有问题
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
         }
@@ -92,6 +93,7 @@ namespace Souls
         private void OnGroundEnter(GameObject sender, EventArgs e)
         {
             _playerController.LockPlanar = false;
+
         }
 
         private void OnFallEnter(GameObject sender, EventArgs e)
@@ -104,6 +106,10 @@ namespace Souls
         {
             _playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
                 _playerController.RollVelocity.z * _playerController.Forward.z);
+        }
+        private void OnRollExit(GameObject sender, EventArgs e)
+        {
+            _playerController.LockPlanar = false;
         }
 
         /// TODO:修改后退动画

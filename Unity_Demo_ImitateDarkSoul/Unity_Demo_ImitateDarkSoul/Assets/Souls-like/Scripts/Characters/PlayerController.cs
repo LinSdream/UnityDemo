@@ -23,7 +23,7 @@ namespace Souls
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
-        [HideInInspector] public bool LockPlanar = false;
+         public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
         [HideInInspector]public Vector3 DeltaPos;
         [HideInInspector] public bool IsGrounded = true;

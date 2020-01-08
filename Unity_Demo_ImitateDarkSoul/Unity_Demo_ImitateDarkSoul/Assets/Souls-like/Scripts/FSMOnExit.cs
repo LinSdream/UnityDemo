@@ -11,11 +11,15 @@ namespace Souls
     {
         public string[] MessageNames;
 
+        FSMEventArgs _args = new FSMEventArgs();
+
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            _args.StateInfo = stateInfo;
+            _args.LayerIndex = layerIndex;
             foreach (var name in MessageNames)
             {
-                MessageCenter.Instance.SendMessage(name, animator.gameObject);
+                MessageCenter.Instance.SendMessage(name,animator.gameObject,_args);
             }
         }
     }

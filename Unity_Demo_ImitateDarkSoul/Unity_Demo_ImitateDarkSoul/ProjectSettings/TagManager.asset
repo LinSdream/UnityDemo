@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Manager
+  - Bear
+  - Boss
+  - BossFire
+  - Shield
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -16,7 +21,7 @@ TagManager:
   - 
   - Ground
   - Player
-  - 
+  - Weapon
   - 
   - 
   - 

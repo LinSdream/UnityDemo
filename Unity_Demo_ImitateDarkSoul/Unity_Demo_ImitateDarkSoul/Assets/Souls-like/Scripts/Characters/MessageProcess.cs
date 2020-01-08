@@ -139,9 +139,12 @@ namespace Souls
 
         private void OnAttackMaskIdleUpdate(GameObject sender,EventArgs e)
         {
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            var args = e as FSMEventArgs;
+            //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
+            if (currentWeight == 0)
+                return;
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
-
             _playerController.SetLayerWeight("Attack Layer", currentWeight);
         }
 
@@ -155,7 +158,9 @@ namespace Souls
 
         private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
         {
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            var args = e as FSMEventArgs;
+            //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
 
             _playerController.SetLayerWeight("Attack Layer",currentWeight);

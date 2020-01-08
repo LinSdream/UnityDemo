@@ -71,6 +71,7 @@ namespace Souls
             Jump();
             if (!LockPlanar)
                 _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+            Defense();
             Attack();
         }
 
@@ -90,7 +91,7 @@ namespace Souls
             SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, ref u, ref v);
             _anim.SetFloat("Forward",
                (u * u + v * v)
-                * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun ? 2f : 1f), 0.5f));
+                * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun&& !_input.IsDefense ? 2f : 1f), 0.5f));
 
             //角色旋转
             if (_input.Horizontal != 0 || _input.Vertical != 0)
@@ -139,6 +140,11 @@ namespace Souls
                 _anim.SetTrigger("Attack");
         }
 
+        void Defense()
+        {
+            _anim.SetBool("Defense", _input.IsDefense);
+        }
+
         #endregion
 
         #region Public Methods
@@ -152,10 +158,19 @@ namespace Souls
             return _anim.GetLayerWeight(_anim.GetLayerIndex(name));
         }
 
+        public float GetCurrentAnimatorLayerWeight(int layerIndex)
+        {
+            return _anim.GetLayerWeight(layerIndex);
+        }
 
         public void SetLayerWeight(string layerName, float weight)
         {
             _anim.SetLayerWeight(_anim.GetLayerIndex(layerName), weight);
+        }
+
+        public void SetLayerWeight(int layerIndex,float weight)
+        {
+            _anim.SetLayerWeight(layerIndex, weight);
         }
 
         public void ResetMoveDir()

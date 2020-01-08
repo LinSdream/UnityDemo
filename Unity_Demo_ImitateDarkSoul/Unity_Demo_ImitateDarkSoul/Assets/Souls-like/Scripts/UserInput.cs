@@ -14,6 +14,7 @@ namespace Souls
 
         //pressing signal
         [HideInInspector] public bool IsRun;
+        [HideInInspector] public bool IsDefense = false;
 
         //trigger signal
         [HideInInspector] public bool IsJump = false;

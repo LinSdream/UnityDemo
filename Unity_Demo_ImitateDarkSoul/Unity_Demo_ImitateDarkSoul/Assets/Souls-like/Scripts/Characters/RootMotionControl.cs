@@ -44,6 +44,7 @@ namespace Souls
 
         private void OnAnimatorIK(int layerIndex)
         {
+            ///TODO:需要将Idle状态下的左手ik进行调整
             //Transform leftLowerArm = _anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
             //if (_anim.GetCurrentAnimatorStateInfo(layerIndex).IsName("Ground") && _anim.GetInteger("Forward") == 0)
             //{

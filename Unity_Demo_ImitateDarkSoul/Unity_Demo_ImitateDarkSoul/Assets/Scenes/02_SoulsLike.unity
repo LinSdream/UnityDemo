@@ -1125,7 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce19f65386de7f64eaf1d02a07e2797f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimatorIK_LeftLowerHandRotation: {x: 0, y: 0, z: 0}
+  AnimatorIK_LeftLowerHandRotation: {x: 0, y: -40, z: 10}
 --- !u!1001 &1452795181
 PrefabInstance:
   m_ObjectHideFlags: 0

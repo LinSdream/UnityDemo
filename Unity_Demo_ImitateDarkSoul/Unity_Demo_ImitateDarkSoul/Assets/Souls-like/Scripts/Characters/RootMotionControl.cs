@@ -34,7 +34,7 @@ namespace Souls
 
         private void OnAnimatorMove()
         {
-            if (CheckAnimatorState("Attack_RightHand_A_01", "Attack Layer") 
+            if (CheckAnimatorState("Attack_RightHand_A_01", "Attack Layer")
                 || CheckAnimatorState("Attack_RightHand_C_01", "Attack Layer"))
             {
                 _args.deltaPosition = _anim.deltaPosition;
@@ -45,12 +45,14 @@ namespace Souls
         private void OnAnimatorIK(int layerIndex)
         {
             ///TODO:需要将Idle状态下的左手ik进行调整
-            //Transform leftLowerArm = _anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
-            //if (_anim.GetCurrentAnimatorStateInfo(layerIndex).IsName("Ground") && _anim.GetInteger("Forward") == 0)
-            //{
-            //    leftLowerArm.localEulerAngles += AnimatorIK_LeftLowerHandRotation;
-            //    _anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArm.localEulerAngles));
-            //}
+
+            if (CheckAnimatorState("Ground"))
+            {
+                Transform leftLowerArm = _anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
+                leftLowerArm.localEulerAngles += AnimatorIK_LeftLowerHandRotation;
+                _anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArm.localEulerAngles));
+            }
+
         }
 
         #endregion

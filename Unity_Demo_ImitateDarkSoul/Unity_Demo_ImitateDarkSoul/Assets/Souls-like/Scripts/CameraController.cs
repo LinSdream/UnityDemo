@@ -33,6 +33,7 @@ namespace Souls
             HorizontalAxis = transform.parent.parent;
 
             _model = _input.GetComponent<PlayerController>().Model.transform;
+
         }
 
         // Start is called before the first frame update
@@ -48,35 +49,34 @@ namespace Souls
                 VerticalSpeed = Mathf.Abs(VerticalSpeed);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void FixedUpdate()
         {
 
             Vector3 modelEuler = _model.eulerAngles;
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                _input.LockCursor = !_input.LockCursor;
-
+            //计算垂直的镜头角度
             _tmpEulerX -= _input.CameraVertical * VerticalSpeed * Time.deltaTime;
             _tmpEulerX = Mathf.Clamp(_tmpEulerX, VerticalAngle.x, VerticalAngle.y);
 
             VerticalAxis.localEulerAngles = new Vector3(_tmpEulerX, 0, 0);
+            //垂直旋转
             HorizontalAxis.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
             //VerticalAxis.Rotate(Vector3.right, _input.CameraVertical * VerticalSpeed * Time.deltaTime);
-
+            
+            //把模型的角度重新赋回去
             _model.eulerAngles = modelEuler;
 
-            Camera.transform.position = transform.position;
-            //Camera.transform.eulerAngles = transform.eulerAngles;
+            //水平旋转
             Camera.transform.LookAt(VerticalAxis);
+            //Camera.transform.eulerAngles = transform.eulerAngles;
+
+            //位置更新
             Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position, ref _dampVec, DampCoefficient);
         }
 
+        /// <summary>
+        /// 水平垂直镜头反转
+        /// </summary>
         public void Inversion(bool horizontal,bool vertical)
         {
             if (horizontal)

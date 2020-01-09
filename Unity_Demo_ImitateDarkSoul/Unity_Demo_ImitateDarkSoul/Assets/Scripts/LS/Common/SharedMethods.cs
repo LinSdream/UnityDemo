@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace LS.Common.Math
 {
+
     public static class SharedMethods
     {
 
@@ -50,6 +52,63 @@ namespace LS.Common.Math
             v = y * (Mathf.Sqrt(1 - (x * x) / 2));
         }
         #endregion
+
+        /// <summary>
+        /// 计算离源目标最近的collider
+        /// </summary>
+        public static Collider CalculateNearestCollider(Transform origin, Collider[] colliders)
+        {
+            float[] distance = new float[colliders.Length];
+            int index = 0;
+            foreach (var cell in colliders)
+            {
+                distance[index] = (cell.transform.position - origin.position).sqrMagnitude;
+                index++;
+            }
+            index = GetMinOrMaxIndexInArray(distance,false);
+            return colliders[index];
+        }
+
+
+        /// <summary>
+        /// 获取最大或最小值的下标
+        /// </summary>
+        /// <typeparam name="T">继承自IComparable</typeparam>
+        /// <param name="arr">数组</param>
+        /// <param name="isMax">是否是取最大值</param>
+        public static  int GetMinOrMaxIndexInArray<T>(T[] arr,bool isMax=true) where T :IComparable<T>
+        {
+            int index = 0;
+            if (arr == null||arr.Length==0)
+            {
+                Debug.LogError("SharedMethods/GetMinOrMaxInArray Error :  array of arr is an invalid value ! ");
+                return 0;
+            }
+
+            T tmp = arr[0];
+
+            for(int i=0;i<arr.Length;i++)
+            {
+                if(isMax)
+                {
+                    if(tmp.CompareTo(arr[i])!=1)
+                    {
+                        tmp = arr[i];
+                        index = i;
+                    }
+                }
+                else
+                {
+                    if (tmp.CompareTo(arr[i]) != -1)
+                    {
+                        tmp = arr[i];
+                        index = i;
+                    }
+                }
+            }
+            return index;
+        }
+
     }
 
 }

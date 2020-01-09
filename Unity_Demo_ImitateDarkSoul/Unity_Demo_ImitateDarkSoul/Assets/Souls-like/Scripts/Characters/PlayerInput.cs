@@ -55,11 +55,11 @@ namespace Souls
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
             IsDefense = Input.GetButton(DefenseButton);
-            IsLockOn = Input.GetButton(LockOnButton);
 
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);
             IsAttack = Input.GetButtonDown(AttackButton);
+            IsLockOn = Input.GetButtonDown(LockOnButton);
         }
 
     }

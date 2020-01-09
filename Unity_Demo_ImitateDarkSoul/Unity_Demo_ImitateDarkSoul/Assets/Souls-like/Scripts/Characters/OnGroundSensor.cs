@@ -27,12 +27,13 @@ namespace Souls
             _pointDown = transform.position + transform.up * (_radius - SensorGroundOffset);
             _pointUp = transform.position + transform.up * (ModelCollider.height - SensorGroundOffset) - transform.up * _radius;
 
-            var colliders = Physics.OverlapCapsule(_pointDown, _pointUp,_radius, Mask);
-            if (colliders.Length != 0)
+            //var colliders = Physics.OverlapCapsule(_pointDown, _pointUp,_radius, Mask);
+            if (Physics.CheckCapsule(_pointDown, _pointUp, _radius, Mask))
                 MessageCenter.Instance.SendMessage("InGround");
             else
                 MessageCenter.Instance.SendMessage("NotInGround");
         }
+
         #endregion
     }
 

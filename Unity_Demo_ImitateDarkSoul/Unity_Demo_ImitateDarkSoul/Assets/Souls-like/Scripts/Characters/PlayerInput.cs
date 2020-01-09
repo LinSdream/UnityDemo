@@ -20,6 +20,7 @@ namespace Souls
         public string LockCursorButton = "Esc";
         public string AttackButton = "Attack";
         public string DefenseButton = "Defense";
+        public string LockOnButton = "LockOn";
 
         protected override void Init()
         {
@@ -54,6 +55,7 @@ namespace Souls
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
             IsDefense = Input.GetButton(DefenseButton);
+            IsLockOn = Input.GetButton(LockOnButton);
 
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);

@@ -15,11 +15,12 @@ namespace Souls
         //pressing signal
         [HideInInspector] public bool IsRun;
         [HideInInspector] public bool IsDefense = false;
+        [HideInInspector] public bool IsLockOn = false;
 
         //trigger signal
         [HideInInspector] public bool IsJump = false;
         [HideInInspector] public bool IsAttack = false;
-
+        
         //others
         public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);

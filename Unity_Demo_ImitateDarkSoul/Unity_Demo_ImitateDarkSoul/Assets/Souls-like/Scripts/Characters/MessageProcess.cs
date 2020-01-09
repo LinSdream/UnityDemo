@@ -137,7 +137,7 @@ namespace Souls
             AnimatorLayerWeightValue = 0f;
         }
 
-        private void OnAttackMaskIdleUpdate(GameObject sender,EventArgs e)
+        private void OnAttackMaskIdleUpdate(GameObject sender, EventArgs e)
         {
             var args = e as FSMEventArgs;
             //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
@@ -163,9 +163,10 @@ namespace Souls
             float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
 
-            _playerController.SetLayerWeight("Attack Layer",currentWeight);
+            _playerController.SetLayerWeight("Attack Layer", currentWeight);
             //_playerController.ThrustVec = _playerController.Forward *
-            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve") * _playerController.DurationThrustMultiplier;
+            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve")
+            //            * _playerController.DurationThrustMultiplier;
         }
 
         #endregion

@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 1407243895}
+  CameraCol: {fileID: 666106351}
   RotationSpeed: 50
   WalkSpeed: 2.4
   RunMultiplier: 2
@@ -249,6 +250,7 @@ MonoBehaviour:
   CameraVertical: 0
   IsRun: 0
   IsDefense: 0
+  IsLockOn: 0
   IsJump: 0
   IsAttack: 0
   LockCursor: 0
@@ -262,6 +264,7 @@ MonoBehaviour:
   LockCursorButton: Esc
   AttackButton: Attack
   DefenseButton: Defense
+  LockOnButton: LockOn
 --- !u!54 &35711453
 Rigidbody:
   m_ObjectHideFlags: 0

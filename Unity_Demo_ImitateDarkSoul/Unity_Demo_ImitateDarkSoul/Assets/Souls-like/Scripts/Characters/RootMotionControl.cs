@@ -7,6 +7,9 @@ using UnityEngine;
 namespace Souls
 {
 
+    /// <summary>
+    /// Animator Motion Message
+    /// </summary>
     public class AnimatorMoveEventArgs : EventArgs
     {
         public Vector3 deltaPosition;

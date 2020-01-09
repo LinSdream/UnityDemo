@@ -8,7 +8,7 @@ namespace Souls
     {
         public UserInput _input;
         public GameObject Camera;
-        [Tooltip("平滑阻尼")][Range(0, 1)] public float DampCoefficient;
+        [Tooltip("平滑阻尼")] [Range(0, 1)] public float DampCoefficient;
 
         [Header("Inversion")]
         public bool HorizontalInversion = false;
@@ -26,7 +26,9 @@ namespace Souls
         float _tmpEulerX = 0;
         Transform _model;
         Vector3 _dampVec;
+        GameObject _lockTarget;
 
+        #region MonoBehaviour Callbacks
         private void Awake()
         {
             VerticalAxis = transform.parent;
@@ -62,7 +64,8 @@ namespace Souls
             //垂直旋转
             HorizontalAxis.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
             //VerticalAxis.Rotate(Vector3.right, _input.CameraVertical * VerticalSpeed * Time.deltaTime);
-            
+
+            ///TODO:为了方便理解，将镜头旋转分成了两个向量来计算，之后为了性能优化，合并在一起，不在使用Model来控制水平旋转
             //把模型的角度重新赋回去
             _model.eulerAngles = modelEuler;
 
@@ -74,10 +77,13 @@ namespace Souls
             Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position, ref _dampVec, DampCoefficient);
         }
 
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// 水平垂直镜头反转
         /// </summary>
-        public void Inversion(bool horizontal,bool vertical)
+        public void Inversion(bool horizontal, bool vertical)
         {
             if (horizontal)
                 HorizontalSpeed = -HorizontalSpeed;
@@ -88,6 +94,23 @@ namespace Souls
             else
                 VerticalSpeed = Mathf.Abs(VerticalSpeed);
         }
+
+        public void CameraLockOn()
+        {
+            if(_lockTarget==null)
+            {
+                //try to lock
+                Vector3 modelOrigin = _model.transform.position;
+
+                //Physics.Che
+            }
+            else
+            {
+
+            }
+        }
+
+        #endregion
     }
 
 }

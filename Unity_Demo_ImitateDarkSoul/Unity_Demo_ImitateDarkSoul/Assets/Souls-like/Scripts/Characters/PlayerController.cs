@@ -12,6 +12,7 @@ namespace Souls
     {
         #region Public Fields
         public GameObject Model;
+        public CameraController CameraCol;
         [Tooltip("旋转速度")] public float RotationSpeed;
         [Tooltip("行走速度")] public float WalkSpeed;
         [Tooltip("跑步系数")] public float RunMultiplier = 2f;
@@ -67,6 +68,10 @@ namespace Souls
 
         private void Update()
         {
+
+            if (_input.IsLockOn)
+                CameraCol.CameraLockOn();
+
             Rotation();
             Jump();
             if (!LockPlanar)
@@ -84,6 +89,7 @@ namespace Souls
 
         #region Private Methdos
 
+        /// TODO: 旋转不对，需要进一步进行更改
         void Rotation()
         {
             ///TODO:可以进一步优化
@@ -98,7 +104,7 @@ namespace Souls
             {
                 //方法1：
                 Quaternion quaternion = Quaternion.LookRotation(_input.InputVec, Vector3.up);
-                quaternion = Quaternion.Lerp(Model.transform.rotation, quaternion, Time.deltaTime * RotationSpeed);
+                quaternion = Quaternion.Slerp(Model.transform.rotation, quaternion, Time.deltaTime * RotationSpeed);
                 Model.transform.rotation = quaternion;
                 //方法2：
                 //Model.transform.forward = _input.Horizontal * transform.right + _input.Vertical * transform.forward;

@@ -24,9 +24,9 @@ namespace Souls
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
-         public bool LockPlanar = false;
+        public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
-        [HideInInspector]public Vector3 DeltaPos;
+        [HideInInspector] public Vector3 DeltaPos;
         [HideInInspector] public bool IsGrounded = true;
         [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
@@ -72,10 +72,21 @@ namespace Souls
             if (_input.IsLockOn)
                 CameraCol.CameraLockOn();
 
-            Rotation();
             Jump();
+
+            if (CameraCol.LockState)
+            {
+                Model.transform.forward = transform.forward;
+
+                if (!LockPlanar)
+                    _moveDir = (_input.Horizontal*transform.right+_input.Vertical*transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+            }
+            else
+            {
+                Rotation();
             if (!LockPlanar)
                 _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+            }
             Defense();
             Attack();
         }
@@ -93,11 +104,6 @@ namespace Souls
         void Rotation()
         {
             ///TODO:可以进一步优化
-            //取x2+y2=1范围内的0-1的值
-            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, ref u, ref v);
-            _anim.SetFloat("Forward",
-               (u * u + v * v)
-                * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun&& !_input.IsDefense ? 2f : 1f), 0.5f));
 
             //角色旋转
             if (_input.Horizontal != 0 || _input.Vertical != 0)
@@ -114,6 +120,11 @@ namespace Souls
 
         void Movement()
         {
+            //取x2+y2=1范围内的0-1的值
+            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, ref u, ref v);
+            _anim.SetFloat("Forward",
+               (u * u + v * v)
+                * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
 
             _rigidboy.position += DeltaPos;
             _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);
@@ -174,7 +185,7 @@ namespace Souls
             _anim.SetLayerWeight(_anim.GetLayerIndex(layerName), weight);
         }
 
-        public void SetLayerWeight(int layerIndex,float weight)
+        public void SetLayerWeight(int layerIndex, float weight)
         {
             _anim.SetLayerWeight(layerIndex, weight);
         }
@@ -189,7 +200,7 @@ namespace Souls
             _input.LockMovementInput = on;
         }
 
-        public bool CheckAnimatorState(string animtorName,string maskName= "Base Layer")
+        public bool CheckAnimatorState(string animtorName, string maskName = "Base Layer")
         {
             return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
                 .IsName(animtorName);

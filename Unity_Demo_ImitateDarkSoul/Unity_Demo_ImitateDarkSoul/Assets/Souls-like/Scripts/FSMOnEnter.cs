@@ -7,15 +7,6 @@ using UnityEngine;
 namespace Souls
 {
 
-    /// <summary>
-    /// FSM Message
-    /// </summary>
-    public class FSMEventArgs : EventArgs
-    {
-        public AnimatorStateInfo StateInfo;
-        public int LayerIndex;
-    }
-
     public class FSMOnEnter : StateMachineBehaviour
     {
         public string[] MessageNames;

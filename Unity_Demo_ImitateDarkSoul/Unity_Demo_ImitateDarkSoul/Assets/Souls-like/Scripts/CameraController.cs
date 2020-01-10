@@ -1,4 +1,5 @@
 ﻿using LS.Common.Math;
+using LS.Common.Message;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Souls
 {
+
     public class CameraController : MonoBehaviour
     {
         public UserInput _input;
@@ -32,6 +34,8 @@ namespace Souls
         float _tmpEulerX = 0;
         Transform _model;
         Vector3 _dampVec;
+        [SerializeField]bool _cameraRotateSuccess = false;
+
         [SerializeField] GameObject _lockTarget;
 
         #region MonoBehaviour Callbacks
@@ -80,10 +84,13 @@ namespace Souls
             }
             else
             {
-                Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-                tmpForward.y = 0;
-                VerticalAxis.transform.forward = tmpForward;
-                HorizontalAxis.forward = tmpForward;
+                if (!_cameraRotateSuccess)
+                {
+                    Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+                    tmpForward.y = 0;
+                    VerticalAxis.transform.forward = tmpForward;
+                    HorizontalAxis.forward = tmpForward;
+                }
                 AimPointImg.transform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
             }
 
@@ -151,8 +158,29 @@ namespace Souls
             _lockTarget = SharedMethods.CalculateNearestCollider(_model, colliders).gameObject;
             AimPointImg.enabled = true;
             LockState = true;
+            Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+            //StartCoroutine(WaitForCameraRotate());
         }
 
+        #endregion
+
+        #region Coroutine
+
+        ///TODO:大概率是要把所有角度的运算更改为利用四元数进行运算，理论上Unity本质都是用四元数运算，但是在这里，将水平垂直的旋转角分离导致，在锁定状态下进行四元数运算数值很奇怪，该模块需要重新梳理
+        IEnumerator WaitForCameraRotate()
+        {
+            _cameraRotateSuccess = true;
+            var targetRotation = Quaternion.FromToRotation(VerticalAxis.position, _lockTarget.transform.position);
+            Debug.Log(Quaternion.Angle(VerticalAxis.rotation, targetRotation));
+            while(Quaternion.Angle(VerticalAxis.rotation,targetRotation)>1f)
+            {
+                yield return new WaitForEndOfFrame();
+                VerticalAxis.rotation = Quaternion.Slerp(VerticalAxis.rotation, targetRotation, Time.deltaTime);
+                Debug.Log(Quaternion.Angle(VerticalAxis.rotation, targetRotation));
+            }
+            _cameraRotateSuccess = false;
+            yield return null;
+        }
         #endregion
     }
 

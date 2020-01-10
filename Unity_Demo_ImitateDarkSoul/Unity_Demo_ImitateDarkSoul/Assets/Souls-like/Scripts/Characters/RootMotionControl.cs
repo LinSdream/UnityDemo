@@ -8,15 +8,6 @@ namespace Souls
 {
 
     /// <summary>
-    /// Animator Motion Message
-    /// </summary>
-    public class AnimatorMoveEventArgs : EventArgs
-    {
-        public Vector3 deltaPosition;
-    }
-
-
-    /// <summary>
     /// 利用Animation中的Root Motion来控制动画的位移，截断获取Move距离，然后传回父节点，确保Collider与模型不会脱节
     /// </summary>
     public class RootMotionControl : MonoBehaviour

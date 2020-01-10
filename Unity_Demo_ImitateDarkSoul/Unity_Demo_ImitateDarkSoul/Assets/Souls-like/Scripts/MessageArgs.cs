@@ -23,12 +23,9 @@ namespace Souls
         public Vector3 deltaPosition;
     }
 
-    /// <summary>
-    /// Camera Lock Message
-    /// </summary>
-    public class CameraLockOnEventArgs : EventArgs
+    public class IsInGroundEventArgs : EventArgs
     {
-        public Vector3 OriginEuler;
-        public Vector3 TargetEuler;
+        public bool IsInGround;
     }
+
 }

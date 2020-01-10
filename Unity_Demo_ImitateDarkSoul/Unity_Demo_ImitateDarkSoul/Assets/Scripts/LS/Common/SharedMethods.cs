@@ -46,7 +46,7 @@ namespace LS.Common.Math
         /// <param name="y">y坐标</param>
         /// <param name="u">x坐标对应的新的x坐标</param>
         /// <param name="v">y坐标对应的新的y坐标</param>
-        public static void SquareToDiscMapping(float x, float y, ref float u, ref float v)
+        public static void SquareToDiscMapping(float x, float y, out float u, out float v)
         {
             u = x * (Mathf.Sqrt(1 - (y * y) / 2));
             v = y * (Mathf.Sqrt(1 - (x * x) / 2));

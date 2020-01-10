@@ -79,13 +79,13 @@ namespace Souls
                 Model.transform.forward = transform.forward;
 
                 if (!LockPlanar)
-                    _moveDir = (_input.Horizontal*transform.right+_input.Vertical*transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+                    _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
             }
             else
             {
                 Rotation();
-            if (!LockPlanar)
-                _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+                if (!LockPlanar)
+                    _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
             }
             Defense();
             Attack();
@@ -104,7 +104,6 @@ namespace Souls
         void Rotation()
         {
             ///TODO:可以进一步优化
-
             //角色旋转
             if (_input.Horizontal != 0 || _input.Vertical != 0)
             {
@@ -115,16 +114,27 @@ namespace Souls
                 //方法2：
                 //Model.transform.forward = _input.Horizontal * transform.right + _input.Vertical * transform.forward;
             }
-
         }
 
         void Movement()
         {
-            //取x2+y2=1范围内的0-1的值
-            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, ref u, ref v);
-            _anim.SetFloat("Forward",
-               (u * u + v * v)
-                * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
+            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, out u, out v);
+            if (CameraCol.LockState)
+            {
+                _anim.SetFloat("Forward", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Forward")
+                    , (_input.Vertical > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
+
+                _anim.SetFloat("Right", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Right")
+                    , (_input.Horizontal > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
+            }
+            else
+            {
+                //取x2+y2=1范围内的0-1的值
+                _anim.SetFloat("Forward",
+                   (u * u + v * v)
+                    * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
+                _anim.SetFloat("Right", 0);
+            }
 
             _rigidboy.position += DeltaPos;
             _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);

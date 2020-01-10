@@ -19,13 +19,14 @@ namespace Souls
             _playerController = GetComponent<PlayerController>();
 
             //注册监听事件
-            //Animator Root Motion 
+            //Animator Root Motion
             MessageCenter.Instance.AddListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
+
+            //Check Model is in Ground
+            MessageCenter.Instance.AddListener("IsInGround", IsInGround);
 
             //Base Layer
             MessageCenter.Instance.AddListener("OnJumpEnter", OnJumpEnter);
-            MessageCenter.Instance.AddListener("InGround", InGround);
-            MessageCenter.Instance.AddListener("NotInGround", NotInGround);
             MessageCenter.Instance.AddListener("OnGroundEnter", OnGroundEnter);
             MessageCenter.Instance.AddListener("OnFallEnter", OnFallEnter);
             MessageCenter.Instance.AddListener("OnRollEnter", OnRollEnter);
@@ -47,10 +48,11 @@ namespace Souls
             //Animator Root Motion 
             MessageCenter.Instance.RemoveListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
 
+            //Check Model is in Ground
+            MessageCenter.Instance.RemoveListener("IsInGround", IsInGround);
+
             //Base Layer
             MessageCenter.Instance.RemoveListener("OnJumpEnter", OnJumpEnter);
-            MessageCenter.Instance.RemoveListener("InGround", InGround);
-            MessageCenter.Instance.RemoveListener("NotInGround", NotInGround);
             MessageCenter.Instance.RemoveListener("OnGroundEnter", OnGroundEnter);
             MessageCenter.Instance.RemoveListener("OnFallEnter", OnFallEnter);
             MessageCenter.Instance.RemoveListener("OnRollEnter", OnRollEnter);
@@ -63,6 +65,15 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
+
+        #region Check Model is in Ground
+
+        private void IsInGround(GameObject sender, EventArgs e)
+        {
+            _playerController.IsGrounded = (e as IsInGroundEventArgs).IsInGround;
+        }
+
+        #endregion
 
         #region  Animator Root Motion
         private void OnUpdateRootMotionDeltaPosition(GameObject sender, EventArgs e)
@@ -77,17 +88,6 @@ namespace Souls
         {
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
-        }
-
-        private void NotInGround(GameObject sender, EventArgs e)
-        {
-            _playerController.IsGrounded = false;
-        }
-
-        private void InGround(GameObject sender, EventArgs e)
-        {
-            _playerController.IsGrounded = true;
-            //_playerController.LockPlanar = false;
         }
 
         private void OnGroundEnter(GameObject sender, EventArgs e)

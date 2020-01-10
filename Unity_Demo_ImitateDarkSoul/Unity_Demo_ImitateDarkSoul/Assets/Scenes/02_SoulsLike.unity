@@ -700,6 +700,7 @@ MonoBehaviour:
   VerticalSpeed: 80
   VerticalAngle: {x: -30, y: 30}
   LockState: 0
+  _cameraRotateSuccess: 0
   _lockTarget: {fileID: 0}
 --- !u!4 &729228104 stripped
 Transform:
@@ -2348,7 +2349,7 @@ Canvas:
   m_GameObject: {fileID: 2066573107}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1365491629}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

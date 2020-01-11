@@ -23,6 +23,9 @@ namespace Souls
         public Vector3 deltaPosition;
     }
 
+    /// <summary>
+    /// Ground Sensor Message
+    /// </summary>
     public class IsInGroundEventArgs : EventArgs
     {
         public bool IsInGround;

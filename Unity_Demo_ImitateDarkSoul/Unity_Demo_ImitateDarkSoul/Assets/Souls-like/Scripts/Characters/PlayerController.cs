@@ -89,8 +89,6 @@ namespace Souls
                 }
                 else
                     Model.transform.forward = transform.forward;
-                if (TrackDirection)
-                    Debug.Log(Model.transform.right+" !!! "+_moveDir);
                 
             }
             else

@@ -31,7 +31,7 @@ namespace Souls
 
         Transform VerticalAxis;
         Transform HorizontalAxis;
-        float _tmpEulerX = 0;
+        float _xRot = 0;
         Transform _model;
         Vector3 _dampVec;
         [SerializeField]bool _cameraRotateSuccess = false;
@@ -63,31 +63,44 @@ namespace Souls
                 VerticalSpeed = Mathf.Abs(VerticalSpeed);
         }
 
+        private void Update()
+        {
+            Rotate();
+        }
+
         private void FixedUpdate()
+        {
+            //位置更新
+            ModelCamera.transform.position = Vector3.SmoothDamp(ModelCamera.transform.position, transform.position, ref _dampVec, DampCoefficient);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        void Rotate()
         {
             if (_lockTarget == null)
             {
                 Vector3 modelEuler = _model.eulerAngles;
 
                 //计算垂直的镜头角度
-                _tmpEulerX -= _input.CameraVertical * VerticalSpeed * Time.deltaTime;
-                _tmpEulerX = Mathf.Clamp(_tmpEulerX, VerticalAngle.x, VerticalAngle.y);
+                _xRot -= _input.CameraVertical * VerticalSpeed * Time.deltaTime;
+                _xRot = Mathf.Clamp(_xRot, VerticalAngle.x, VerticalAngle.y);
 
-                VerticalAxis.localEulerAngles = new Vector3(_tmpEulerX, 0, 0);
+                VerticalAxis.localEulerAngles = new Vector3(_xRot, 0, 0);
                 //垂直旋转
                 HorizontalAxis.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
                 //VerticalAxis.Rotate(Vector3.right, _input.CameraVertical * VerticalSpeed * Time.deltaTime);
 
-                ///TODO:为了方便理解，将镜头旋转分成了两个向量来计算，之后为了性能优化，合并在一起，不在使用Model来控制水平旋转
                 //把模型的角度重新赋回去
                 _model.eulerAngles = modelEuler;
             }
             else
             {
-                if (!_cameraRotateSuccess)
+                if (true)
                 {
                     Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-                    tmpForward.y = 0;
                     VerticalAxis.transform.forward = tmpForward;
                     HorizontalAxis.forward = tmpForward;
                 }
@@ -98,13 +111,7 @@ namespace Souls
             ModelCamera.transform.LookAt(VerticalAxis);
             //Camera.transform.eulerAngles = transform.eulerAngles;
 
-            //位置更新
-            ModelCamera.transform.position = Vector3.SmoothDamp(ModelCamera.transform.position, transform.position, ref _dampVec, DampCoefficient);
         }
-
-        #endregion
-
-        #region Private Methods
 
         /// <summary> 解除锁定</summary>
         public void RelesaseLockOn()
@@ -166,7 +173,7 @@ namespace Souls
 
         #region Coroutine
 
-        ///TODO:大概率是要把所有角度的运算更改为利用四元数进行运算，理论上Unity本质都是用四元数运算，但是在这里，将水平垂直的旋转角分离导致，在锁定状态下进行四元数运算数值很奇怪，该模块需要重新梳理
+        ///TODO:大概率是要把所有角度的运算更改为利用四元数进行运算，该模块需要重新梳理
         IEnumerator WaitForCameraRotate()
         {
             _cameraRotateSuccess = true;

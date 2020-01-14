@@ -17,7 +17,7 @@ namespace Souls
         [Tooltip("行走速度")] public float WalkSpeed;
         [Tooltip("跑步系数")] public float RunMultiplier = 2f;
         [Tooltip("跳跃速度(垂直向上)")] public float JumpVerlocity;
-        [Tooltip("翻滚速度")] public Vector3 RollVelocity;
+        [Tooltip("翻滚速度")] public Vector2 RollVelocity;
         [Tooltip("后跳速度,x分量为up，y分量为back")] public Vector2 JabVerlocity;
         [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
@@ -160,6 +160,9 @@ namespace Souls
             //冲量
             _rigidboy.velocity += ThrustVec;
 
+            Debug.Log(ThrustVec + "  " + Forward + "   " + Vector3.Dot(ThrustVec.normalized, Forward.normalized) + "   "
+                + Mathf.Acos(Vector3.Dot(ThrustVec.normalized, Forward.normalized)) * Mathf.Rad2Deg);
+
             //冲量这里需要优化，如果使用如下优化，需要把MovePosition删除，用每帧对_rigidbody添加一个初速度移动
             //_rigidboy.velocity += new Vector3(_moveDir.x, _rigidboy.velocity.y, _moveDir.z) + ThrustVec;
             ThrustVec = Vector3.zero;
@@ -171,7 +174,6 @@ namespace Souls
         /// </summary>
         void Jump()
         {
-            Debug.Log(_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff);
             if (_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff)
                 _anim.SetTrigger("Roll");
             if (_input.IsJump)

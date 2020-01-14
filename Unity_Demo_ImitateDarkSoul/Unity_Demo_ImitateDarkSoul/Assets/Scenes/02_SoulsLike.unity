@@ -224,7 +224,7 @@ MonoBehaviour:
   WalkSpeed: 2.4
   RunMultiplier: 2
   JumpVerlocity: 5
-  RollVelocity: {x: 0, y: 2.5, z: 4}
+  RollVelocity: {x: 4, y: 2.5}
   JabVerlocity: {x: 1.5, y: 4}
   HightFallStiff: 5
   HightFallDead: 15
@@ -232,6 +232,7 @@ MonoBehaviour:
   LockPlanar: 0
   DeltaPos: {x: 0, y: 0, z: 0}
   IsGrounded: 1
+  TrackDirection: 0
   ThrustVec: {x: 0, y: 0, z: 0}
 --- !u!114 &35711452
 MonoBehaviour:

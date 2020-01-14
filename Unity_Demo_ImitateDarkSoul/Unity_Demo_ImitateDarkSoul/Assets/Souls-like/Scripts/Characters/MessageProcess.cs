@@ -110,8 +110,10 @@ namespace Souls
         private void OnRollEnter(GameObject sender, EventArgs e)
         {
             _playerController.TrackDirection = true;
-            _playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
-                _playerController.RollVelocity.z * _playerController.Forward.z);
+            //_playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
+            //    _playerController.RollVelocity.z * _playerController.Forward.z);
+            _playerController.ThrustVec = new Vector3(_playerController.Forward.x * _playerController.RollVelocity.x
+                , _playerController.RollVelocity.y, _playerController.Forward.z * _playerController.RollVelocity.y); ;
         }
         private void OnRollExit(GameObject sender, EventArgs e)
         {

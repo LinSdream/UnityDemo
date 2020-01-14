@@ -34,7 +34,7 @@ namespace Souls
         float _xRot = 0;
         Transform _model;
         Vector3 _dampVec;
-        [SerializeField]bool _cameraRotateSuccess = false;
+        [SerializeField] bool _cameraRotateSuccess = false;
 
         [SerializeField] GameObject _lockTarget;
 
@@ -63,15 +63,12 @@ namespace Souls
                 VerticalSpeed = Mathf.Abs(VerticalSpeed);
         }
 
-        private void Update()
-        {
-            Rotate();
-        }
-
         private void FixedUpdate()
         {
+            Rotate();
             //位置更新
-            ModelCamera.transform.position = Vector3.SmoothDamp(ModelCamera.transform.position, transform.position, ref _dampVec, DampCoefficient);
+            ModelCamera.transform.position = Vector3.SmoothDamp(ModelCamera.transform.position
+                , transform.position, ref _dampVec, DampCoefficient);
         }
 
         #endregion
@@ -98,19 +95,16 @@ namespace Souls
             }
             else
             {
-                if (true)
-                {
-                    Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-                    VerticalAxis.transform.forward = tmpForward;
-                    HorizontalAxis.forward = tmpForward;
-                }
+                //计算方向向量
+                Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+                tmpForward.y = 0;
+                HorizontalAxis.forward = tmpForward;//父级Player的方向指向目标物体
                 AimPointImg.transform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
             }
 
             //水平旋转
             ModelCamera.transform.LookAt(VerticalAxis);
             //Camera.transform.eulerAngles = transform.eulerAngles;
-
         }
 
         /// <summary> 解除锁定</summary>
@@ -179,7 +173,7 @@ namespace Souls
             _cameraRotateSuccess = true;
             var targetRotation = Quaternion.FromToRotation(VerticalAxis.position, _lockTarget.transform.position);
             Debug.Log(Quaternion.Angle(VerticalAxis.rotation, targetRotation));
-            while(Quaternion.Angle(VerticalAxis.rotation,targetRotation)>1f)
+            while (Quaternion.Angle(VerticalAxis.rotation, targetRotation) > 1f)
             {
                 yield return new WaitForEndOfFrame();
                 VerticalAxis.rotation = Quaternion.Slerp(VerticalAxis.rotation, targetRotation, Time.deltaTime);

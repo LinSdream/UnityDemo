@@ -24,14 +24,19 @@ namespace Souls
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
-        public bool LockPlanar = false;
+        [HideInInspector] public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
         [HideInInspector] public Vector3 DeltaPos;
+        ///<summary> 是否在地面 </summary>
         [HideInInspector] public bool IsGrounded = true;
+        /// <summary> 是否锁定跟踪目标，Model的forward指向Target</summary>
         [HideInInspector] public bool TrackDirection = false;
+        /// <summary>临时冲量</summary>
         [HideInInspector] public Vector3 ThrustVec;
+        /// <summary> 模型的正前方</summary>
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
 
+        /// <summary> 是否处于跑步状态 </summary>
         public bool IsRun
         {
             get
@@ -50,6 +55,7 @@ namespace Souls
         UserInput _input;
         Rigidbody _rigidboy;
 
+        /// <summary> 位移方向向量 </summary>
         Vector3 _moveDir;
 
         float _sqrHightFallStiff;
@@ -75,25 +81,23 @@ namespace Souls
 
             Jump();
 
-
             if (CameraCol.LockState)
             {
-                ///TODO:   S bug : 跳跃，滚动，方向不对
 
-
+                //重新计算移动向量，位移向量以自身为基准
                 if (!LockPlanar)
-                    _moveDir = (_input.Horizontal * Model.transform.right + _input.Vertical * Model.transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+                    _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+
                 if (TrackDirection)
-                {
                     Model.transform.forward = _moveDir.normalized;
-                }
                 else
                     Model.transform.forward = transform.forward;
-                
+
             }
             else
             {
                 Rotation();
+                //位移向量以模型为基准
                 if (!LockPlanar)
                     _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
             }
@@ -111,6 +115,7 @@ namespace Souls
         #region Private Methdos
 
         /// TODO: 旋转不对，需要进一步进行更改
+        /// <summary> 旋转 </summary>
         void Rotation()
         {
             ///TODO:可以进一步优化
@@ -122,10 +127,13 @@ namespace Souls
                 quaternion = Quaternion.Slerp(Model.transform.rotation, quaternion, Time.deltaTime * RotationSpeed);
                 Model.transform.rotation = quaternion;
                 //方法2：
-                //Model.transform.forward = _input.Horizontal * transform.right + _input.Vertical * transform.forward;
+                //Model.transform.forward = _input.Horizontal * Model.transform.right + _input.Vertical * Model.transform.forward;
             }
         }
 
+        /// <summary>
+        /// 位移
+        /// </summary>
         void Movement()
         {
             SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, out u, out v);
@@ -158,6 +166,9 @@ namespace Souls
             DeltaPos = Vector3.zero;
         }
 
+        /// <summary>
+        /// 翻滚，跳跃
+        /// </summary>
         void Jump()
         {
             Debug.Log(_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff);
@@ -172,12 +183,18 @@ namespace Souls
                 _anim.SetBool("IsInGround", false);
         }
 
+        /// <summary>
+        /// 攻击
+        /// </summary>
         void Attack()
         {
             if (_input.IsAttack && CheckAnimatorState("Ground") && IsGrounded)
                 _anim.SetTrigger("Attack");
         }
 
+        /// <summary>
+        /// 防御
+        /// </summary>
         void Defense()
         {
             _anim.SetBool("Defense", _input.IsDefense);
@@ -211,7 +228,7 @@ namespace Souls
             _anim.SetLayerWeight(layerIndex, weight);
         }
 
-        public void ResetMoveDir()
+        public void ResetMoveDirZero()
         {
             _moveDir = Vector3.zero;
         }

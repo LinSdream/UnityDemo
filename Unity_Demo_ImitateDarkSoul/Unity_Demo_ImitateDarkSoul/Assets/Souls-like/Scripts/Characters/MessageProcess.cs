@@ -14,6 +14,8 @@ namespace Souls
 
         float AnimatorLayerWeightValue = 0f;
 
+        #region MonoBehaviour Callbacks
+
         private void Awake()
         {
             _playerController = GetComponent<PlayerController>();
@@ -66,6 +68,8 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
         }
 
+        #endregion
+
         #region Check Model is in Ground
 
         private void IsInGround(GameObject sender, EventArgs e)
@@ -86,6 +90,7 @@ namespace Souls
         #region Base Layer Events
         void OnJumpEnter(GameObject sender, EventArgs e)
         {
+            _playerController.TrackDirection = true;
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
         }
@@ -93,7 +98,7 @@ namespace Souls
         private void OnGroundEnter(GameObject sender, EventArgs e)
         {
             _playerController.LockPlanar = false;
-
+            _playerController.TrackDirection = false;
         }
 
         private void OnFallEnter(GameObject sender, EventArgs e)
@@ -104,6 +109,7 @@ namespace Souls
 
         private void OnRollEnter(GameObject sender, EventArgs e)
         {
+            _playerController.TrackDirection = true;
             _playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
                 _playerController.RollVelocity.z * _playerController.Forward.z);
         }
@@ -152,7 +158,7 @@ namespace Souls
         {
             _playerController.SetInputLock(true);
             _playerController.LockPlanar = true;
-            _playerController.ResetMoveDir();
+            _playerController.ResetMoveDirZero();
             AnimatorLayerWeightValue = 1f;
         }
 

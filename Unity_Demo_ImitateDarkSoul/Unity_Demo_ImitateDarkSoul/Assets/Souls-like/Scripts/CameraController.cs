@@ -34,9 +34,6 @@ namespace Souls
         float _xRot = 0;
         Transform _model;
         Vector3 _dampVec;
-        /// <summary>
-        /// 相机从当前位置移动到锁定位置协程是否完成
-        /// </summary>
         [SerializeField]bool _cameraRotateSuccess = false;
 
         [SerializeField] GameObject _lockTarget;
@@ -101,12 +98,11 @@ namespace Souls
             }
             else
             {
-                ///TODO:这里要改为_cameraRotateSuccess，但是协程有误，所以暂时不进行修改
-                if (true)//如果相机旋转到指定位置以后，直接以Target-Model.tranform.position的方向为基准
+                if (true)
                 {
-                    //Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-                    //VerticalAxis.transform.forward = tmpForward;
-                    //HorizontalAxis.forward = tmpForward;
+                    Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+                    VerticalAxis.transform.forward = tmpForward;
+                    HorizontalAxis.forward = tmpForward;
                 }
                 AimPointImg.transform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
             }
@@ -169,6 +165,7 @@ namespace Souls
             _lockTarget = SharedMethods.CalculateNearestCollider(_model, colliders).gameObject;
             AimPointImg.enabled = true;
             LockState = true;
+            Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
             //StartCoroutine(WaitForCameraRotate());
         }
 

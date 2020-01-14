@@ -87,14 +87,13 @@ namespace Souls
         void OnJumpEnter(GameObject sender, EventArgs e)
         {
             _playerController.LockPlanar = true;
-            _playerController.TrackDirection = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
         }
 
         private void OnGroundEnter(GameObject sender, EventArgs e)
         {
             _playerController.LockPlanar = false;
-            _playerController.TrackDirection = false;
+
         }
 
         private void OnFallEnter(GameObject sender, EventArgs e)
@@ -105,7 +104,6 @@ namespace Souls
 
         private void OnRollEnter(GameObject sender, EventArgs e)
         {
-            _playerController.TrackDirection = true;
             _playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
                 _playerController.RollVelocity.z * _playerController.Forward.z);
         }
@@ -141,8 +139,9 @@ namespace Souls
 
         private void OnAttackMaskIdleUpdate(GameObject sender, EventArgs e)
         {
+            var args = e as FSMEventArgs;
             //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight((e as FSMEventArgs).LayerIndex);
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
             if (currentWeight == 0)
                 return;
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
@@ -159,8 +158,9 @@ namespace Souls
 
         private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
         {
+            var args = e as FSMEventArgs;
             //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight((e as FSMEventArgs).LayerIndex);
+            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
             currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
 
             _playerController.SetLayerWeight("Attack Layer", currentWeight);

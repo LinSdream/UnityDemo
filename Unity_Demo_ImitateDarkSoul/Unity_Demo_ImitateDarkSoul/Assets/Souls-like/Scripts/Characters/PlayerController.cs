@@ -28,7 +28,6 @@ namespace Souls
         /// <summary>  Root Motion DeltaPosition </summary>
         [HideInInspector] public Vector3 DeltaPos;
         [HideInInspector] public bool IsGrounded = true;
-        [HideInInspector] public bool TrackDirection = false;
         [HideInInspector] public Vector3 ThrustVec;
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
 
@@ -75,23 +74,12 @@ namespace Souls
 
             Jump();
 
-
             if (CameraCol.LockState)
             {
-                ///TODO:   S bug : 跳跃，滚动，方向不对
-
+                Model.transform.forward = transform.forward;
 
                 if (!LockPlanar)
-                    _moveDir = (_input.Horizontal * Model.transform.right + _input.Vertical * Model.transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
-                if (TrackDirection)
-                {
-                    Model.transform.forward = _moveDir.normalized;
-                }
-                else
-                    Model.transform.forward = transform.forward;
-                if (TrackDirection)
-                    Debug.Log(Model.transform.right+" !!! "+_moveDir);
-                
+                    _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
             }
             else
             {
@@ -162,7 +150,6 @@ namespace Souls
 
         void Jump()
         {
-            Debug.Log(_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff);
             if (_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff)
                 _anim.SetTrigger("Roll");
             if (_input.IsJump)

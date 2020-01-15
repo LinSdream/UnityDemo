@@ -83,7 +83,7 @@ namespace Souls
 
             if (CameraCol.LockState)
             {
-
+                ///TODO: S level bug : 左右跳动没有问题，但是左右翻滚和向后跳跃不对
                 //重新计算移动向量，位移向量以自身为基准
                 if (!LockPlanar)
                     _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
@@ -244,6 +244,11 @@ namespace Souls
         {
             return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
                 .IsName(animtorName);
+        }
+
+        public void DebugLog()
+        {
+            Debug.Log((CameraCol.LockTarget.transform.position - transform.position).sqrMagnitude);
         }
         #endregion
     }

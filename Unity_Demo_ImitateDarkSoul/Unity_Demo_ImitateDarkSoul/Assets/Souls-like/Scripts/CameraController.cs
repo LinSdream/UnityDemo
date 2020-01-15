@@ -29,8 +29,8 @@ namespace Souls
 
         [HideInInspector] public bool LockState = false;
 
-        Transform VerticalAxis;
-        Transform HorizontalAxis;
+        Transform CameraHandle;
+        Transform PlayerHandle;
         float _xRot = 0;
         Transform _model;
         Vector3 _dampVec;
@@ -38,11 +38,13 @@ namespace Souls
 
         [SerializeField] GameObject _lockTarget;
 
+        public GameObject LockTarget => _lockTarget;
+
         #region MonoBehaviour Callbacks
         private void Awake()
         {
-            VerticalAxis = transform.parent;
-            HorizontalAxis = transform.parent.parent;
+            CameraHandle = transform.parent;
+            PlayerHandle = transform.parent.parent;
             AimPointImg.enabled = false;
             LockState = false;
 
@@ -85,9 +87,9 @@ namespace Souls
                 _xRot -= _input.CameraVertical * VerticalSpeed * Time.deltaTime;
                 _xRot = Mathf.Clamp(_xRot, VerticalAngle.x, VerticalAngle.y);
 
-                VerticalAxis.localEulerAngles = new Vector3(_xRot, 0, 0);
+                CameraHandle.localEulerAngles = new Vector3(_xRot, 0, 0);
                 //垂直旋转
-                HorizontalAxis.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
+                PlayerHandle.Rotate(Vector3.up, _input.CameraHorizontal * HorizontalSpeed * Time.deltaTime);
                 //VerticalAxis.Rotate(Vector3.right, _input.CameraVertical * VerticalSpeed * Time.deltaTime);
 
                 //把模型的角度重新赋回去
@@ -98,12 +100,14 @@ namespace Souls
                 //计算方向向量
                 Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
                 tmpForward.y = 0;
-                HorizontalAxis.forward = tmpForward;//父级Player的方向指向目标物体
-                AimPointImg.transform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
+                PlayerHandle.forward = tmpForward;//父级Player的方向指向目标物体
+                //CameraHandle.LookAt(_lockTarget.transform);
+                AimPointImg.rectTransform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
+                
             }
 
             //水平旋转
-            ModelCamera.transform.LookAt(VerticalAxis);
+            ModelCamera.transform.LookAt(CameraHandle);
             //Camera.transform.eulerAngles = transform.eulerAngles;
         }
 
@@ -171,13 +175,13 @@ namespace Souls
         IEnumerator WaitForCameraRotate()
         {
             _cameraRotateSuccess = true;
-            var targetRotation = Quaternion.FromToRotation(VerticalAxis.position, _lockTarget.transform.position);
-            Debug.Log(Quaternion.Angle(VerticalAxis.rotation, targetRotation));
-            while (Quaternion.Angle(VerticalAxis.rotation, targetRotation) > 1f)
+            var targetRotation = Quaternion.FromToRotation(CameraHandle.position, _lockTarget.transform.position);
+            Debug.Log(Quaternion.Angle(CameraHandle.rotation, targetRotation));
+            while (Quaternion.Angle(CameraHandle.rotation, targetRotation) > 1f)
             {
                 yield return new WaitForEndOfFrame();
-                VerticalAxis.rotation = Quaternion.Slerp(VerticalAxis.rotation, targetRotation, Time.deltaTime);
-                Debug.Log(Quaternion.Angle(VerticalAxis.rotation, targetRotation));
+                CameraHandle.rotation = Quaternion.Slerp(CameraHandle.rotation, targetRotation, Time.deltaTime);
+                Debug.Log(Quaternion.Angle(CameraHandle.rotation, targetRotation));
             }
             _cameraRotateSuccess = false;
             yield return null;

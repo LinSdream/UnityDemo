@@ -14,6 +14,7 @@ namespace Souls
         public GameObject ModelCamera;
         public LayerMask CheckMask;
         public Image AimPointImg;
+        [Tooltip("自动解锁距离：目标对象与自身的距离平方")] public float SqrDistanceTargetToSelf = 100f;
         [Tooltip("平滑阻尼")] [Range(0, 1)] public float DampCoefficient;
 
         [Header("Inversion")]
@@ -71,6 +72,11 @@ namespace Souls
 
         private void FixedUpdate()
         {
+
+            if(_lockTarget!=null)
+                if ((_lockTarget.transform.position - transform.position).sqrMagnitude > SqrDistanceTargetToSelf)
+                    RelesaseLockOn();
+
             Rotate();
             //位置更新
             ModelCamera.transform.position = Vector3.SmoothDamp(ModelCamera.transform.position
@@ -119,11 +125,35 @@ namespace Souls
         }
 
         /// <summary> 解除锁定</summary>
-        public void RelesaseLockOn()
+        void RelesaseLockOn()
         {
             AimPointImg.enabled = false;
             _lockTarget = null;
             LockState = false;
+        }
+
+        /// <summary> 锁定对象 </summary>
+        void Lock()
+        {
+            ///TODO: 从自由视角切换到锁定视角，由于是直接更改Rotation，会眩晕，需要做插值
+            //try to lock
+            Vector3 modelOrigin1 = _model.transform.position;
+            Vector3 modelOrigin2 = modelOrigin1 + new Vector3(0, 1, 0);
+            Vector3 boxCenter = modelOrigin2 + _model.transform.forward * 5f;
+
+            ///TODO:不应该用box来检测，用球？还是扇形，需要实际测试比较一下
+            var colliders = Physics.OverlapBox(boxCenter, new Vector3(8f, 1f, 5f), _model.transform.rotation, CheckMask);
+            //var colliders = Physics.OverlapSphere(_model.position, 5f, CheckMask);
+            if (colliders.Length == 0)
+            {
+                RelesaseLockOn();
+                return;
+            }
+            _lockTarget = SharedMethods.CalculateNearestCollider(_model, colliders).gameObject;
+            AimPointImg.enabled = true;
+            LockState = true;
+            Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+            //StartCoroutine(WaitForCameraRotate());
         }
         #endregion
 
@@ -144,34 +174,15 @@ namespace Souls
                 VerticalSpeed = Mathf.Abs(VerticalSpeed);
         }
 
+        /// <summary> Input System 控制锁定 </summary>
         public void CameraLockOn()
         {
-
             if (_lockTarget != null)
             {
                 RelesaseLockOn();
                 return;
             }
-
-            ///TODO: 从自由视角切换到锁定视角，由于是直接更改Rotation，会眩晕，需要做插值
-            //try to lock
-            Vector3 modelOrigin1 = _model.transform.position;
-            Vector3 modelOrigin2 = modelOrigin1 + new Vector3(0, 1, 0);
-            Vector3 boxCenter = modelOrigin2 + _model.transform.forward * 5f;
-
-            ///TODO:不应该用box来检测，用球？还是扇形，需要实际测试比较一下
-            var colliders = Physics.OverlapBox(boxCenter, new Vector3(8f, 1f, 5f), _model.transform.rotation, CheckMask);
-            //var colliders = Physics.OverlapSphere(_model.position, 5f, CheckMask);
-            if (colliders.Length == 0)
-            {
-                RelesaseLockOn();
-                return;
-            }
-            _lockTarget = SharedMethods.CalculateNearestCollider(_model, colliders).gameObject;
-            AimPointImg.enabled = true;
-            LockState = true;
-            Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-            //StartCoroutine(WaitForCameraRotate());
+            Lock();
         }
 
         #endregion

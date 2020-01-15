@@ -694,6 +694,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   AimPointImg: {fileID: 1279280403}
+  SqrDistanceTargetToSelf: 100
   DampCoefficient: 0
   HorizontalInversion: 0
   VerticalInversion: 0

@@ -88,10 +88,9 @@ namespace Souls
                     _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
 
                 if (TrackDirection)
-                {
-                    Debug.LogWarning("Lock");
+
                     Model.transform.forward = _moveDir.normalized;
-                }
+
                 else
                     Model.transform.forward = transform.forward;
 
@@ -243,7 +242,7 @@ namespace Souls
             return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
                 .IsName(animtorName);
         }
-       
+
         #endregion
     }
 

@@ -11,6 +11,7 @@ namespace Souls
     {
 
         PlayerController _playerController;
+        UserInput _input;
 
         float AnimatorLayerWeightValue = 0f;
 
@@ -19,6 +20,8 @@ namespace Souls
         private void Awake()
         {
             _playerController = GetComponent<PlayerController>();
+
+            _input=GetComponent<UserInput>();
 
             //注册监听事件
             //Animator Root Motion
@@ -109,17 +112,15 @@ namespace Souls
 
         private void OnRollEnter(GameObject sender, EventArgs e)
         {
-            _playerController.DebugLog();
-
             _playerController.TrackDirection = true;
-            //_playerController.ThrustVec = new Vector3(_playerController.Forward.x, _playerController.RollVelocity.y,
-            //    _playerController.RollVelocity.x * _playerController.Forward.z);
-            _playerController.ThrustVec = new Vector3(_playerController.Forward.x * _playerController.RollVelocity.x
-                , _playerController.RollVelocity.y, _playerController.Forward.z * _playerController.RollVelocity.y); ;
+
+            //消息处理优先于PlayerController执行，因此需要计算roll的forward向量来计算ThrustVec
+            var forward = (_input.Horizontal * transform.right + _input.Vertical * transform.forward).normalized;
+            _playerController.ThrustVec = new Vector3(forward.x * _playerController.RollVelocity.x
+                , _playerController.RollVelocity.y, forward.z * _playerController.RollVelocity.y); ;
         }
         private void OnRollExit(GameObject sender, EventArgs e)
         {
-            _playerController.DebugLog();
             _playerController.LockPlanar = false;
         }
 

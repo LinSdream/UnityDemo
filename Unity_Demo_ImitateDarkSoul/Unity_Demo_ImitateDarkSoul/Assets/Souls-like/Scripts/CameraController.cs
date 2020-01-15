@@ -33,11 +33,15 @@ namespace Souls
         Transform PlayerHandle;
         float _xRot = 0;
         Transform _model;
+        /// <summary>平滑过渡的阻尼值</summary>
         Vector3 _dampVec;
-        [SerializeField] bool _cameraRotateSuccess = false;
 
+        /// <summary> 未锁定状态到锁定状态之间的镜头旋转插值是否完成 </summary>
+        [SerializeField] bool _cameraRotateSuccess = false;
+        /// <summary> 锁定对象</summary>
         [SerializeField] GameObject _lockTarget;
 
+        /// <summary> 锁定的目标对象 </summary>
         public GameObject LockTarget => _lockTarget;
 
         #region MonoBehaviour Callbacks
@@ -97,13 +101,16 @@ namespace Souls
             }
             else
             {
-                //计算方向向量
-                Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
-                tmpForward.y = 0;
-                PlayerHandle.forward = tmpForward;//父级Player的方向指向目标物体
-                //CameraHandle.LookAt(_lockTarget.transform);
+                if (true)
+                {
+                    //计算方向向量
+                    Vector3 tmpForward = _lockTarget.transform.position - _model.transform.position;
+                    tmpForward.y = 0;
+                    PlayerHandle.forward = tmpForward;//父级Player的方向指向目标物体
+                }
+                CameraHandle.LookAt(_lockTarget.transform);
                 AimPointImg.rectTransform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
-                
+
             }
 
             //水平旋转
@@ -174,16 +181,15 @@ namespace Souls
         ///TODO:大概率是要把所有角度的运算更改为利用四元数进行运算，该模块需要重新梳理
         IEnumerator WaitForCameraRotate()
         {
-            _cameraRotateSuccess = true;
-            var targetRotation = Quaternion.FromToRotation(CameraHandle.position, _lockTarget.transform.position);
-            Debug.Log(Quaternion.Angle(CameraHandle.rotation, targetRotation));
-            while (Quaternion.Angle(CameraHandle.rotation, targetRotation) > 1f)
-            {
-                yield return new WaitForEndOfFrame();
-                CameraHandle.rotation = Quaternion.Slerp(CameraHandle.rotation, targetRotation, Time.deltaTime);
-                Debug.Log(Quaternion.Angle(CameraHandle.rotation, targetRotation));
-            }
             _cameraRotateSuccess = false;
+            var targetRotation = Quaternion.FromToRotation(PlayerHandle.position, _lockTarget.transform.position);
+            Debug.Log(Quaternion.Angle(PlayerHandle.rotation, targetRotation));
+            while (Quaternion.Angle(PlayerHandle.rotation, targetRotation) > 0.1f)
+            {
+                PlayerHandle.rotation = Quaternion.Slerp(PlayerHandle.rotation, targetRotation, Time.deltaTime);
+                Debug.Log(Quaternion.Angle(PlayerHandle.rotation, targetRotation));
+            }
+            _cameraRotateSuccess = true;
             yield return null;
         }
         #endregion

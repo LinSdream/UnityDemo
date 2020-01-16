@@ -15,8 +15,6 @@ namespace Souls
         PlayerController _playerController;
         UserInput _input;
 
-        float AnimatorLayerWeightValue = 0f;
-
         #region MonoBehaviour Callbacks
 
         private void Awake()
@@ -40,12 +38,7 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.AddListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.AddListener("OnRollExit", OnRollExit);
-
-            //Attack Layer
-            MessageCenter.Instance.AddListener("OnAttackMaskIdleEnter", OnAttackMaskIdleEnter);
-            MessageCenter.Instance.AddListener("OnAttackMaskIdleUpdate", OnAttackMaskIdleUpdate);
-            MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
-            MessageCenter.Instance.AddListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
+            MessageCenter.Instance.AddListener("OnAttackR_01A", OnAttackR_01A);
         }
 
 
@@ -65,12 +58,7 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnRollEnter", OnRollEnter);
             MessageCenter.Instance.RemoveListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
-
-            //Attack Layer
-            MessageCenter.Instance.RemoveListener("OnAttackMaskIdleEnter", OnAttackMaskIdleEnter);
-            MessageCenter.Instance.RemoveListener("OnAttackMaskIdleUpdate", OnAttackMaskIdleUpdate);
-            MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Enter", OnAttack_RightHand_A_01_Enter);
-            MessageCenter.Instance.RemoveListener("OnAttack_RightHand_A_01_Update", OnAttack_RightHand_A_01_Update);
+            MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);
         }
 
         #endregion
@@ -147,51 +135,15 @@ namespace Souls
                 * _playerController.DurationThrustMultiplier * 0.33f;
         }
 
-        #endregion
-
-        #region Attack Layer Events
-
-        private void OnAttackMaskIdleEnter(GameObject sender, EventArgs e)
-        {
-            _playerController.SetInputLock(false);
-            _playerController.LockPlanar = false;
-            AnimatorLayerWeightValue = 0f;
-        }
-
-        private void OnAttackMaskIdleUpdate(GameObject sender, EventArgs e)
-        {
-            var args = e as FSMEventArgs;
-            //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
-            if (currentWeight == 0)
-                return;
-            currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
-            _playerController.SetLayerWeight("Attack Layer", currentWeight);
-        }
-
-        private void OnAttack_RightHand_A_01_Enter(GameObject sender, EventArgs e)
+        private void OnAttackR_01A(GameObject sender, EventArgs e)
         {
             _playerController.SetInputLock(true);
             _playerController.LockPlanar = true;
             _playerController.ResetMoveDirZero();
-            AnimatorLayerWeightValue = 1f;
         }
 
-        private void OnAttack_RightHand_A_01_Update(GameObject sender, EventArgs e)
-        {
-            var args = e as FSMEventArgs;
-            //float currentWeight = _playerController.GetCurrentAnimatorLayerWeight("Attack Layer");
-            float currentWeight = _playerController.GetCurrentAnimatorLayerWeight(args.LayerIndex);
-            currentWeight = Mathf.Lerp(currentWeight, AnimatorLayerWeightValue, 0.1f);
-
-            _playerController.SetLayerWeight("Attack Layer", currentWeight);
-            //_playerController.ThrustVec = _playerController.Forward *
-            //    _playerController.GetAnimFloat("Attack_RightHand_A_01_VelocityCurve")
-            //            * _playerController.DurationThrustMultiplier;
-        }
 
         #endregion
-
     }
 
 }

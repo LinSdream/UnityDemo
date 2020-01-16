@@ -164,9 +164,9 @@ GameObject:
   - component: {fileID: 35711449}
   - component: {fileID: 35711450}
   - component: {fileID: 35711453}
+  - component: {fileID: 35711454}
   - component: {fileID: 35711452}
   - component: {fileID: 35711451}
-  - component: {fileID: 35711454}
   - component: {fileID: 35711455}
   m_Layer: 9
   m_Name: Player
@@ -219,7 +219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 1407243895}
-  CameraCol: {fileID: 666106351}
   RotationSpeed: 50
   WalkSpeed: 2.4
   RunMultiplier: 2
@@ -229,6 +228,7 @@ MonoBehaviour:
   HightFallStiff: 5
   HightFallDead: 15
   DurationThrustMultiplier: 0.2
+  CameraCol: {fileID: 666106351}
   LockPlanar: 0
   DeltaPos: {x: 0, y: 0, z: 0}
   IsGrounded: 1

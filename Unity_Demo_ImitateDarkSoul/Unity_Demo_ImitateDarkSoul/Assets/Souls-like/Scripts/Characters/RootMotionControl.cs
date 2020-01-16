@@ -28,8 +28,8 @@ namespace Souls
 
         private void OnAnimatorMove()
         {
-            if (CheckAnimatorState("Attack_RightHand_A_01", "Attack Layer")
-                || CheckAnimatorState("Attack_RightHand_C_01", "Attack Layer"))
+            if (CheckAnimatorState("OnAttackR_01A", "Base Layer")
+                || CheckAnimatorState("OnAttackR_01C", "Base Layer"))
             {
                 _args.deltaPosition = _anim.deltaPosition;
                 MessageCenter.Instance.SendMessage("OnUpdateRootMotionDeltaPosition", gameObject, _args);

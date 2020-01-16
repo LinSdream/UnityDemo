@@ -188,7 +188,7 @@ namespace Souls
         /// </summary>
         void Attack()
         {
-            if (_input.IsAttack && CheckAnimatorState("Ground") && IsGrounded)
+            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
                 _anim.SetTrigger("Attack");
         }
 
@@ -242,6 +242,12 @@ namespace Souls
         {
             return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
                 .IsName(animtorName);
+        }
+
+        public bool CheckAnimatorStateTag(string tagName,string maskName="Base Layer")
+        {
+            return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
+                .IsTag(tagName);
         }
 
         #endregion

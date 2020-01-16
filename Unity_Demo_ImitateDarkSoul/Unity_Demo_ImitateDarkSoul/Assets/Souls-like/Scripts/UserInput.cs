@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Souls
 {
-    public  abstract class UserInput : MonoBehaviour
+    public abstract class UserInput : MonoBehaviour
     {
         //output signal
         [HideInInspector] public float Horizontal;
@@ -13,18 +13,24 @@ namespace Souls
         [HideInInspector] public float CameraVertical;
 
         //pressing signal
-        [HideInInspector] public bool IsRun;
+        [HideInInspector] public bool IsRun = false;
         [HideInInspector] public bool IsDefense = false;
         [HideInInspector] public bool IsLockOn = false;
 
         //trigger signal
         [HideInInspector] public bool IsJump = false;
         [HideInInspector] public bool IsAttack = false;
-        
+
         //others
         public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
         [HideInInspector] public bool LockMovementInput = false;
+        
+        [HideInInspector] public InputInfo RightButtonInfo;
+        [HideInInspector]public InputInfo LeftButtonInfo;
+        [HideInInspector]public InputInfo RightTriggerInfo;
+        [HideInInspector]public InputInfo LeftTriggerInfo;
+
 
         private void Awake()
         {

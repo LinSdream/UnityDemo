@@ -18,13 +18,22 @@ namespace Souls
         public string RunButton = "Run";
         public string JumpButton = "Jump";
         public string LockCursorButton = "Esc";
-        public string AttackButton = "Attack";
         public string DefenseButton = "Defense";
         public string LockOnButton = "LockOn";
+        public string RightButton = "RightButton";
+        public string LeftButton = "LeftButton";
+        public string RightTrigger = "RightTrigger";
+        public string LeftTrigger = "LeftTrigger";
 
         protected override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
+
+            RightButtonInfo = new InputInfo(RightButton);
+            LeftButtonInfo = new InputInfo(LeftButton);
+
+            RightTriggerInfo = new InputInfo(RightTrigger);
+            LeftTriggerInfo = new InputInfo(LeftTrigger);
         }
 
         void Update()
@@ -54,12 +63,13 @@ namespace Souls
 
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
-            IsDefense = Input.GetButton(DefenseButton);
+            IsDefense = (RightButtonInfo.OnPressed || LeftButtonInfo.OnPressed);
 
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);
-            IsAttack = Input.GetButtonDown(AttackButton);
             IsLockOn = Input.GetButtonDown(LockOnButton);
+            IsAttack = (LeftButtonInfo.OnTrigger || RightButtonInfo.OnTrigger);
+
         }
 
     }

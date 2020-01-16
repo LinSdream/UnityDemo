@@ -22,7 +22,7 @@ namespace Souls
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
-        [HideInInspector]public CameraController CameraCol;
+        [HideInInspector] public CameraController CameraCol;
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
@@ -55,6 +55,10 @@ namespace Souls
         UserInput _input;
         Rigidbody _rigidboy;
 
+        ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
+        /// <summary> 左手是否盾牌</summary>
+        bool _leftIsShield = true;
+
         /// <summary> 位移方向向量 </summary>
         Vector3 _moveDir;
 
@@ -82,6 +86,7 @@ namespace Souls
 
             Jump();
 
+            //根据镜头锁定状态计算位移向量
             if (CameraCol.LockState)
             {
                 //重新计算移动向量，位移向量以自身为基准
@@ -89,12 +94,9 @@ namespace Souls
                     _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
 
                 if (TrackDirection)
-
                     Model.transform.forward = _moveDir.normalized;
-
                 else
                     Model.transform.forward = transform.forward;
-
             }
             else
             {
@@ -103,7 +105,8 @@ namespace Souls
                 if (!LockPlanar)
                     _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
             }
-            Defense();
+            if (_leftIsShield)
+                Defense();
             Attack();
         }
 
@@ -188,8 +191,15 @@ namespace Souls
         /// </summary>
         void Attack()
         {
-            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+            if ((_input.LeftButtonInfo.OnTrigger || _input.RightButtonInfo.OnTrigger)
+                && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+            {
+                if (_input.LeftButtonInfo.OnTrigger && !_leftIsShield)
+                    _anim.SetBool("AttackMirror", true);
+                else if (_input.RightButtonInfo.OnTrigger)
+                    _anim.SetBool("AttackMirror", false);
                 _anim.SetTrigger("Attack");
+            }
         }
 
         /// <summary>
@@ -198,6 +208,15 @@ namespace Souls
         void Defense()
         {
             _anim.SetBool("Defense", _input.IsDefense);
+            if (CheckAnimatorState("Ground"))
+            {
+                Debug.Log(_input.IsDefense);
+                if (_input.IsDefense)
+                    SetLayerWeight("Defanse Layer", 1);
+                else
+                    SetLayerWeight("Defanse Layer", 0);
+            }
+            SetLayerWeight("Defanse Layer", 0);
         }
 
         #endregion
@@ -244,7 +263,7 @@ namespace Souls
                 .IsName(animtorName);
         }
 
-        public bool CheckAnimatorStateTag(string tagName,string maskName="Base Layer")
+        public bool CheckAnimatorStateTag(string tagName, string maskName = "Base Layer")
         {
             return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
                 .IsTag(tagName);

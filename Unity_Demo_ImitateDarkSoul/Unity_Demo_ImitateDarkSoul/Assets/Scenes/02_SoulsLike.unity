@@ -234,6 +234,7 @@ MonoBehaviour:
   IsGrounded: 1
   TrackDirection: 0
   ThrustVec: {x: 0, y: 0, z: 0}
+  _leftIsShield: 1
 --- !u!114 &35711452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,8 +254,12 @@ MonoBehaviour:
   IsRun: 0
   IsDefense: 0
   IsLockOn: 0
+  IsRightTrigger: 0
+  IsLeftTrigger: 0
   IsJump: 0
   IsAttack: 0
+  IsRightButton: 0
+  IsLeftButton: 0
   LockCursor: 0
   LockMovementInput: 0
   HorizontalAxis: Horizontal
@@ -264,9 +269,12 @@ MonoBehaviour:
   RunButton: Run
   JumpButton: Jump
   LockCursorButton: Esc
-  AttackButton: Attack
   DefenseButton: Defense
   LockOnButton: LockOn
+  RightButton: RightButton
+  LeftButton: LeftButton
+  RightTrigger: RightTrigger
+  LeftTrigger: LeftTrigger
 --- !u!54 &35711453
 Rigidbody:
   m_ObjectHideFlags: 0

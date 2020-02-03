@@ -57,8 +57,19 @@ namespace Souls
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
-        bool _leftIsShield = true;
-
+        [SerializeField]bool _leftIsShield = true;
+        /// <summary>
+        /// 左手是否是盾牌，-1 双手无盾牌； 0:左手盾 ； 1 ：右手盾
+        /// </summary>
+        public int LeftIsShield
+        {
+            get
+            {
+                if (_leftIsShield)
+                    return 0;
+                return -1;
+            }
+        }
         /// <summary> 位移方向向量 </summary>
         Vector3 _moveDir;
 
@@ -191,14 +202,20 @@ namespace Souls
         /// </summary>
         void Attack()
         {
-            if ((_input.LeftButtonInfo.OnTrigger || _input.RightButtonInfo.OnTrigger)
-                && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+
+            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
             {
-                if (_input.LeftButtonInfo.OnTrigger && !_leftIsShield)
+                if (_input.IsLeftTrigger && !_leftIsShield)
+                {
                     _anim.SetBool("AttackMirror", true);
-                else if (_input.RightButtonInfo.OnTrigger)
+                    _anim.SetTrigger("Attack");
+                }
+                else if (_input.IsRightTrigger)
+                {
+                    _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
-                _anim.SetTrigger("Attack");
+                }
+                
             }
         }
 
@@ -210,14 +227,16 @@ namespace Souls
             _anim.SetBool("Defense", _input.IsDefense);
             if (CheckAnimatorState("Ground"))
             {
-                Debug.Log(_input.IsDefense);
                 if (_input.IsDefense)
                     SetLayerWeight("Defanse Layer", 1);
                 else
                     SetLayerWeight("Defanse Layer", 0);
             }
-            SetLayerWeight("Defanse Layer", 0);
-        }
+            else
+            {
+                    SetLayerWeight("Defanse Layer", 0);
+            }
+        }   
 
         #endregion
 

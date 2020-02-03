@@ -90,6 +90,7 @@ namespace Souls
 
         private void OnGroundEnter(GameObject sender, EventArgs e)
         {
+            _playerController.SetInputLock(false);
             _playerController.LockPlanar = false;
             _playerController.TrackDirection = false;
         }

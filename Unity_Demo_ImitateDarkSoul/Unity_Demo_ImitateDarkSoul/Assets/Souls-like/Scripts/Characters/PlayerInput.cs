@@ -63,12 +63,21 @@ namespace Souls
 
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
-            IsDefense = (RightButtonInfo.OnPressed || LeftButtonInfo.OnPressed);
+            IsDefense = Input.GetButton(DefenseButton);
+
+            IsRightButton = Input.GetButton(RightButton);
+            IsLeftButton = Input.GetButton(LeftButton);
+
+            IsDefense = (IsRightButton || IsLeftButton);
 
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);
             IsLockOn = Input.GetButtonDown(LockOnButton);
-            IsAttack = (LeftButtonInfo.OnTrigger || RightButtonInfo.OnTrigger);
+
+            IsLeftTrigger = Input.GetButtonDown(LeftTrigger);
+            IsRightTrigger = Input.GetButtonDown(RightTrigger);
+
+            IsAttack = (IsLeftTrigger || IsRightTrigger);
 
         }
 

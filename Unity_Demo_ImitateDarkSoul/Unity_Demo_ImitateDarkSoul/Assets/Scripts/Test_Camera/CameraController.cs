@@ -38,7 +38,8 @@ namespace Test.TestCamera
             _transformTargetRot = Quaternion.Euler(0f, _lookAngle, 0f);
             transform.localRotation = _transformTargetRot;
 
-            ///TODO: 待定：旋转transform的时候，将Model的正方向与transfrom的正方向进行校正
+            ///TODO:镜头的正方向是Player的正方向；在不动镜头的时候，左右移动，镜头要平滑划过，也就是镜头也要旋转
+            ///也就是说在不同镜头的时候按下x轴位移，Player的运动轨迹是圆形，在镜头与Player的控制中同样都是x轴位移的时候，也呈现圆形运动
             Model.rotation = rotation;
         }
 

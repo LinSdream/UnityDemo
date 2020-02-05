@@ -22,7 +22,7 @@ namespace Souls
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
 
-        [HideInInspector] public CameraController CameraCol;
+        public CameraController CameraCol;
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
         [HideInInspector] public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
@@ -84,7 +84,6 @@ namespace Souls
             _anim = Model.GetComponent<Animator>();
             _input = GetComponent<UserInput>();
             _rigidboy = GetComponent<Rigidbody>();
-            CameraCol = GetComponentInChildren<CameraController>();
 
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
         }

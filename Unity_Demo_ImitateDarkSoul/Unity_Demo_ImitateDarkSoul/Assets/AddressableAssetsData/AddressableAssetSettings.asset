@@ -20,8 +20,6 @@ MonoBehaviour:
     m_Id: 7bbae51b085d3ed4bbe0baabff67f326
   m_overridePlayerVersion: 
   m_GroupAssets:
-  - {fileID: 11400000, guid: 05e82ec213d21a94c8ec9dcfa0ea14fb, type: 2}
-  - {fileID: 11400000, guid: 54b1f4e9af6081c4a9fde16bc463673a, type: 2}
   - {fileID: 11400000, guid: 9b0096e1198f8fa489d632dfa6bc059c, type: 2}
   - {fileID: 11400000, guid: a69206f6423e6a84ba53bce4ee95f658, type: 2}
   - {fileID: 11400000, guid: 5290627ad03e5974cae04ed78c1fe3cc, type: 2}

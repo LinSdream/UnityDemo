@@ -1,16 +1,12 @@
-﻿using System.Collections;
+﻿using LS.CustomInput;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Souls
 {
-    public abstract class UserInput : MonoBehaviour
+    public abstract class UserInput : InputBase
     {
-        //output signal
-        [HideInInspector] public float Horizontal;
-        [HideInInspector] public float Vertical;
-        [HideInInspector] public float CameraHorizontal;
-        [HideInInspector] public float CameraVertical;
 
         //pressing signal
         [HideInInspector] public bool IsRun = false;
@@ -25,8 +21,6 @@ namespace Souls
         [HideInInspector] public bool IsRightButton = false;
         [HideInInspector] public bool IsLeftButton = false;
 
-        //others
-        public bool LockCursor = true;
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
         [HideInInspector] public bool LockMovementInput = false;
 

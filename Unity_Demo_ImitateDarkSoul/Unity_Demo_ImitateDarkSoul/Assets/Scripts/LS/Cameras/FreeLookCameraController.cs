@@ -1,46 +1,37 @@
-﻿using Souls;
+﻿using LS.CustomInput;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Test.TestCamera
+namespace LS.Cameras
 {
-    public class CameraController : MonoBehaviour
+    // This script is designed to be placed on the root object of a camera rig,
+    // comprising 3 gameobjects, each parented to the next:
+
+    // 	Camera Rig
+    // 		Pivot
+    // 			Camera
+    public class FreeLookCameraController : AbstractTargetFollower
     {
-
-        public enum UpdateType
-        {
-            /// <summary>Update in FixedUpdate </summary>
-            FIXEDUPDATE,
-            /// <summary>Update in LateUpdate </summary>
-            LATEUPDATE,
-            /// <summary>Update by user call </summary>
-            MANUALUPDATE,
-        };
-
         public enum TargetMoveType
         {
             NONE,
             LERP,
             SMOOTHDAMP
         }
+        [Tooltip("Track the update mode of the TargetModel")] public TargetMoveType TargetModelUpdateType = TargetMoveType.LERP;
+        [Tooltip("The speed of rig rotate")] [Range(0f, 10f)] public float TurnSpeed = 1.5f;
+        [Tooltip("The speed of camera track to TargetModel")] public float MoveSpeed = 1f;
+        [Tooltip("Limit the angle of the y-axis ( min , max )")] public Vector2 LimitAngle = new Vector2(-45f, 75f);
+        [Tooltip("How much smoothing to apply to the turn input, to reduce mouse-turn jerkiness")]public float TurnSmoothing = 0f;
+        [Tooltip("Set wether or not the vertical axis should auto return")]public bool VerticalAutoReturn = false;
 
         [Header("Model")]
-        public UserInput InputModel;
-        public Transform CameraPivot;
-        public Transform TargetModel;
+        [Tooltip("Pivot,second level")] public Transform CameraPivot;
+        [Tooltip("Camera input signal model")] public InputBase InputModel;
 
-        [Header("Camera Settings")]
-        public UpdateType CameraUpdateType = UpdateType.FIXEDUPDATE;
-        public TargetMoveType TargetModelUpdateType = TargetMoveType.LERP;
-        [Range(0f, 10f)] public float TurnSpeed = 1.5f;
-        public float MoveSpeed = 1f;
-        public float TurnSmoothing = 0f;
-        [Tooltip("Limit the angle of the y-axis ( min , max )")]
-        public Vector2 LimitAngle = new Vector2(-45f, 75f);
-        public bool VerticalAutoReturn = false;
-
-        public Transform CameraObj { get; private set; }
+        /// <summary>Get Camera Transform </summary>
+        public Transform CameraObj { get; protected set; }
 
         float _lookAngle;
         float _limitAngle;
@@ -48,6 +39,7 @@ namespace Test.TestCamera
         Quaternion _pivotTargetRot;
         Quaternion _transformTargetRot;
         Vector3 _targetDampVelocity;
+
         private void Awake()
         {
             CameraObj = CameraPivot.GetChild(0);
@@ -60,38 +52,11 @@ namespace Test.TestCamera
 
         private void Update()
         {
-            Rotation();
+            Rotate();
         }
 
-        private void FixedUpdate()
+        void Rotate()
         {
-            if (TargetModel == null)
-                return;
-            if (CameraUpdateType == UpdateType.FIXEDUPDATE)
-                FollowTarget(Time.deltaTime);
-        }
-
-        private void LateUpdate()
-        {
-            if (TargetModel == null)
-                return;
-            if (CameraUpdateType == UpdateType.LATEUPDATE)
-                FollowTarget(Time.deltaTime);
-        }
-
-        public void ManualUpdate()
-        {
-            if (TargetModel == null)
-                return;
-            if (CameraUpdateType == UpdateType.MANUALUPDATE)
-                FollowTarget(Time.deltaTime);
-        }
-
-        void Rotation()
-        {
-
-            //var rotation = TargetModel.rotation;
-
             _lookAngle += InputModel.CameraHorizontal * TurnSpeed;
             _transformTargetRot = Quaternion.Euler(0f, _lookAngle, 0f);
 
@@ -116,17 +81,13 @@ namespace Test.TestCamera
                 CameraPivot.localRotation = _pivotTargetRot;
                 transform.localRotation = _transformTargetRot;
             }
-
-            /////TODO:镜头的正方向是Player的正方向；在不动镜头的时候，左右移动，镜头要平滑划过，也就是镜头也要旋转
-            /////也就是说在不同镜头的时候按下x轴位移，Player的运动轨迹是圆形，在镜头与Player的控制中同样都是x轴位移的时候，也呈现圆形运动
-            //TargetModel.rotation = rotation;
         }
 
-        void FollowTarget(float deltaTime)
+        protected override void FollowTarget(float deltaTime)
         {
             if (TargetModel == null)
                 return;
-            switch(TargetModelUpdateType)
+            switch (TargetModelUpdateType)
             {
                 case TargetMoveType.NONE:
                     transform.position = TargetModel.position;
@@ -140,6 +101,7 @@ namespace Test.TestCamera
                     break;
             }
         }
-
     }
+
+
 }

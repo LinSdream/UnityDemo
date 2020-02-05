@@ -48,7 +48,9 @@ namespace Test.TestCamera
 
         void Movement()
         {
-            _rigidbody.MovePosition(Vector3.Scale(CameraModel.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + _input.Horizontal * CameraModel.CameraObj.right * Time.fixedDeltaTime + _rigidbody.position);
+            _rigidbody.MovePosition(_moveDir * Time.deltaTime * MoveSpeed + _rigidbody.position);
+            //_rigidbody.MovePosition((Vector3.Scale(CameraModel.CameraObj.forward, new Vector3(1, 0, 1)) 
+            //    * _input.Vertical + _input.Horizontal * CameraModel.CameraObj.right * Time.fixedDeltaTime)*MoveSpeed + _rigidbody.position);
         }
 
         void Rotate()
@@ -57,8 +59,8 @@ namespace Test.TestCamera
             {
                 //transform.Rotate(0, Mathf.Lerp(180f,360f,  _moveDir.z*Time.deltaTime), 0);
                 //旋转以Camera的transform的正方向为基准
-                var forward = Vector3.Scale(CameraModel.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + _input.Horizontal * CameraModel.CameraObj.right; ;//_input.Horizontal * transform.right + _input.Vertical * transform.forward;
-                Quaternion quaternion = Quaternion.LookRotation(forward, Vector3.up);
+                //var forward = Vector3.Scale(CameraModel.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + _input.Horizontal * CameraModel.CameraObj.right; ;//_input.Horizontal * transform.right + _input.Vertical * transform.forward;
+                Quaternion quaternion = Quaternion.LookRotation(_moveDir, Vector3.up);
                 quaternion = Quaternion.Slerp(Model.transform.rotation, quaternion, Time.deltaTime * RotationSpeed);
                 Model.transform.rotation = quaternion;
             }

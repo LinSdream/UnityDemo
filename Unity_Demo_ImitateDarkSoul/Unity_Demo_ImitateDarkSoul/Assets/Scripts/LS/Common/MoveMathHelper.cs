@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace LS.Common
+namespace LS.Common.Math
 {
     public static class MoveMathHelper
     {

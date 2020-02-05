@@ -12,7 +12,7 @@ namespace LS.Helper.Others
         #region Fields
         public Slider LoadingSlider = null;
 
-        //float _loadingSpeed = 1f;
+        float _loadingSpeed = 1f;
         float _targetValue;
         AsyncOperation _operation;
         bool _haveSlider = false;

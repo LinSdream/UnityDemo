@@ -27,8 +27,8 @@ namespace LS.Test
         public string LoadGroupAssetsLabel = "AudioGroupAsset";
         public string DefaultGroup = "DefaultGroup";
 
-        public float MusicVolume = 1f;
-        public float SfxVolume = 1f;
+        public float MusicVolume;
+        public float SfxVolume;
 
         public List<AudioSource> PlayingSounds => _playingSounds;
         public AudioSource BgmAudioSource => _musicAudioSource;
@@ -40,7 +40,6 @@ namespace LS.Test
             _groups = new Dictionary<string, AudioGroup>();
             _playingSounds = new List<AudioSource>();
             _musicAudioSource = gameObject.AddComponent<AudioSource>();
-             _audioSourceInfoList= new List<AudioSourceInfo>();
         }
         #endregion
 

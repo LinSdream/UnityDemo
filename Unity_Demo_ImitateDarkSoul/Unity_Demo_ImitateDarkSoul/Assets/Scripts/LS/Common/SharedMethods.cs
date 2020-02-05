@@ -4,7 +4,6 @@ using System;
 
 namespace LS.Common.Math
 {
-
     public static class SharedMethods
     {
 
@@ -13,10 +12,10 @@ namespace LS.Common.Math
         /// 该论文有挺多有意思的公式可以学习
         #region SquareToDiscMapping Methods
         /// <summary>
-        /// 平面直角坐标转化为球面坐标
+        /// 平面直角坐标转化为平面的球形坐标
         /// </summary>
         /// <param name="input">平面坐标</param>
-        /// <returns>球面坐标</returns>
+        /// <returns>平面的球形坐标</returns>
         public static Vector2 SquareToDiscMapping(Vector2 input)
         {
             Vector2 output = Vector2.zero;
@@ -26,11 +25,11 @@ namespace LS.Common.Math
         }
 
         /// <summary>
-        /// 平面直角坐标转化为球面坐标
+        /// 平面直角坐标转化为平面的球形坐标
         /// </summary>
         /// <param name="x">x坐标</param>
         /// <param name="y">y坐标</param>
-        /// <returns>球面坐标</returns>
+        /// <returns>平面的球形坐标</returns>
         public static Vector2 SquareToDiscMapping(float x, float y)
         {
             Vector2 output = Vector2.zero;
@@ -40,17 +39,18 @@ namespace LS.Common.Math
         }
 
         /// <summary>
-        /// 平面直角坐标转化为球面坐标
+        /// 平面直角坐标转化为平面的球形坐标
         /// </summary>
         /// <param name="x">x坐标</param>
         /// <param name="y">y坐标</param>
-        /// <param name="u">x坐标对应的新的x坐标</param>
-        /// <param name="v">y坐标对应的新的y坐标</param>
-        public static void SquareToDiscMapping(float x, float y, out float u, out float v)
+        /// <param name="u">x坐标对应的新的u坐标</param>
+        /// <param name="v">y坐标对应的新的v坐标</param>
+        public static void SquareToDiscMapping(float x,float y,out float u,out float v)
         {
             u = x * (Mathf.Sqrt(1 - (y * y) / 2));
             v = y * (Mathf.Sqrt(1 - (x * x) / 2));
         }
+
         #endregion
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace LS.Common.Math
                 distance[index] = (cell.transform.position - origin.position).sqrMagnitude;
                 index++;
             }
-            index = GetMinOrMaxIndexInArray(distance,false);
+            index = GetMinOrMaxIndexInArray(distance, false);
             return colliders[index];
         }
 
@@ -76,10 +76,10 @@ namespace LS.Common.Math
         /// <typeparam name="T">继承自IComparable</typeparam>
         /// <param name="arr">数组</param>
         /// <param name="isMax">是否是取最大值</param>
-        public static  int GetMinOrMaxIndexInArray<T>(T[] arr,bool isMax=true) where T :IComparable<T>
+        public static int GetMinOrMaxIndexInArray<T>(T[] arr, bool isMax = true) where T : IComparable<T>
         {
             int index = 0;
-            if (arr == null||arr.Length==0)
+            if (arr == null || arr.Length == 0)
             {
                 Debug.LogError("SharedMethods/GetMinOrMaxInArray Error :  array of arr is an invalid value ! ");
                 return 0;
@@ -87,11 +87,11 @@ namespace LS.Common.Math
 
             T tmp = arr[0];
 
-            for(int i=0;i<arr.Length;i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                if(isMax)
+                if (isMax)
                 {
-                    if(tmp.CompareTo(arr[i])!=1)
+                    if (tmp.CompareTo(arr[i]) != 1)
                     {
                         tmp = arr[i];
                         index = i;
@@ -108,6 +108,7 @@ namespace LS.Common.Math
             }
             return index;
         }
+
 
     }
 

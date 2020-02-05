@@ -9,7 +9,7 @@ using System;
 
 namespace LS.Test
 {
-    [CreateAssetMenu(menuName = "LS/Audio/AudioGroup")]
+    [CreateAssetMenu(menuName ="LS/Audio/AudioGroup")]
     public class AudioGroup : ScriptableObject
     {
         #region Public Fields
@@ -71,10 +71,11 @@ namespace LS.Test
                 _unusedSoundAudioSourceList.Add(audioSource);
         }
 
-        AudioSource GetAudioSource(MonoBehaviour mono, List<AudioSourceInfo> list)
+        AudioSource GetAudioSource(MonoBehaviour mono,List<AudioSourceInfo> list)
         {
             if (_unusedSoundAudioSourceList.Count != 0)
                 return UnusedToUsed();
+
             //var audioSource = mono.gameObject.AddComponent<AudioSource>();
             //list.Add(new AudioSourceInfo()
             //{
@@ -86,10 +87,10 @@ namespace LS.Test
             var audioSource = mono.gameObject.AddComponent<AudioSource>();
             _unusedSoundAudioSourceList.Add(audioSource);
             return audioSource;
-
+            
         }
 
-        IEnumerator WaitOfPlaySfxEnd(AudioSource audioSource, float time, System.Action callback, List<AudioSource> list)
+        IEnumerator WaitOfPlaySfxEnd(AudioSource audioSource, float time, System.Action callback,List<AudioSource> list)
         {
             yield return new WaitForSeconds(time);
             UsedToUnused(audioSource);
@@ -128,7 +129,7 @@ namespace LS.Test
             }
         }
 
-        public async void Play(AudioSource audioSource, string name, float volume)
+        public async void Play(AudioSource audioSource,string name,float volume)
         {
             var clip = await GetAudioClip(name);
             audioSource.clip = clip;
@@ -139,22 +140,23 @@ namespace LS.Test
         public async void PlaySfx(MonoBehaviour mono, string name, Action cb, List<AudioSource> list,
             List<AudioSourceInfo> info, bool openCoroutine = true)
         {
-            AudioSource audioSource = GetAudioSource(mono, info);
+            if (_unusedSoundAudioSourceList.Count == 0)
+                GetAudioSource(mono,info);
+
+            AudioSource audioSource = UnusedToUsed();
             var clip = await GetAudioClip(name);
-            if (clip == null)
-                return;
             audioSource.clip = clip;
             audioSource.volume = RealityVolume;
             audioSource.outputAudioMixerGroup = AudioMixer;
             audioSource.Play();
             list.Add(audioSource);
-            mono.StartCoroutine(WaitOfPlaySfxEnd(audioSource, audioSource.clip.length, cb, list));//协程，一个音效一个协程
+            mono.StartCoroutine(WaitOfPlaySfxEnd(audioSource, audioSource.clip.length, cb,list));//协程，一个音效一个协程
         }
 
         public string[] GetAudiosName()
         {
             List<string> names = new List<string>();
-            foreach (KeyValuePair<string, AudioInfo> pair in Value)
+            foreach(KeyValuePair<string ,AudioInfo> pair in Value)
             {
                 names.Add(pair.Key);
             }
@@ -163,7 +165,7 @@ namespace LS.Test
 
         public void ReleaseAssets()
         {
-            foreach (KeyValuePair<string, AudioInfo> pair in Value)
+            foreach(KeyValuePair<string,AudioInfo> pair in Value)
             {
                 pair.Value.Asset.ReleaseAsset();
                 pair.Value.Clip = null;

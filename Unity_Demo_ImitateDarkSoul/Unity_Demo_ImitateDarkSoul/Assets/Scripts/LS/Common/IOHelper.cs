@@ -15,7 +15,7 @@ namespace LS.Common
     /// Latest Time:2019.12.18
     /// 
     /// Update Log:
-    ///         1.对io操作进行一个封装，steam流的读写操作，同时将Set/GetData方法从file操作更改为steam操作
+    ///         1.对io操作进行一个封装，Stream流的读写操作，同时将Set/GetData方法从file操作更改为Stream操作
 
     /// <summary>
     /// IO辅助类
@@ -32,7 +32,7 @@ namespace LS.Common
         public static void SetData(string filePath, object obj)
         {
             string toSave = SerializeObject(obj);
-            Steam_FileWriter(filePath, toSave, false, Encoding.UTF8);
+            Stream_FileWriter(filePath, toSave, false, Encoding.UTF8);
             //StreamWriter writer = File.CreateText(filePath);
             //writer.Write(toSave);
             //writer.Close(); 
@@ -45,7 +45,7 @@ namespace LS.Common
         /// <param name="type">数据类型</param>
         public static object GetData(string filePath, Type type)
         {
-            Steam_FileRead(filePath, out string data, Encoding.UTF8);
+            Stream_FileRead(filePath, out string data, Encoding.UTF8);
             return DeserializeObject(data, type);
         }
 
@@ -91,15 +91,15 @@ namespace LS.Common
         /// <param name="path">文件路径</param>
         /// <param name="data">文本数据</param>
         /// <param name="encodingType">编码</param>
-        public static void Steam_FileReadByLine(string path, out string data, Encoding encodingType)
+        public static void Stream_FileReadByLine(string path, out List<string> data, Encoding encodingType)
         {
-            data = string.Empty;
+            data = new List<string>();
             try
             {
                 StreamReader reader = new StreamReader(path, encodingType);
                 while (reader.Peek() >= 0)
                 {
-                    data += reader.ReadLine();
+                    data.Add(reader.ReadLine());
                 }
                 reader.Close();
             }
@@ -118,7 +118,7 @@ namespace LS.Common
         /// <param name="filePath">文件路径</param>
         /// <param name="data">文件数据</param>
         /// <param name="encodingType">编码</param>
-        public static void Steam_FileRead(string filePath,out string data,Encoding encodingType)
+        public static void Stream_FileRead(string filePath,out string data,Encoding encodingType)
         {
             data = string.Empty;
             try
@@ -142,7 +142,7 @@ namespace LS.Common
         /// <param name="data">数据</param>
         /// <param name="isCover">是否覆盖，true追加，false 覆盖 如果该文件不存在则创建</param>
         /// <param name="encodingType">编码</param>
-        public static void Steam_FileWriter(string filePath,string data,bool isCover,Encoding encodingType)
+        public static void Stream_FileWriter(string filePath,string data,bool isCover,Encoding encodingType)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace LS.Common
         /// <param name="content">文件内容</param>
         public static void CreateFile(string filePath, string content)
         {
-            Steam_FileWriter(filePath,content, false, Encoding.UTF8);
+            Stream_FileWriter(filePath,content, false, Encoding.UTF8);
             //StreamWriter streamWriter = File.CreateText(filePath);
             //streamWriter.Write(content);
             //streamWriter.Close();
@@ -207,11 +207,11 @@ namespace LS.Common
         /// </summary>
         /// <returns>文件名数组</returns>
         /// <param name="nameArray">存放name的数组</param>
-        /// <param name="path">Assets下“一"级路径</param>
+        /// <param name="path">Assets下“一"级路径,例如Resources文件夹  "/Resources"  </param>
         /// <param name="passFiles">筛选文件后缀名的条件.</param>
-        public static void GetFileNameToArry(ref List<string> nameArray, string path, params string[] passFiles)
+        public static void GetFileNameToArray(ref List<string> nameArray, string path, params string[] passFiles)
         {
-            string objPath = Application.dataPath + "/" + path;
+            string objPath = Application.dataPath + path;
 
             string[] directoryEntries;
             bool restart;
@@ -225,7 +225,7 @@ namespace LS.Common
                     restart = false;
                     string p = directoryEntries[i];
                     //得到要求目录下的文件或者文件夹（一级的）//
-                    string[] tempPaths = SplitWithString(p, "/Assets/" + path + "\\");
+                    string[] tempPaths = SplitWithString(p, "/Assets" + path + "\\");
 
                     //tempPaths 分割后的不可能为空,只要directoryEntries不为空//
                     //先判断尾串是否有要筛选的后缀名，如果为空或者无要筛选的后缀名进入下一步
@@ -254,7 +254,7 @@ namespace LS.Common
                     //遍历子目录下 递归吧！
                     else
                     {
-                        GetFileNameToArry(ref nameArray, path + "/" + pathSplit[0], passFiles);
+                        GetFileNameToArray(ref nameArray, path + "/" + pathSplit[0], passFiles);
                         continue;
                     }
                 }
@@ -270,11 +270,11 @@ namespace LS.Common
         /// 获取Assets文件夹下的指定路径的path-name字典，path仅包含Assets文件夹下的路径
         /// </summary>
         /// <param name="dic">获得到的<path-name>字典</param>
-        /// <param name="path">路径</param>
+        /// <param name="path">路径 例如Resources文件夹  "/Resources" </param>
         /// <param name="passFiles">要忽略的文件后缀名</param>
         public static void GetFilePathNameToDic(ref Dictionary<string,string> dic,string path,params string[] passFiles)
         {
-            string objPath = Application.dataPath + "/" + path;
+            string objPath = Application.dataPath+ path;
 
             string[] directoryEntries;
             bool restart;
@@ -286,7 +286,7 @@ namespace LS.Common
                 {
                     restart = false;
                     string url = directoryEntries[i];
-                    string[] tempPaths = SplitWithString(url, "/Assets/" + path + "\\");
+                    string[] tempPaths = SplitWithString(url, "/Assets" + path + "\\");
                     if (tempPaths[1].EndsWith(".meta"))
                         continue;
                     foreach(string cell in passFiles)

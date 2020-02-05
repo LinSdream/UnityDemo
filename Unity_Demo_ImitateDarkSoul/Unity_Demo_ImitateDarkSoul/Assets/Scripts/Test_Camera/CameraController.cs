@@ -40,7 +40,7 @@ namespace Test.TestCamera
         public Vector2 LimitAngle = new Vector2(45f, 75f);
         public bool VerticalAutoReturn = false;
 
-        Transform _camera;
+        public Transform CameraObj { get; private set; }
 
         float _lookAngle;
         float _limitAngle;
@@ -50,7 +50,7 @@ namespace Test.TestCamera
         Vector3 _targetDampVelocity;
         private void Awake()
         {
-            _camera = CameraPivot.GetChild(0);
+            CameraObj = CameraPivot.GetChild(0);
 
             _pivotEulers = CameraPivot.transform.eulerAngles;
 

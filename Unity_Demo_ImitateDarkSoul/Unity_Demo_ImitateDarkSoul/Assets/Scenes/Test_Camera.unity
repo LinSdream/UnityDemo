@@ -235,12 +235,6 @@ Transform:
   m_Father: {fileID: 37227321}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &231950786 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 408730, guid: 7737647c22c1fc64a88d5cd030c352ce,
-    type: 3}
-  m_PrefabInstance: {fileID: 1436352637}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &423936607
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputModel: {fileID: 635505125}
   CameraPivot: {fileID: 37227321}
-  TargetModel: {fileID: 231950786}
+  TargetModel: {fileID: 635505122}
   CameraUpdateType: 0
   TargetModelUpdateType: 1
   TurnSpeed: 1.5
@@ -405,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 2033766902}
+  CameraModel: {fileID: 423936609}
   MoveSpeed: 5
   RotationSpeed: 10
 --- !u!1 &790591615

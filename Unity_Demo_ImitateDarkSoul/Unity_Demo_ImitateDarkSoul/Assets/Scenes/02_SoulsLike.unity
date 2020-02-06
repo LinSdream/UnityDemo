@@ -228,7 +228,7 @@ MonoBehaviour:
   HightFallStiff: 5
   HightFallDead: 15
   DurationThrustMultiplier: 0.2
-  CameraCol: {fileID: 666106351}
+  CameraCol: {fileID: 1685493738}
   LockPlanar: 0
   DeltaPos: {x: 0, y: 0, z: 0}
   IsGrounded: 1
@@ -696,19 +696,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd7fb2cad87e214e8583b6b8a852955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _input: {fileID: 35711452}
-  ModelCamera: {fileID: 1365491627}
+  TargetModel: {fileID: 0}
+  CameraUpdateType: 0
+  TargetModelUpdateType: 1
+  TurnSpeed: 1.5
+  MoveSpeed: 1
+  LimitAngle: {x: -45, y: 75}
+  TurnSmoothing: 0
+  VerticalAutoReturn: 0
+  CameraPivot: {fileID: 0}
+  InputModel: {fileID: 0}
   CheckMask:
     serializedVersion: 2
     m_Bits: 2048
   AimPointImg: {fileID: 1279280403}
   SqrDistanceTargetToSelf: 100
   DampCoefficient: 0
-  HorizontalInversion: 0
-  VerticalInversion: 0
-  HorizontalSpeed: 100
-  VerticalSpeed: 80
-  VerticalAngle: {x: -30, y: 30}
   LockState: 0
   _cameraRotateSuccess: 0
   _lockTarget: {fileID: 0}
@@ -1944,7 +1947,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685493736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413dc11aa39acce4eaed96b093234c80, type: 3}
+  m_Script: {fileID: 11500000, guid: acd7fb2cad87e214e8583b6b8a852955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetModel: {fileID: 35711449}
@@ -1957,6 +1960,15 @@ MonoBehaviour:
   VerticalAutoReturn: 0
   CameraPivot: {fileID: 2019373867}
   InputModel: {fileID: 35711452}
+  CheckMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  AimPointImg: {fileID: 1279280403}
+  SqrDistanceTargetToSelf: 100
+  DampCoefficient: 0
+  LockState: 0
+  _cameraRotateSuccess: 0
+  _lockTarget: {fileID: 0}
 --- !u!1001 &1856153592
 PrefabInstance:
   m_ObjectHideFlags: 0

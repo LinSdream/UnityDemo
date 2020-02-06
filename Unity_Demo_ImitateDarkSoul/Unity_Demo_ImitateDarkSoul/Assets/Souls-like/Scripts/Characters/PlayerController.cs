@@ -57,7 +57,7 @@ namespace Souls
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
-        [SerializeField]bool _leftIsShield = true;
+        [SerializeField] bool _leftIsShield = true;
         /// <summary>
         /// 左手是否是盾牌，-1 双手无盾牌； 0:左手盾 ； 1 ：右手盾
         /// </summary>
@@ -96,25 +96,8 @@ namespace Souls
 
             Jump();
 
-            //根据镜头锁定状态计算位移向量
-            if (CameraCol.LockState)
-            {
-                //重新计算移动向量，位移向量以自身为基准
-                if (!LockPlanar)
-                    _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+            CalculateMoveDirection();
 
-                if (TrackDirection)
-                    Model.transform.forward = _moveDir.normalized;
-                else
-                    Model.transform.forward = transform.forward;
-            }
-            else
-            {
-                Rotation();
-                //位移向量以模型为基准
-                if (!LockPlanar)
-                    _moveDir = _input.InputVec.normalized * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
-            }
             if (_leftIsShield)
                 Defense();
             Attack();
@@ -136,8 +119,12 @@ namespace Souls
             //角色旋转
             if (_input.Horizontal != 0 || _input.Vertical != 0)
             {
+                var forward = Vector3.Scale(CameraCol.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal;
+                if (forward.magnitude > 1f)
+                    forward.Normalize();
+                forward = transform.InverseTransformDirection(forward);
                 //方法1：
-                Quaternion quaternion = Quaternion.LookRotation(_input.InputVec, Vector3.up);
+                Quaternion quaternion = Quaternion.LookRotation(forward, Vector3.up);
                 quaternion = Quaternion.Slerp(Model.transform.rotation, quaternion, Time.deltaTime * RotationSpeed);
                 Model.transform.rotation = quaternion;
                 //方法2：
@@ -169,7 +156,7 @@ namespace Souls
             }
 
             _rigidboy.position += DeltaPos;
-            _rigidboy.MovePosition(_rigidboy.position + _moveDir * Time.fixedDeltaTime);
+            _rigidboy.MovePosition(_rigidboy.position + _moveDir * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed) * Time.fixedDeltaTime);
 
             //冲量
             _rigidboy.velocity += ThrustVec;
@@ -214,7 +201,7 @@ namespace Souls
                     _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
                 }
-                
+
             }
         }
 
@@ -233,10 +220,63 @@ namespace Souls
             }
             else
             {
-                    SetLayerWeight("Defanse Layer", 0);
+                SetLayerWeight("Defanse Layer", 0);
             }
-        }   
+        }
 
+        /// <summary>
+        /// 计算方向向量
+        /// </summary>
+        void CalculateMoveDirection()
+        {
+
+            if (!LockPlanar)
+            {
+                _moveDir = Vector3.Scale(CameraCol.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal;
+                if (_moveDir.magnitude > 1f)
+                    _moveDir.Normalize();
+                _moveDir = transform.InverseTransformDirection(_moveDir);
+            }
+            if (CameraCol.LockState)
+            {
+                if (TrackDirection)
+                    Model.transform.forward = _moveDir;
+                else
+                    Model.transform.forward = transform.forward;
+            }
+            else
+            {
+                Rotation();
+            }
+
+            ////根据镜头锁定状态计算位移向量
+            //if (CameraCol.LockState)
+            //{
+
+            //    //重新计算移动向量，位移向量以自身为基准
+            //    if (!LockPlanar)
+            //        _moveDir = (_input.Horizontal * transform.right + _input.Vertical * transform.forward) * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed);
+
+            //    if (TrackDirection)
+            //        Model.transform.forward = _moveDir;
+            //    else
+            //        Model.transform.forward = transform.forward;
+            //}
+            //else
+            //{
+            //    //位移向量以模型为基准
+            //    if (!LockPlanar)
+            //    {
+            //        _moveDir = Vector3.Scale(CameraCol.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal;
+            //        if (_moveDir.magnitude > 1f)
+            //            _moveDir.Normalize();
+            //        _moveDir = transform.InverseTransformDirection(_moveDir);
+            //    }
+            //    //Vector3.Scale(CameraCol.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal
+            //    Rotation();
+            //    //_moveDir = _input.InputVec.normalized * ;
+            //}
+        }
         #endregion
 
         #region Public Methods

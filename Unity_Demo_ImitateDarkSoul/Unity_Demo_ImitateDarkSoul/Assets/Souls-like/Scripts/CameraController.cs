@@ -11,12 +11,13 @@ namespace Souls
     public class CameraController : FreeLookCameraController
     {
         #region Fields
+        
+        [Header("Other Settings")]
         public LayerMask CheckMask;
         public Image AimPointImg;
         [Tooltip("自动解锁距离：目标对象与自身的距离平方")] public float SqrDistanceTargetToSelf = 100f;
-        [Tooltip("平滑阻尼")] [Range(0, 1)] public float DampCoefficient;
 
-        [HideInInspector] public bool LockState = false;
+        public bool LockState = false;
 
         /// <summary>平滑过渡的阻尼值</summary>
         Vector3 _dampVec;
@@ -31,6 +32,15 @@ namespace Souls
 
         #region Override Methods
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            AimPointImg.enabled = false;
+            LockState = false;
+
+            transform.position = TargetModel.position;
+        }
 
         protected override void OnFixedUpdate()
         {
@@ -39,7 +49,7 @@ namespace Souls
                     RelesaseLockOn();
         }
 
-        protected new void Rotate()
+        protected override void Rotate()
         {
             if (_lockTarget == null)
                 base.Rotate();
@@ -47,10 +57,13 @@ namespace Souls
             {
                 if (true)
                 {
-                    //计算方向向量
-                    Vector3 tmpForward = _lockTarget.transform.position - TargetModel.position;
-                    tmpForward.y = 0;
-                    transform.forward = tmpForward;//父级Player的方向指向目标物体
+                    Vector3 forward = _lockTarget.transform.position - TargetModel.position;
+                    forward = Vector3.Scale(forward, new Vector3(1, 0, 1));
+                    transform.forward = forward;
+                    ////计算方向向量
+                    //Vector3 tmpForward = _lockTarget.transform.position - TargetModel.position;
+                    //tmpForward.y = 0;
+                    //transform.forward = tmpForward;//父级Player的方向指向目标物体
                 }
                 CameraPivot.LookAt(_lockTarget.transform);
                 AimPointImg.rectTransform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);

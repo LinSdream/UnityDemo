@@ -50,7 +50,7 @@ namespace LS.Cameras
         #endregion
 
         #region MonoBehaviour Callbacks
-        protected void Awake()
+        protected virtual void Awake()
         {
             CameraObj = CameraPivot.GetChild(0);
 
@@ -60,7 +60,7 @@ namespace LS.Cameras
             _transformTargetRot = transform.localRotation;
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             Rotate();
         }
@@ -69,7 +69,7 @@ namespace LS.Cameras
 
         #region Protected Methods
 
-        protected void Rotate()
+        protected virtual void Rotate()
         {
             _lookAngle += InputModel.CameraHorizontal * TurnSpeed;
             _transformTargetRot = Quaternion.Euler(0f, _lookAngle, 0f);

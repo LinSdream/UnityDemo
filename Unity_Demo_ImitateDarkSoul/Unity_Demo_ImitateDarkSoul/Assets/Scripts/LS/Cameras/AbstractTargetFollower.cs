@@ -20,7 +20,6 @@ namespace LS.Cameras
         ///<summary> 目标对象 </summary>
         public Transform TargetModel;
         
-
         [Header("Camera Settings")]
         public UpdateType CameraUpdateType = UpdateType.FIXEDUPDATE;
 

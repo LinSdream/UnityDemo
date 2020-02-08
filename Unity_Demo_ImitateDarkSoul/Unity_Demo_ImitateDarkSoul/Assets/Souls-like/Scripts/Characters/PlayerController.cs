@@ -8,13 +8,9 @@ using UnityEngine;
 namespace Souls
 {
     [RequireComponent(typeof(UserInput))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : BaseController
     {
         #region Public Fields
-        public GameObject Model;
-        [Tooltip("旋转速度")] public float RotationSpeed;
-        [Tooltip("行走速度")] public float WalkSpeed;
-        [Tooltip("跑步系数")] public float RunMultiplier = 2f;
         [Tooltip("跳跃速度(垂直向上)")] public float JumpVerlocity;
         [Tooltip("翻滚速度")] public Vector2 RollVelocity;
         [Tooltip("后跳速度,x分量为up，y分量为back")] public Vector2 JabVerlocity;
@@ -27,8 +23,7 @@ namespace Souls
         [HideInInspector] public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
         [HideInInspector] public Vector3 DeltaPos;
-        ///<summary> 是否在地面 </summary>
-        [HideInInspector] public bool IsGrounded = true;
+        
         /// <summary> 是否锁定跟踪目标，Model的forward指向Target</summary>
         [HideInInspector] public bool TrackDirection = false;
         /// <summary>临时冲量</summary>
@@ -36,17 +31,6 @@ namespace Souls
         /// <summary> 模型的正前方</summary>
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
 
-        [HideInInspector] public Vector3 Rigidbody
-        {
-            get
-            {
-                return _rigidbody.velocity;
-            }
-            set
-            {
-                _rigidbody.velocity = value;
-            }
-        }
         /// <summary> 是否处于跑步状态 </summary>
         public bool IsRun
         {
@@ -62,9 +46,8 @@ namespace Souls
         #endregion
 
         #region Private Fields
-        Animator _anim;
+        
         UserInput _input;
-        Rigidbody _rigidbody;
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
@@ -90,18 +73,16 @@ namespace Souls
         #endregion
 
         #region MonoBehaviour Callbacks
-        private void Awake()
+        protected override void Awake()
         {
-            _anim = Model.GetComponent<Animator>();
-            _input = GetComponent<UserInput>();
-            _rigidbody = GetComponent<Rigidbody>();
+            base.Awake();
 
+            _input = GetComponent<UserInput>();
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
         }
 
         private void Update()
         {
-
             if (_input.IsLockOn)
                 CameraCol.CameraLockOn();
 
@@ -116,12 +97,34 @@ namespace Souls
 
         private void FixedUpdate()
         {
-            Movement();
+            Move();
         }
 
         #endregion
 
         #region Private Methdos
+
+        protected override void AnimatorUpdate()
+        {
+            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, out u, out v);
+            if (CameraCol.LockState)
+            {
+                _anim.SetFloat("Forward", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Forward")
+                    , (_input.Vertical > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
+
+                _anim.SetFloat("Right", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Right")
+                    , (_input.Horizontal > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
+            }
+            else
+            {
+                //取x2+y2=1范围内的0-1的值
+                _anim.SetFloat("Forward",
+                   (u * u + v * v)
+                    * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
+                _anim.SetFloat("Right", 0);
+            }
+
+        }
 
         /// <summary> 旋转 </summary>
         void Rotation()
@@ -146,26 +149,9 @@ namespace Souls
         /// <summary>
         /// 位移
         /// </summary>
-        void Movement()
+        void Move()
         {
-            SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, out u, out v);
-            if (CameraCol.LockState)
-            {
-                _anim.SetFloat("Forward", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Forward")
-                    , (_input.Vertical > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
-
-                _anim.SetFloat("Right", (u * u + v * v) * Mathf.Lerp(_anim.GetFloat("Right")
-                    , (_input.Horizontal > 0 ? 1 : -1f) * (_input.IsRun ? 2f : 1f), 0.5f));
-            }
-            else
-            {
-                //取x2+y2=1范围内的0-1的值
-                _anim.SetFloat("Forward",
-                   (u * u + v * v)
-                    * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
-                _anim.SetFloat("Right", 0);
-            }
-
+            AnimatorUpdate();
             _rigidbody.position += DeltaPos;
             _rigidbody.MovePosition(_rigidbody.position + _moveDir * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed) * Time.fixedDeltaTime);
 

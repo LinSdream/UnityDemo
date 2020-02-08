@@ -23,9 +23,4 @@ namespace Souls
         public Vector3 deltaPosition;
     }
 
-    public class IsInGroundEventArgs : EventArgs
-    {
-        public bool IsInGround;
-    }
-
 }

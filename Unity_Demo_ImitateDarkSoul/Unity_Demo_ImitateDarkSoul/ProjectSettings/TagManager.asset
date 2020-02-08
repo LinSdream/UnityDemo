@@ -10,6 +10,7 @@ TagManager:
   - BossFire
   - Shield
   - Sword
+  - Enemy
   layers:
   - Default
   - TransparentFX

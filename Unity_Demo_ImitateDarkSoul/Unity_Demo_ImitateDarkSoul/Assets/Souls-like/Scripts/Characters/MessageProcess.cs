@@ -27,9 +27,6 @@ namespace Souls
             //Animator Root Motion
             MessageCenter.Instance.AddListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
 
-            //Check Model is in Ground
-            MessageCenter.Instance.AddListener("IsInGround", IsInGround);
-
             //Base Layer
             MessageCenter.Instance.AddListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.AddListener("OnGroundEnter", OnGroundEnter);
@@ -48,9 +45,6 @@ namespace Souls
             //Animator Root Motion 
             MessageCenter.Instance.RemoveListener("OnUpdateRootMotionDeltaPosition", OnUpdateRootMotionDeltaPosition);
 
-            //Check Model is in Ground
-            MessageCenter.Instance.RemoveListener("IsInGround", IsInGround);
-
             //Base Layer
             MessageCenter.Instance.RemoveListener("OnJumpEnter", OnJumpEnter);
             MessageCenter.Instance.RemoveListener("OnGroundEnter", OnGroundEnter);
@@ -59,15 +53,6 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);
-        }
-
-        #endregion
-
-        #region Check Model is in Ground
-
-        private void IsInGround(GameObject sender, EventArgs e)
-        {
-            _playerController.IsGrounded = (e as IsInGroundEventArgs).IsInGround;
         }
 
         #endregion

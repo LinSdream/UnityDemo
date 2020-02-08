@@ -24,7 +24,7 @@ namespace LS.Test.AI
         #endregion  
 
         #region MonoBehaviour Callbacks
-        private void Start()
+        protected virtual void Start()
         {
             OnStart();
 
@@ -32,7 +32,7 @@ namespace LS.Test.AI
             CurrentState.OnEnter(this);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (CurrentState != null)
                 CurrentState.OnUpdate(this);

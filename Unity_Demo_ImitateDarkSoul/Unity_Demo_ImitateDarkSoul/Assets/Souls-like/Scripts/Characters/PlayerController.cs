@@ -36,6 +36,17 @@ namespace Souls
         /// <summary> 模型的正前方</summary>
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
 
+        [HideInInspector] public Vector3 Rigidbody
+        {
+            get
+            {
+                return _rigidbody.velocity;
+            }
+            set
+            {
+                _rigidbody.velocity = value;
+            }
+        }
         /// <summary> 是否处于跑步状态 </summary>
         public bool IsRun
         {
@@ -53,7 +64,7 @@ namespace Souls
         #region Private Fields
         Animator _anim;
         UserInput _input;
-        Rigidbody _rigidboy;
+        Rigidbody _rigidbody;
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
@@ -83,7 +94,7 @@ namespace Souls
         {
             _anim = Model.GetComponent<Animator>();
             _input = GetComponent<UserInput>();
-            _rigidboy = GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
 
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
         }
@@ -155,11 +166,11 @@ namespace Souls
                 _anim.SetFloat("Right", 0);
             }
 
-            _rigidboy.position += DeltaPos;
-            _rigidboy.MovePosition(_rigidboy.position + _moveDir * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed) * Time.fixedDeltaTime);
+            _rigidbody.position += DeltaPos;
+            _rigidbody.MovePosition(_rigidbody.position + _moveDir * (_input.IsRun ? RunMultiplier * WalkSpeed : WalkSpeed) * Time.fixedDeltaTime);
 
             //冲量
-            _rigidboy.velocity += ThrustVec;
+            _rigidbody.velocity += ThrustVec;
 
             //冲量这里需要优化，如果使用如下优化，需要把MovePosition删除，用每帧对_rigidbody添加一个初速度移动
             //_rigidboy.velocity += new Vector3(_moveDir.x, _rigidboy.velocity.y, _moveDir.z) + ThrustVec;
@@ -172,7 +183,7 @@ namespace Souls
         /// </summary>
         void Jump()
         {
-            if (_rigidboy.velocity.sqrMagnitude > _sqrHightFallStiff)
+            if (_rigidbody.velocity.sqrMagnitude > _sqrHightFallStiff)
                 _anim.SetTrigger("Roll");
             if (_input.IsJump)
                 _anim.SetTrigger("Jump");

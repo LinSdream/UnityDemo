@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23789c90a3cbb604ba3e991c5910ab98, type: 3}
   m_Name: Init
   m_EditorClassIdentifier: 
-  Actions: []
+  Actions:
+  - {fileID: 11400000, guid: b2b09d49ec725444f8b4b3e5367391f7, type: 2}
   Transitions: []

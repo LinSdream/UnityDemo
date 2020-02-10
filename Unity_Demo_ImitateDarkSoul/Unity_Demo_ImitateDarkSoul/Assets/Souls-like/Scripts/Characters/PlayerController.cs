@@ -102,8 +102,7 @@ namespace Souls
 
         #endregion
 
-        #region Private Methdos
-
+        #region Override Methods
         protected override void AnimatorUpdate()
         {
             SharedMethods.SquareToDiscMapping(_input.Horizontal, _input.Vertical, out u, out v);
@@ -125,6 +124,37 @@ namespace Souls
             }
 
         }
+
+        /// <summary>
+        /// 攻击
+        /// </summary>
+        public override void Attack()
+        {
+
+            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+            {
+                if (_input.IsLeftTrigger && !_leftIsShield)
+                {
+                    _anim.SetBool("AttackMirror", true);
+                    _anim.SetTrigger("Attack");
+                }
+                else if (_input.IsRightTrigger)
+                {
+                    _anim.SetTrigger("Attack");
+                    _anim.SetBool("AttackMirror", false);
+                }
+
+            }
+        }
+
+        public override void Hit()
+        {
+            
+        }
+        #endregion
+
+        #region Private Methdos
+
 
         /// <summary> 旋转 </summary>
         void Rotation()
@@ -178,28 +208,6 @@ namespace Souls
                 _anim.SetBool("IsInGround", true);
             else
                 _anim.SetBool("IsInGround", false);
-        }
-
-        /// <summary>
-        /// 攻击
-        /// </summary>
-        void Attack()
-        {
-
-            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
-            {
-                if (_input.IsLeftTrigger && !_leftIsShield)
-                {
-                    _anim.SetBool("AttackMirror", true);
-                    _anim.SetTrigger("Attack");
-                }
-                else if (_input.IsRightTrigger)
-                {
-                    _anim.SetTrigger("Attack");
-                    _anim.SetBool("AttackMirror", false);
-                }
-
-            }
         }
 
         /// <summary>

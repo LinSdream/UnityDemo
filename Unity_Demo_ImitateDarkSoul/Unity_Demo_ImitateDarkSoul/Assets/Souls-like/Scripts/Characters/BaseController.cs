@@ -36,6 +36,10 @@ namespace Souls
         #endregion
 
         protected abstract void AnimatorUpdate();
+
+        public abstract void Hit();
+
+        public abstract void Attack();
     }
 
 }

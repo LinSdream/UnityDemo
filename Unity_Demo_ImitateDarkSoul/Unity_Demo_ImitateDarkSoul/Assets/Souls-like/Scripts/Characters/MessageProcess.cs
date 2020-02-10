@@ -36,8 +36,8 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.AddListener("OnRollExit", OnRollExit);
             MessageCenter.Instance.AddListener("OnAttackR_01A", OnAttackR_01A);
+            MessageCenter.Instance.AddListener("OnHitEnter", OnHitEnter);
         }
-
 
         private void OnDestroy()
         {
@@ -53,6 +53,7 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);
+            MessageCenter.Instance.RemoveListener("OnHitEnter", OnHitEnter);
         }
 
         #endregion
@@ -141,6 +142,10 @@ namespace Souls
             _playerController.ResetMoveDirZero();
         }
 
+        private void OnHitEnter(GameObject render, EventArgs e)
+        {
+            _playerController.SetInputLock(true);
+        }
 
         #endregion
     }

@@ -42,6 +42,7 @@ namespace Souls
 
         #endregion
 
+        #region Override Methdos
         protected override void AnimatorUpdate()
         {
             //Forward Motion Set
@@ -53,7 +54,16 @@ namespace Souls
                 _anim.SetFloat("Forward", 0);
         }
 
+        public override void Hit()
+        {
+            
+        }
 
+        public override void Attack()
+        {
+            
+        }
+        #endregion
     }
 
 }

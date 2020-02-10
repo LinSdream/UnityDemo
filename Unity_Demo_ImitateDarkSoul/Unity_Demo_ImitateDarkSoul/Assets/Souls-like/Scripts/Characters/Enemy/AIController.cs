@@ -1,26 +1,34 @@
-﻿using System.Collections;
+﻿using Souls.AI;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Souls
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    
     public class AIController : BaseController
     {
 
-        NavMeshAgent _ai;
+        public Animator Anim => _anim;
+        AIFSM _fsm;
 
         #region Callbacks
         protected override void Awake()
         {
             base.Awake();
 
-            _ai = GetComponent<NavMeshAgent>();
+            _fsm = GetComponent<AIFSM>();
+            _fsm.AI.speed = WalkSpeed;
+            _fsm.AI.angularSpeed = RotationSpeed;
         }
-         
+
         private void Update()
         {
+            _fsm.AI.speed = WalkSpeed;
+            _fsm.AI.angularSpeed = RotationSpeed;
+
             if (IsGrounded)
                 _anim.SetBool("IsInGround", true);
             else
@@ -29,14 +37,20 @@ namespace Souls
 
         private void FixedUpdate()
         {
-            AnimatorUpdate();    
+            AnimatorUpdate();
         }
 
         #endregion
 
         protected override void AnimatorUpdate()
         {
-
+            //Forward Motion Set
+            if (_fsm.CurrentState.HasAction("Move"))
+                _anim.SetFloat("Forward", 1);
+            else if (_fsm.CurrentState.HasAction("Run"))
+                _anim.SetFloat("Forward", 2);
+            else
+                _anim.SetFloat("Forward", 0);
         }
 
 

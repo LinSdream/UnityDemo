@@ -1,6 +1,7 @@
 ﻿using LS.Test.AI.Actions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace LS.Test.AI.States
@@ -67,6 +68,13 @@ namespace LS.Test.AI.States
             return name;
         }
 
+        public bool HasAction(string name)
+        {
+            var res = from action in Actions where action.GetActionName() == name select action;
+            if (res == null)
+                return false;
+            return true;
+        }
         #endregion
 
         #region ScriptableObject Callbacks

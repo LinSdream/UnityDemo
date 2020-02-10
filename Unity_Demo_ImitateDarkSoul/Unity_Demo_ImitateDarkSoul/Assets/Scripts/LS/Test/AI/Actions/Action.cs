@@ -10,6 +10,11 @@ namespace LS.Test.AI.Actions
     public abstract class Action: ScriptableObject,IAction<FSMBase>
     {
         public abstract void Act(FSMBase controller);
+
+        public string GetActionName()
+        {
+            return name;
+        }
     }
 
 }

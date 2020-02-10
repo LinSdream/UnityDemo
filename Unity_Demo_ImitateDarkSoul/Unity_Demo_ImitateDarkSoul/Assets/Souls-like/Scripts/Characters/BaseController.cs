@@ -10,7 +10,7 @@ namespace Souls
 
     // 	Character
     // 		CharacterModel
-    // 		Sendsor  ---> need OnGround Sendsor Script
+    // 		Sendsor  ---> need OnGroundSendsor Script
     [RequireComponent(typeof(Rigidbody))]
     public abstract class BaseController : MonoBehaviour
     {

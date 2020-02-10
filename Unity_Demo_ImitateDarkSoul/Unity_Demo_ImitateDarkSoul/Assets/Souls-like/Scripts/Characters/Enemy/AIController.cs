@@ -61,6 +61,7 @@ namespace Souls
 
         public override void Attack()
         {
+            Debug.Log(IsGrounded);
             if ((CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
             {
                     _anim.SetTrigger("Attack");

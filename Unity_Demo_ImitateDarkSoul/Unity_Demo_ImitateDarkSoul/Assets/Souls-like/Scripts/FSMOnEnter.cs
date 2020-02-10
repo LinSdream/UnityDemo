@@ -19,7 +19,7 @@ namespace Souls
             _args.LayerIndex = layerIndex;
             foreach (string name in MessageNames)
             {
-                MessageCenter.Instance.SendMessage(name,animator.gameObject,_args);
+                MessageCenter.Instance.SendMessage(name,animator.transform.parent.gameObject,_args);
             }
         }
     }

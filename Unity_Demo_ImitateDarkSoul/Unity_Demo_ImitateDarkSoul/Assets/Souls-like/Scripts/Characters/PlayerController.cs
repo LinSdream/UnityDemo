@@ -147,9 +147,9 @@ namespace Souls
             }
         }
 
-        public override void Hit()
+        public override void Hit(float value)
         {
-            
+            _anim.SetTrigger("Hit");
         }
         #endregion
 
@@ -285,31 +285,7 @@ namespace Souls
         #endregion
 
         #region Public Methods
-        public float GetAnimFloat(string name)
-        {
-            return _anim.GetFloat(name);
-        }
-
-        public float GetCurrentAnimatorLayerWeight(string name)
-        {
-            return _anim.GetLayerWeight(_anim.GetLayerIndex(name));
-        }
-
-        public float GetCurrentAnimatorLayerWeight(int layerIndex)
-        {
-            return _anim.GetLayerWeight(layerIndex);
-        }
-
-        public void SetLayerWeight(string layerName, float weight)
-        {
-            _anim.SetLayerWeight(_anim.GetLayerIndex(layerName), weight);
-        }
-
-        public void SetLayerWeight(int layerIndex, float weight)
-        {
-            _anim.SetLayerWeight(layerIndex, weight);
-        }
-
+       
         public void ResetMoveDirZero()
         {
             _moveDir = Vector3.zero;
@@ -318,18 +294,6 @@ namespace Souls
         public void SetInputLock(bool on)
         {
             _input.LockMovementInput = on;
-        }
-
-        public bool CheckAnimatorState(string animtorName, string maskName = "Base Layer")
-        {
-            return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
-                .IsName(animtorName);
-        }
-
-        public bool CheckAnimatorStateTag(string tagName, string maskName = "Base Layer")
-        {
-            return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex(maskName))
-                .IsTag(tagName);
         }
 
         #endregion

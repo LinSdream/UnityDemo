@@ -54,14 +54,19 @@ namespace Souls
                 _anim.SetFloat("Forward", 0);
         }
 
-        public override void Hit()
+        public override void Hit(float value)
         {
             
         }
 
         public override void Attack()
         {
-            
+            if ((CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+            {
+                    _anim.SetTrigger("Attack");
+                    _anim.SetBool("AttackMirror", false);
+
+            }
         }
         #endregion
     }

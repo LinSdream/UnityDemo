@@ -25,6 +25,10 @@ namespace Souls.AI
             _controller.Anim.SetFloat("Forward", value);
         }
 
+        public void Attack()
+        {
+            _controller.Attack();
+        }
         #endregion
 
     }

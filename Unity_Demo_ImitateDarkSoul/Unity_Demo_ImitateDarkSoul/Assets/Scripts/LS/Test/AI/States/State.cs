@@ -12,6 +12,7 @@ namespace LS.Test.AI.States
 
         [Tooltip("事件列表")] public Action[] Actions;
         [Tooltip("判断列表")] public Transition[] Transitions;
+        public virtual string GetStateName => name;
 
         #region Callbacks Methods
         public virtual void OnEnter(FSMBase controller)
@@ -63,14 +64,11 @@ namespace LS.Test.AI.States
 
         #region Public Methods
 
-        public string GetStateName()
-        {
-            return name;
-        }
+        
 
         public bool HasAction(string name)
         {
-            var res = from action in Actions where action.GetActionName() == name select action;
+            var res = from action in Actions where action.ActionName == name select action;
             if (res == null)
                 return false;
             return true;

@@ -61,6 +61,8 @@ namespace Souls
         #region  Animator Root Motion
         private void OnUpdateRootMotionDeltaPosition(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             var arg = e as AnimatorMoveEventArgs;
             _playerController.DeltaPos += arg.deltaPosition;
         }
@@ -69,6 +71,8 @@ namespace Souls
         #region Base Layer Events
         void OnJumpEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.TrackDirection = true;
             _playerController.LockPlanar = true;
             _playerController.ThrustVec = new Vector3(0, _playerController.JumpVerlocity, 0);
@@ -76,6 +80,8 @@ namespace Souls
 
         private void OnGroundEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.SetInputLock(false);
             _playerController.LockPlanar = false;
             _playerController.TrackDirection = false;
@@ -83,12 +89,16 @@ namespace Souls
 
         private void OnFallEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             if (_playerController.IsRun)
                 _playerController.LockPlanar = true;
         }
 
         private void OnRollEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.TrackDirection = true;
             if (_playerController.CameraCol.LockTarget != null)
             {
@@ -118,12 +128,16 @@ namespace Souls
         }
         private void OnRollExit(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.LockPlanar = false;
         }
 
         /// TODO:修改后退动画
         private void OnJabEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             //_playerController.ThrustVec = new Vector3(-_playerController.Forward.x, _playerController.JabVerlocity.x,
             //    -_playerController.Forward.z * _playerController.JabVerlocity.y);
             _playerController.ThrustVec = new Vector3(0, _playerController.JabVerlocity.x, 0);
@@ -131,19 +145,25 @@ namespace Souls
 
         private void OnJabUpdate(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.ThrustVec = _playerController.Forward * _playerController.GetAnimFloat("JabVelocityCurve")
                 * _playerController.DurationThrustMultiplier * 0.33f;
         }
 
         private void OnAttackR_01A(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.SetInputLock(true);
             _playerController.LockPlanar = true;
             _playerController.ResetMoveDirZero();
         }
 
-        private void OnHitEnter(GameObject render, EventArgs e)
+        private void OnHitEnter(GameObject sender, EventArgs e)
         {
+            if (sender == gameObject)
+                return;
             _playerController.SetInputLock(true);
         }
 

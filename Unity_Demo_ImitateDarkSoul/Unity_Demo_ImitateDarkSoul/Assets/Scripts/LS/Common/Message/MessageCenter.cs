@@ -6,7 +6,7 @@ using System;
 namespace LS.Common.Message
 {
 
-    public delegate void CustomMessageHandle(GameObject render,EventArgs e);
+    public delegate void CustomMessageHandle(GameObject sender,EventArgs e);
 
     public class MessageCenter : SingletonBasisNoMono<MessageCenter>
     {

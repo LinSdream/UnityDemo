@@ -15,10 +15,9 @@ namespace Souls
         AIFSM _fsm;
 
         #region Callbacks
-        protected override void Awake()
-        {
-            base.Awake();
 
+        private void Start()
+        {
             _fsm = GetComponent<AIFSM>();
             _fsm.AI.speed = WalkSpeed;
             _fsm.AI.angularSpeed = RotationSpeed;
@@ -30,9 +29,13 @@ namespace Souls
             _fsm.AI.angularSpeed = RotationSpeed;
 
             if (IsGrounded)
+            {
                 _anim.SetBool("IsInGround", true);
+            }
             else
+            {
                 _anim.SetBool("IsInGround", false);
+            }
         }
 
         private void FixedUpdate()
@@ -61,7 +64,6 @@ namespace Souls
 
         public override void Attack()
         {
-            Debug.Log(IsGrounded);
             if ((CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
             {
                     _anim.SetTrigger("Attack");

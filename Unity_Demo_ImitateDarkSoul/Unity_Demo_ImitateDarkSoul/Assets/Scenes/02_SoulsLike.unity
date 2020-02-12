@@ -3168,8 +3168,8 @@ GameObject:
   - component: {fileID: 1896597044}
   - component: {fileID: 1896597043}
   - component: {fileID: 1896597041}
-  - component: {fileID: 1896597040}
   - component: {fileID: 1896597042}
+  - component: {fileID: 1896597039}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -3177,7 +3177,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1896597040
+--- !u!114 &1896597039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3190,7 +3190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 1645677693}
-  RotationSpeed: 50
+  RotationSpeed: 120
   WalkSpeed: 2.4
   RunMultiplier: 2
   IsGrounded: 1
@@ -3212,7 +3212,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.75
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

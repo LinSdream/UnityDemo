@@ -12,8 +12,11 @@ namespace Souls
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Sword"))
+            if (other.CompareTag("AttackWeapon"))
+            {
+                Debug.Log(other.tag);
                 AM.Damage();
+            }
         }
 
     }

@@ -165,6 +165,7 @@ namespace Souls
             if (sender == gameObject)
                 return;
             _playerController.SetInputLock(true);
+            _playerController.ResetMoveDirZero();
         }
 
         #endregion

@@ -8,9 +8,9 @@ TagManager:
   - Bear
   - Boss
   - BossFire
-  - Shield
-  - Sword
   - Enemy
+  - AttackWeapon
+  - DefenceWeapon
   layers:
   - Default
   - TransparentFX

@@ -59,7 +59,7 @@ namespace Souls
 
         public override void Hit(float value)
         {
-            
+            _anim.SetTrigger("Hit");
         }
 
         public override void Attack()
@@ -68,7 +68,6 @@ namespace Souls
             {
                     _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
-
             }
         }
         #endregion

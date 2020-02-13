@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 35711451}
   - component: {fileID: 35711455}
   - component: {fileID: 35711456}
+  - component: {fileID: 35711457}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -331,6 +332,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BM: {fileID: 0}
+--- !u!114 &35711457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35711448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa74cc8c86a494ba6eaeacbc1f1da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AM: {fileID: 0}
 --- !u!1 &56049307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1189674227078662, guid: ec413a0fd2a940f4d9475a8299d85f9c, type: 3}
       propertyPath: m_TagString
-      value: Sword
+      value: AttackWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 1189674227078662, guid: ec413a0fd2a940f4d9475a8299d85f9c, type: 3}
       propertyPath: m_Layer
@@ -1336,7 +1350,7 @@ PrefabInstance:
     - target: {fileID: 9122917747274298354, guid: 65a156ba22965cb4c8fa5093bd97d450,
         type: 3}
       propertyPath: m_TagString
-      value: Shield
+      value: DefenceWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 9122917747274298354, guid: 65a156ba22965cb4c8fa5093bd97d450,
         type: 3}
@@ -2113,7 +2127,7 @@ PrefabInstance:
     - target: {fileID: 9122917747274298354, guid: 65a156ba22965cb4c8fa5093bd97d450,
         type: 3}
       propertyPath: m_TagString
-      value: Shield
+      value: DefenceWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 9122917747274298354, guid: 65a156ba22965cb4c8fa5093bd97d450,
         type: 3}
@@ -2216,98 +2230,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -26.17, y: 0, z: 0}
---- !u!1 &1485589343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1485589344}
-  m_Layer: 9
-  m_Name: CameraRig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1485589344
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485589343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1537484896}
-  m_Father: {fileID: 1896597045}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1537484895
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1537484896}
-  - component: {fileID: 1537484897}
-  m_Layer: 9
-  m_Name: Camera Pos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1537484896
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537484895}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1485589344}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1537484897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537484895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd7fb2cad87e214e8583b6b8a852955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetModel: {fileID: 0}
-  CameraUpdateType: 0
-  TargetModelUpdateType: 1
-  TurnSpeed: 1.5
-  MoveSpeed: 1
-  LimitAngle: {x: -45, y: 75}
-  TurnSmoothing: 0
-  VerticalAutoReturn: 0
-  CameraPivot: {fileID: 0}
-  InputModel: {fileID: 0}
-  CheckMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  AimPointImg: {fileID: 1279280403}
-  SqrDistanceTargetToSelf: 100
-  LockState: 0
-  _cameraRotateSuccess: 0
-  _lockTarget: {fileID: 0}
 --- !u!1001 &1645677692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3274,7 +3196,6 @@ Transform:
   m_Children:
   - {fileID: 1645677694}
   - {fileID: 190497865}
-  - {fileID: 1485589344}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3468,7 +3389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1189674227078662, guid: ec413a0fd2a940f4d9475a8299d85f9c, type: 3}
       propertyPath: m_TagString
-      value: Sword
+      value: AttackWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 1189674227078662, guid: ec413a0fd2a940f4d9475a8299d85f9c, type: 3}
       propertyPath: m_Layer

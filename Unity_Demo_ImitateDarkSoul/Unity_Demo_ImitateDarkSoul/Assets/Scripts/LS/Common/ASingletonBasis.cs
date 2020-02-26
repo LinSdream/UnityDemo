@@ -25,7 +25,7 @@ namespace LS.Common
 
         protected bool _IsDestroy = false;
 
-        private static T _instance;
+        protected static T _instance;
         public static T Instance
         {
             get

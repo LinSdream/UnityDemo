@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LS.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,25 +8,35 @@ namespace Souls
     public class AnimatorEvents : MonoBehaviour
     {
 
-        public string WeaponUrl = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/WeaponHandle";
+        //public string RightWeaponURL = "mixamorig:Hips/mixamorig:Spine" +
+        //    "/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/WeaponHandle";
+        //public string LeftWeaponURL = "mixamorig:Hips/mixamorig:Spine" +
+        //    "/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/ShieldHandle";
 
-        GameObject Weapon;
+        GameObject WeaponRight;
+        GameObject WeaponLeft;
         Collider WeaponCollider;
         Animator _anim;
 
         private void Awake()
         {
             _anim = GetComponent<Animator>();
-            Weapon = gameObject.transform.Find(WeaponUrl).gameObject;
-            WeaponCollider = Weapon.GetComponentsInChildren<Collider>()[0];
+            
+            WeaponRight = SharedMethods.DeepFindTransform(transform, "WeaponHandle").gameObject;
+            WeaponLeft = SharedMethods.DeepFindTransform(transform, "ShieldHandle").gameObject;
+            WeaponCollider = WeaponRight.GetComponentsInChildren<Collider>()[0];
         }
 
         #region Public Methods
-        public Collider ChangeWeaponCollider(int index)
+        public Collider ChangeWeaponCollider(int index, bool isRight=true)
         {
-            WeaponCollider = Weapon.GetComponentsInChildren<Collider>()[index];
+
+            if (!isRight)
+                WeaponCollider = WeaponRight.GetComponentsInChildren<Collider>()[index];
+            else
+                WeaponCollider = WeaponLeft.GetComponentsInChildren<Collider>()[index];
             if (WeaponCollider == null)
-                WeaponCollider = ChangeWeaponCollider(0);
+                WeaponCollider = ChangeWeaponCollider(0,isRight);
             return WeaponCollider;
         }
         #endregion

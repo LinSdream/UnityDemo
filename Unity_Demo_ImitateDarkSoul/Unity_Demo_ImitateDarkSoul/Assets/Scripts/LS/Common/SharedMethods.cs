@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace LS.Common.Math
+namespace LS.Common
 {
     public static class SharedMethods
     {
@@ -109,7 +109,27 @@ namespace LS.Common.Math
             return index;
         }
 
+        /// <summary>
+        /// 搜索父物体下的目标名的Transform
+        /// </summary>
+        public static Transform DeepFindTransform(Transform parent,string targetName)
+        {
 
+            Transform temp = null;
+
+            foreach(Transform child in parent)
+            {
+                if (child.name == targetName)
+                    return child;
+                else
+                {
+                    temp=DeepFindTransform(child, targetName);
+                    if (temp != null)
+                        return temp;
+                }
+            }
+            return null;
+        }
     }
 
 }

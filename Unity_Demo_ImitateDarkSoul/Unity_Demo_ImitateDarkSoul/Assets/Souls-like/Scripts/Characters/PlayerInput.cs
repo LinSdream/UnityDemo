@@ -61,6 +61,10 @@ namespace Souls
                 Vertical = Input.GetAxis(VerticalAxis);
             }
 
+
+            Debug.Log(LockMovementInput);
+
+
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
             IsDefense = Input.GetButton(DefenseButton);

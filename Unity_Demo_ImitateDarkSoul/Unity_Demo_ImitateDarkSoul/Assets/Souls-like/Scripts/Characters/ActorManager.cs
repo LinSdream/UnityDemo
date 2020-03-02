@@ -8,6 +8,7 @@ namespace Souls
     {
         
         [HideInInspector] public BattleManager BM;
+        [HideInInspector] public WeaponManager WM;
 
         BaseController _controller;
 
@@ -15,10 +16,11 @@ namespace Souls
         {
             _controller = GetComponent<BaseController>();
 
-            BM = GetComponentInChildren<BattleManager>();
-            if(BM==null)
+            BM = GetComponent<BattleManager>();
+            WM = GetComponent<WeaponManager>();
+            if(BM==null||WM==null)
             {
-                Debug.LogError("ActorManager/Awake Error : can't get BattleManager in this Actor");
+                Debug.LogError("ActorManager/Awake Error : can't get BattleManager or WeaponManager in this Actor");
                 return;
             }
             BM.AM = this;

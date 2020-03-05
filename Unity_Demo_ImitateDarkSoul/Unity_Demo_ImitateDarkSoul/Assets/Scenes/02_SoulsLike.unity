@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 33148138}
+  - component: {fileID: 33148139}
   m_Layer: 10
   m_Name: ShieldHandle
   m_TagString: Untagged
@@ -153,6 +154,18 @@ Transform:
   m_Father: {fileID: 1384462290}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &33148139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33148137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717b58aea29174489e5381b200883a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &35711448
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 591563044}
+  - component: {fileID: 591563045}
   m_Layer: 10
   m_Name: WeaponHandle
   m_TagString: Untagged
@@ -834,6 +848,18 @@ Transform:
   m_Father: {fileID: 1645677695}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0.84300005, z: 0}
+--- !u!114 &591563045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591563043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717b58aea29174489e5381b200883a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &729228104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7386537482353725432, guid: 62af9492c6b766040a4b65c606b46119,
@@ -2038,7 +2064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7f19b33903fd249a336dfd44acdd4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponUrl: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/WeaponHandle
 --- !u!114 &1407243897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2642,7 +2667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7f19b33903fd249a336dfd44acdd4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponUrl: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/WeaponHandle
 --- !u!1 &1685493736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,6 +3132,8 @@ GameObject:
   - component: {fileID: 1896597041}
   - component: {fileID: 1896597042}
   - component: {fileID: 1896597039}
+  - component: {fileID: 1896597047}
+  - component: {fileID: 1896597046}
   - component: {fileID: 1896597040}
   m_Layer: 11
   m_Name: Enemy
@@ -3228,6 +3254,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1896597046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896597038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807a1449cec0d37419ecd06a4079f8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BM: {fileID: 0}
+  WM: {fileID: 0}
+--- !u!114 &1896597047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896597038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa74cc8c86a494ba6eaeacbc1f1da2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AM: {fileID: 0}
 --- !u!1 &1972979645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3237,6 +3290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1972979646}
+  - component: {fileID: 1972979647}
   m_Layer: 10
   m_Name: ShieldHandle
   m_TagString: Untagged
@@ -3259,6 +3313,18 @@ Transform:
   m_Father: {fileID: 1645677696}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1972979647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972979645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717b58aea29174489e5381b200883a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2019373866
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,6 +3612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109375875}
+  - component: {fileID: 2109375876}
   m_Layer: 10
   m_Name: WeaponHandle
   m_TagString: Untagged
@@ -3569,6 +3636,18 @@ Transform:
   m_Father: {fileID: 1369952358}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0.84300005, z: 0}
+--- !u!114 &2109375876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109375874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717b58aea29174489e5381b200883a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7386537481899502768
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -42,6 +42,11 @@ namespace LS.Common.Message
                 _listeners.Remove(name);
         }
 
+        internal void AddListener(object onAttackExit)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RemoveListener(string name)
         {
             _listeners.Remove(name);

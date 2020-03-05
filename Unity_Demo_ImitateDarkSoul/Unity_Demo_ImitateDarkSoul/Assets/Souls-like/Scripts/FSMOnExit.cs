@@ -17,6 +17,7 @@ namespace Souls
         {
             _args.StateInfo = stateInfo;
             _args.LayerIndex = layerIndex;
+            _args.Anim = animator;
             foreach (var name in MessageNames)
             {
                 MessageCenter.Instance.SendMessage(name,animator.gameObject,_args);

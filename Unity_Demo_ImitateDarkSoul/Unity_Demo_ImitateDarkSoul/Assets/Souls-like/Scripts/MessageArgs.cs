@@ -13,6 +13,7 @@ namespace Souls
     {
         public AnimatorStateInfo StateInfo;
         public int LayerIndex;
+        public Animator Anim;
     }
 
     /// <summary>

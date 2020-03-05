@@ -22,5 +22,12 @@ namespace Souls
             RightWC = SharedMethods.DeepFindTransform(transform, "WeaponHandle").GetComponent<WeaponController>();
             LeftWC = SharedMethods.DeepFindTransform(transform, "ShieldHandle").GetComponent<WeaponController>();
         }
+
+        #region Public Methods
+        public void WeaponDisable()
+        {
+            _weaponAnimatorEvent.WeaponDisable();
+        }
+        #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace Souls
         [HideInInspector] public bool LockPlanar = false;
         /// <summary>  Root Motion DeltaPosition </summary>
         [HideInInspector] public Vector3 DeltaPos;
-        
+
         /// <summary> 是否锁定跟踪目标，Model的forward指向Target</summary>
         [HideInInspector] public bool TrackDirection = false;
         /// <summary>临时冲量</summary>
@@ -46,7 +46,7 @@ namespace Souls
         #endregion
 
         #region Private Fields
-        
+
         UserInput _input;
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
@@ -131,14 +131,16 @@ namespace Souls
         public override void Attack()
         {
 
-            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackTag")) && IsGrounded)
+            if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackLTag")
+                || CheckAnimatorStateTag("AttackRTag")) && IsGrounded)
             {
+                //如果是左手触发，并且左手非盾牌
                 if (_input.IsLeftTrigger && !_leftIsShield)
                 {
-                    _anim.SetBool("AttackMirror", true);
+                    _anim.SetBool("AttackMirror", true);//镜像反转
                     _anim.SetTrigger("Attack");
                 }
-                else if (_input.IsRightTrigger)
+                else if (_input.IsRightTrigger)//如果是右手触发
                 {
                     _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
@@ -285,7 +287,7 @@ namespace Souls
         #endregion
 
         #region Public Methods
-       
+
         public void ResetMoveDirZero()
         {
             _moveDir = Vector3.zero;

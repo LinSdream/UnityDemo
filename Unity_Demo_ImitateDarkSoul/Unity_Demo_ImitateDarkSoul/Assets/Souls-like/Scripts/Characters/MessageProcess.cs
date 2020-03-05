@@ -7,7 +7,9 @@ using LS.Helper.Timer;
 
 namespace Souls
 {
-
+    /// <summary>
+    /// Player 事件处理
+    /// </summary>
     [RequireComponent(typeof(PlayerController), typeof(UserInput))]
     public class MessageProcess : MonoBehaviour
     {

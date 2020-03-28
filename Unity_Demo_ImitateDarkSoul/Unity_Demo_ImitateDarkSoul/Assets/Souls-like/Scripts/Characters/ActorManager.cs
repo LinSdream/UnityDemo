@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace Souls
 {
+
+
     public class ActorManager : MonoBehaviour
     {
 
         [HideInInspector] public BattleManager BM;
         [HideInInspector] public WeaponManager WM;
-
-        BaseController _controller;
+        [HideInInspector] public StateManager SM;
+        [HideInInspector] public BaseController Controller;
 
         #region MonoBehaviour Callbacks
 
@@ -20,16 +22,18 @@ namespace Souls
         {
             Register();
 
-            _controller = GetComponent<BaseController>();
+            Controller = GetComponent<BaseController>();
 
-            BM = GetComponent<BattleManager>();
-            WM = GetComponent<WeaponManager>();
-            if (BM == null || WM == null)
-            {
-                Debug.LogError("ActorManager/Awake Error : can't get BattleManager or WeaponManager in this Actor");
-                return;
-            }
-            BM.AM = this;
+            //脚本获取
+            BM = Bind<BattleManager>(gameObject);
+            WM = Bind<WeaponManager>(gameObject);
+            SM = Bind<StateManager>(gameObject);
+
+            //创建游玩过程中的角色信息
+            SM.Info = Controller.Info;
+            SM.TempInfo = new CharacterTempInfo(Controller.Info);
+
+            SM.Test();
         }
 
         private void OnDestroy()
@@ -38,10 +42,44 @@ namespace Souls
         }
         #endregion
 
-        public void Damage()
+        /// <summary>
+        /// 尝试计算伤害，根据计算后得出的不同值进行不同的处理
+        /// </summary>
+        public void TryDoDamg()
         {
-            _controller.Hit(0);
+            if (SM.CharacterState.IsDie)
+                return;
+            if (SM.CharacterState.IsImmortal)
+                return;
+            if (SM.CharacterState.IsDefence)
+                Controller.Blocked();
+            else
+                SM.AddHP(-50f);
+
         }
+
+        public void SetAnimAfterDoDamg(float hp)
+        {
+            if (hp > 0)
+                Controller.Hit();
+            else if (hp <= 0)
+                Controller.Die();
+        }
+
+        #region Private Help Methods
+
+        /// <summary> 绑定脚本，如果脚本不存在，则自动添加 </summary>
+        T Bind<T>(GameObject go) where T :AbstractActorManager
+        {
+            T temp = go.GetComponent<T>();
+            if (temp == null)
+                temp = go.AddComponent<T>();
+            temp.AM = this;
+            return temp;
+        }
+
+        #endregion
+
 
         #region Message Private Methods
         /// <summary>

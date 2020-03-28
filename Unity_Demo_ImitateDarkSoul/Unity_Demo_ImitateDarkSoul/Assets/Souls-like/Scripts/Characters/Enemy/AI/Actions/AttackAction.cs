@@ -11,7 +11,7 @@ namespace Souls.AI.Actions
     {
         public override void Act(FSMBase controller)
         {
-            (controller as AIFSM).Attack();
+            (controller as AIFSM).Controller.Attack();
         }
     }
 

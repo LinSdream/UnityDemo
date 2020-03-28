@@ -149,9 +149,17 @@ namespace Souls
             }
         }
 
-        public override void Hit(float value)
+        public override void Hit()
         {
             _anim.SetTrigger("Hit");
+        }
+
+        public override void Die()
+        {
+            _anim.SetTrigger("Die");
+            SetInputLock(true);
+            CameraCol.RelesaseLockOn();
+
         }
         #endregion
 

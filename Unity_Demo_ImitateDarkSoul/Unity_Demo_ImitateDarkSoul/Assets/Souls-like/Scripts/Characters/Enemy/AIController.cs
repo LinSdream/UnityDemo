@@ -57,9 +57,14 @@ namespace Souls
                 _anim.SetFloat("Forward", 0);
         }
 
-        public override void Hit(float value)
+        public override void Hit()
         {
             _anim.SetTrigger("Hit");
+        }
+
+        public override void Die()
+        {
+            _anim.SetTrigger("Die");
         }
 
         public override void Attack()

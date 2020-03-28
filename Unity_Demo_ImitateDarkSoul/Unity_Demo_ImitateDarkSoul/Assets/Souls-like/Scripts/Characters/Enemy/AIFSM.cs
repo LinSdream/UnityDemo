@@ -11,24 +11,20 @@ namespace Souls.AI
     public class AIFSM : FSMBase
     {
         [HideInInspector] public NavMeshAgent AI;
-        AIController _controller;
+        [HideInInspector] public AIController Controller;
 
         #region Callbacks
         private void Awake()
         {
             AI = GetComponent<NavMeshAgent>();
-            _controller = GetComponent<AIController>();
+            Controller = GetComponent<AIController>();
         }
 
         public void SetForwardAnimator(float value)
         {
-            _controller.Anim.SetFloat("Forward", value);
+            Controller.Anim.SetFloat("Forward", value);
         }
 
-        public void Attack()
-        {
-            _controller.Attack();
-        }
         #endregion
 
     }

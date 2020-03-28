@@ -74,14 +74,6 @@ namespace Souls
 
         #region Private Methods
 
-        /// <summary> 解除锁定</summary>
-        void RelesaseLockOn()
-        {
-            AimPointImg.enabled = false;
-            _lockTarget = null;
-            LockState = false;
-        }
-
         /// <summary> 锁定对象 </summary>
         void Lock()
         {
@@ -117,6 +109,14 @@ namespace Souls
                 return;
             }
             Lock();
+        }
+
+        /// <summary> 解除锁定</summary>
+        public void RelesaseLockOn()
+        {
+            AimPointImg.enabled = false;
+            _lockTarget = null;
+            LockState = false;
         }
     }
     //public class CameraController : MonoBehaviour

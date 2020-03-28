@@ -18,6 +18,7 @@ namespace Souls
         [Tooltip("旋转速度")] public float RotationSpeed;
         [Tooltip("行走速度")] public float WalkSpeed;
         [Tooltip("跑步系数")] public float RunMultiplier = 2f;
+        [Tooltip("角色的基本信息")] public CharacterInfo Info;
 
         ///<summary> 是否在地面 </summary>
         [HideInInspector] public bool IsGrounded = true;
@@ -75,13 +76,31 @@ namespace Souls
 
         #endregion
 
+        #region Virtual Methods
+
+        /// <summary> 重启 </summary>
+        public virtual void Restart() { }
+
+        public virtual void Blocked()
+        {
+            _anim.SetTrigger("Block");
+        }
+
+        #endregion
+
         #region Abstract Methods
 
         protected abstract void AnimatorUpdate();
+        
+        /// <summary> 受到伤害 </summary>
+        /// <param name="value">受到的伤害值</param>
+        public abstract void Hit();
 
-        public abstract void Hit(float value);
-
+        /// <summary> 攻击 </summary>
         public abstract void Attack();
+
+        /// <summary> 死亡 </summary>
+        public abstract void Die();
         #endregion
     }
 

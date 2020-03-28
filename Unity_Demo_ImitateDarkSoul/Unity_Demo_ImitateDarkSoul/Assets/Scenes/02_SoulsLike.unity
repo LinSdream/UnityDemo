@@ -182,8 +182,6 @@ GameObject:
   - component: {fileID: 35711451}
   - component: {fileID: 35711455}
   - component: {fileID: 35711456}
-  - component: {fileID: 35711457}
-  - component: {fileID: 35711458}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -238,6 +236,7 @@ MonoBehaviour:
   RotationSpeed: 50
   WalkSpeed: 2.4
   RunMultiplier: 2
+  Info: {fileID: 11400000, guid: a9d43d3902d9da94897e829cbf04c753, type: 2}
   IsGrounded: 1
   JumpVerlocity: 5
   RollVelocity: {x: 4, y: 2.5}
@@ -347,31 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BM: {fileID: 0}
   WM: {fileID: 0}
---- !u!114 &35711457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 35711448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa74cc8c86a494ba6eaeacbc1f1da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AM: {fileID: 0}
---- !u!114 &35711458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 35711448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a26f6aca1fdb454d9d0cf5a0c170e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  SM: {fileID: 0}
+  Controller: {fileID: 0}
 --- !u!1 &56049307
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +951,7 @@ BoxCollider:
   m_GameObject: {fileID: 755664378}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.1609588, y: 1.2953854, z: 0.066146016}
   m_Center: {x: -0.004240506, y: 0.88209915, z: -0.000000043805507}
@@ -3132,9 +3108,7 @@ GameObject:
   - component: {fileID: 1896597041}
   - component: {fileID: 1896597042}
   - component: {fileID: 1896597039}
-  - component: {fileID: 1896597047}
   - component: {fileID: 1896597046}
-  - component: {fileID: 1896597040}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -3158,19 +3132,8 @@ MonoBehaviour:
   RotationSpeed: 120
   WalkSpeed: 2.4
   RunMultiplier: 2
+  Info: {fileID: 11400000, guid: e412983fff8f44844999a18652ba07d8, type: 2}
   IsGrounded: 1
---- !u!114 &1896597040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896597038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a26f6aca1fdb454d9d0cf5a0c170e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &1896597041
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3208,6 +3171,7 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 51028746da465b64992c2e55fca356bc, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Controller: {fileID: 0}
 --- !u!54 &1896597043
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3268,19 +3232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BM: {fileID: 0}
   WM: {fileID: 0}
---- !u!114 &1896597047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896597038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa74cc8c86a494ba6eaeacbc1f1da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AM: {fileID: 0}
+  SM: {fileID: 0}
+  Controller: {fileID: 0}
 --- !u!1 &1972979645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,7 +3527,7 @@ BoxCollider:
   m_GameObject: {fileID: 2084280741}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.1609588, y: 1.2953854, z: 0.066146016}
   m_Center: {x: -0.004240506, y: 0.88209915, z: -0.000000043805507}

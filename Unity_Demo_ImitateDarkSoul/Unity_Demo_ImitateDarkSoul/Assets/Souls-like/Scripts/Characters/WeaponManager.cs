@@ -8,7 +8,7 @@ namespace Souls
     /// <summary>
     /// WeaponManager 负责控制双手的WeaponController
     /// </summary>
-    public class WeaponManager : MonoBehaviour
+    public class WeaponManager : AbstractActorManager
     {
         WeaponController RightWC;
         WeaponController LeftWC;

@@ -4,18 +4,19 @@ using UnityEngine;
 
 namespace Souls
 {
+    /// <summary>
+    /// 战斗管理器
+    /// </summary>
     [RequireComponent(typeof(CapsuleCollider))]
-    public class BattleManager : MonoBehaviour
+    public class BattleManager : AbstractActorManager
     {
-
-        [HideInInspector] public ActorManager AM;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("AttackWeapon"))
             {
                 Debug.Log(other.tag);
-                AM.Damage();
+                AM.TryDoDamg();
             }
         }
 

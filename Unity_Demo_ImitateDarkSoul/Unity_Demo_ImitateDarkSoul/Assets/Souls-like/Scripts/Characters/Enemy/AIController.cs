@@ -75,6 +75,16 @@ namespace Souls
                     _anim.SetBool("AttackMirror", false);
             }
         }
+
+        public override void Stunned()
+        {
+            _anim.SetTrigger("Stunned");
+        }
+
+        public override void Blocked()
+        {
+            _anim.SetTrigger("Blocked");
+        }
         #endregion
     }
 

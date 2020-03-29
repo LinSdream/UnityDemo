@@ -7,6 +7,8 @@ namespace Souls
 {
     public class WeaponController:MonoBehaviour
     {
+
+        public WeaponManager WM;
        
     }
 }

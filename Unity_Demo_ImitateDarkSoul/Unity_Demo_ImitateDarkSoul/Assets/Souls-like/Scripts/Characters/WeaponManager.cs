@@ -10,24 +10,74 @@ namespace Souls
     /// </summary>
     public class WeaponManager : AbstractActorManager
     {
-        WeaponController RightWC;
-        WeaponController LeftWC;
 
-        AnimatorEvents _weaponAnimatorEvent;
+        [HideInInspector] public GameObject RightHandle;
+        [HideInInspector] public GameObject LeftHandle;
+
+        [HideInInspector] public WeaponController RightWC;
+        [HideInInspector] public WeaponController LeftWC;
+
+
+        Collider WeaponCollider;
+
+        //AnimatorEvents _weaponAnimatorEvent;
 
         private void Awake()
         {
-            _weaponAnimatorEvent = gameObject.GetComponent<BaseController>().Model.GetComponent<AnimatorEvents>();
 
-            RightWC = SharedMethods.DeepFindTransform(transform, "WeaponHandle").GetComponent<WeaponController>();
-            LeftWC = SharedMethods.DeepFindTransform(transform, "ShieldHandle").GetComponent<WeaponController>();
+            RightHandle = SharedMethods.DeepFindTransform(transform, "WeaponHandle").gameObject;
+            LeftHandle = SharedMethods.DeepFindTransform(transform, "ShieldHandle").gameObject;
+
+            LeftWC = BindWeaponController(LeftHandle);
+            RightWC = BindWeaponController(RightHandle);
+
+            WeaponCollider = RightHandle.GetComponentsInChildren<Collider>()[0];
         }
 
         #region Public Methods
+
+        public Collider ChangeWeaponCollider(int index, bool isRight = true)
+        {
+
+            if (!isRight)
+                WeaponCollider = RightHandle.GetComponentsInChildren<Collider>()[index];
+            else
+                WeaponCollider = LeftHandle.GetComponentsInChildren<Collider>()[index];
+            if (WeaponCollider == null)
+                WeaponCollider = ChangeWeaponCollider(0, isRight);
+            return WeaponCollider;
+        }
+
+        public WeaponController BindWeaponController(GameObject go)
+        {
+            WeaponController wc;
+            wc = go.GetComponent<WeaponController>();
+            if (wc == null)
+                wc = go.AddComponent<WeaponController>();
+            wc.WM = this;
+            return wc;
+        }
+
+        public void WeaponEnable()
+        {
+            WeaponCollider.enabled = true;
+        }
+
         public void WeaponDisable()
         {
-            _weaponAnimatorEvent.WeaponDisable();
+            WeaponCollider.enabled = false;
         }
+
+        public void CounterBackEnable()
+        {
+            AM.SetIsCounterBack(true);
+        }
+
+        public void CounterBackDisable()
+        {
+            AM.SetIsCounterBack(false);
+        }
+
         #endregion
     }
 }

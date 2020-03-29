@@ -39,7 +39,10 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnRollExit", OnRollExit);
             MessageCenter.Instance.AddListener("OnAttackR_01A", OnAttackR_01A);
             MessageCenter.Instance.AddListener("OnHitEnter", OnHitEnter);
+            MessageCenter.Instance.AddListener("OnStunnedEnter", OnStunnedEnter);
+            MessageCenter.Instance.AddListener("OnCounterBack", OnCounterBack);
         }
+
 
         private void OnDestroy()
         {
@@ -56,6 +59,7 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);
             MessageCenter.Instance.RemoveListener("OnHitEnter", OnHitEnter);
+            MessageCenter.Instance.RemoveListener("OnStunnedEnter", OnStunnedEnter);
         }
 
         #endregion
@@ -140,9 +144,9 @@ namespace Souls
         {
             if (sender != gameObject)
                 return;
-            //_playerController.ThrustVec = new Vector3(-_playerController.Forward.x, _playerController.JabVerlocity.x,
-            //    -_playerController.Forward.z * _playerController.JabVerlocity.y);
-            _playerController.ThrustVec = new Vector3(0, _playerController.JabVerlocity.x, 0);
+            _playerController.ThrustVec = new Vector3(-_playerController.Forward.x, _playerController.JabVerlocity.x,
+                -_playerController.Forward.z * _playerController.JabVerlocity.y);
+            //_playerController.ThrustVec = new Vector3(0, _playerController.JabVerlocity.x, 0);
         }
 
         private void OnJabUpdate(GameObject sender, EventArgs e)
@@ -170,6 +174,22 @@ namespace Souls
             _playerController.ResetMoveDirZero();
         }
 
+        private void OnStunnedEnter(GameObject sender, EventArgs e)
+        {
+            if (sender != gameObject)
+                return;
+            _playerController.SetInputLock(true);
+            _playerController.ResetMoveDirZero();
+        }
+
+
+        private void OnCounterBack(GameObject sender, EventArgs e)
+        {
+            if (sender != gameObject)
+                return;
+            _playerController.SetInputLock(true);
+            _playerController.ResetMoveDirZero();
+        }
         #endregion
     }
 

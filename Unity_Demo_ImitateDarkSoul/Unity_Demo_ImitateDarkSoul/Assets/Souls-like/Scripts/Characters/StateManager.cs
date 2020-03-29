@@ -50,6 +50,10 @@ namespace Souls
         //特殊状态
         public bool IsAllowDefence;
         public bool IsImmortal;//是否无敌
+        public bool IsCounterBack;// related to state
+        public bool IsCounterBackEnable; // related to animation events
+        public bool IsCounterBackSuccess;
+        public bool isCounterBackFailure;
     }
 
     #endregion
@@ -117,6 +121,11 @@ namespace Souls
             CharacterState.IsDefence = CharacterState.IsAllowDefence && AM.Controller.CheckAnimatorState("Defanse_OneHand", "Defanse Layer");
 
             CharacterState.IsImmortal = CharacterState.IsRoll || CharacterState.IsJob;
+
+            CharacterState.IsCounterBack = AM.Controller.CheckAnimatorState("CounterBack");
+            CharacterState.IsCounterBackSuccess = CharacterState.IsCounterBackEnable;
+            CharacterState.isCounterBackFailure = CharacterState.IsCounterBack && !CharacterState.IsCounterBackEnable;
+
         }
 
         #endregion

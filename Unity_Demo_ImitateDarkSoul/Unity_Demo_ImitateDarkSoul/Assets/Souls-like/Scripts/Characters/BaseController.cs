@@ -81,11 +81,13 @@ namespace Souls
         /// <summary> 重启 </summary>
         public virtual void Restart() { }
 
-        public virtual void Blocked()
-        {
-            _anim.SetTrigger("Block");
-        }
+        public virtual void Blocked(){}
 
+        /// <summary> 弹反 </summary>
+        public virtual void HeavyAttack() { }
+
+        /// <summary> 硬值 </summary>
+        public virtual void Stunned() { }
         #endregion
 
         #region Abstract Methods

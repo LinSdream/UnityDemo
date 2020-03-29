@@ -25,8 +25,8 @@ namespace Souls
             Controller = GetComponent<BaseController>();
 
             //脚本获取
-            BM = Bind<BattleManager>(gameObject);
-            WM = Bind<WeaponManager>(gameObject);
+            BM = Bind<BattleManager>(transform.Find("BattleSensor").gameObject);
+            WM = Bind<WeaponManager>(Controller.Model);
             SM = Bind<StateManager>(gameObject);
 
             //创建游玩过程中的角色信息
@@ -45,16 +45,33 @@ namespace Souls
         /// <summary>
         /// 尝试计算伤害，根据计算后得出的不同值进行不同的处理
         /// </summary>
-        public void TryDoDamg()
+        public void TryDoDamg(WeaponController wc,bool attackValid,bool counterValid)
         {
+   
             if (SM.CharacterState.IsDie)
                 return;
+
+            if(SM.CharacterState.IsCounterBackSuccess)
+            {
+                if (counterValid)
+                {
+                    wc.WM.AM.Controller.Stunned();
+                    return;
+                }
+            }
+            if (SM.CharacterState.isCounterBackFailure)
+            {
+                if(attackValid)
+                    SM.AddHP(0f);
+                return;
+            }
             if (SM.CharacterState.IsImmortal)
                 return;
             if (SM.CharacterState.IsDefence)
                 Controller.Blocked();
             else
-                SM.AddHP(-50f);
+                if(attackValid)
+                    SM.AddHP(0f);
 
         }
 
@@ -64,6 +81,11 @@ namespace Souls
                 Controller.Hit();
             else if (hp <= 0)
                 Controller.Die();
+        }
+
+        public void SetIsCounterBack(bool on)
+        {
+            SM.CharacterState.IsCounterBackEnable = on;
         }
 
         #region Private Help Methods

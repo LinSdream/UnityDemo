@@ -16,8 +16,6 @@ namespace Test.TestCamera
         public string CameraVerticalAxis;
 
         public string LockCursorButton = "Esc";
-
-        // Update is called once per frame
         void Update()
         {
             //鼠标隐藏
@@ -42,6 +40,7 @@ namespace Test.TestCamera
                 Horizontal = Input.GetAxis(HorizontalAxis);
                 Vertical = Input.GetAxis(VerticalAxis);
             }
+            
         }
     }
 

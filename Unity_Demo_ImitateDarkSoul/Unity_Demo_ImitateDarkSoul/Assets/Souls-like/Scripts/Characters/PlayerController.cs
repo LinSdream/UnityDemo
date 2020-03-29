@@ -61,7 +61,7 @@ namespace Souls
             {
                 if (_leftIsShield)
                     return 0;
-                return -1;
+                return 1;
             }
         }
         /// <summary> 位移方向向量 </summary>
@@ -79,20 +79,30 @@ namespace Souls
 
             _input = GetComponent<UserInput>();
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
+
+            CameraCol.MoveSpeed = WalkSpeed;
         }
 
         private void Update()
         {
+            //镜头是否锁定
             if (_input.IsLockOn)
                 CameraCol.CameraLockOn();
 
+            //判断是是否有跳跃
             Jump();
-
+            //计算位移量
             CalculateMoveDirection();
 
-            if (_leftIsShield)
-                Defense();
+            //查看是否有举盾的操作
+            Defense();
+
+            //查看是否有攻击的动作
             Attack();
+
+            //查看是否有重攻击
+            HeavyAttack();
+
         }
 
         private void FixedUpdate()
@@ -130,12 +140,12 @@ namespace Souls
         /// </summary>
         public override void Attack()
         {
-
+            //如果触发攻击信号，并且在地面。或者已经处于连段攻击abc中任意一段，认为进入攻击状态
             if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackLTag")
                 || CheckAnimatorStateTag("AttackRTag")) && IsGrounded)
             {
                 //如果是左手触发，并且左手非盾牌
-                if (_input.IsLeftTrigger && !_leftIsShield)
+                if (_input.IsLeftTrigger && LeftIsShield!=0)
                 {
                     _anim.SetBool("AttackMirror", true);//镜像反转
                     _anim.SetTrigger("Attack");
@@ -160,6 +170,42 @@ namespace Souls
             SetInputLock(true);
             CameraCol.RelesaseLockOn();
 
+        }
+
+        public override void HeavyAttack()
+        {
+            //如果左手或者右手按下重攻击，并且在地面 ，或者重攻击连招
+            if((_input.IsRightButton || _input.IsLeftButton)&& (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackLTag")
+                || CheckAnimatorStateTag("AttackRTag")) && IsGrounded)
+            {
+                //如果是右手重攻击
+                if(_input.IsRightButton)
+                {
+
+                }
+                else//如果是左手重攻击
+                {
+                    if(LeftIsShield==0)//左手是盾
+                    {
+                        //弹反
+                        _anim.SetTrigger("CounterBack");
+                    }
+                    else
+                    {
+                        //左手的重攻击。右手重攻击的镜像
+                    }
+                }
+            }
+        }
+
+        public override void Blocked()
+        {
+            _anim.SetTrigger("Blocked");
+        }
+
+        public override void Stunned()
+        {
+            _anim.SetTrigger("Stunned");
         }
         #endregion
 
@@ -220,22 +266,46 @@ namespace Souls
                 _anim.SetBool("IsInGround", false);
         }
 
+
+
         /// <summary>
         /// 防御
         /// </summary>
         void Defense()
         {
-            _anim.SetBool("Defense", _input.IsDefense);
-            if (CheckAnimatorState("Ground"))
+
+            switch (LeftIsShield)
             {
-                if (_input.IsDefense)
-                    SetLayerWeight("Defanse Layer", 1);
-                else
-                    SetLayerWeight("Defanse Layer", 0);
-            }
-            else
-            {
-                SetLayerWeight("Defanse Layer", 0);
+                //左手盾
+                case 0:
+
+                    if (CheckAnimatorState("Ground"))//如果在地面
+                    {
+                        if (_input.IsDefense)//开启Defanse 层
+                        {
+                            if(!_input.IsRightTrigger)
+                            {
+                                SetLayerWeight("Defanse Layer", 1);
+                                _anim.SetBool("Defense", true);
+                            }
+                            
+                        }
+                        else
+                        {
+                            SetLayerWeight("Defanse Layer", 0);
+                            _anim.SetBool("Defense", false);
+                        }
+                    }
+                    else
+                    {
+                        SetLayerWeight("Defanse Layer", 0);
+                        _anim.SetBool("Defense", false);
+                    }
+                    break;
+
+                case 1://右手盾
+                    break;
+                case -1:return;//无盾牌，直接跳出
             }
         }
 
@@ -264,6 +334,7 @@ namespace Souls
                 Rotation();
             }
 
+            #region code
             ////根据镜头锁定状态计算位移向量
             //if (CameraCol.LockState)
             //{
@@ -291,6 +362,7 @@ namespace Souls
             //    Rotation();
             //    //_moveDir = _input.InputVec.normalized * ;
             //}
+            #endregion
         }
         #endregion
 
@@ -304,6 +376,8 @@ namespace Souls
         public void SetInputLock(bool on)
         {
             _input.LockMovementInput = on;
+            _input.Horizontal = 0;
+            _input.Vertical = 0;
         }
 
         #endregion

@@ -8,10 +8,19 @@ using UnityEngine.UI;
 
 namespace Souls
 {
+
+    #region Struct Target
+    public struct TargetObj
+    {
+        public GameObject Target;
+        public ActorManager AM;
+    }
+    #endregion
+
     public class CameraController : FreeLookCameraController
     {
         #region Fields
-        
+
         [Header("Other Settings")]
         public LayerMask CheckMask;
         public Image AimPointImg;
@@ -24,9 +33,9 @@ namespace Souls
         /// <summary> 未锁定状态到锁定状态之间的镜头旋转插值是否完成 </summary>
         [SerializeField] bool _cameraRotateSuccess = false;
         /// <summary> 锁定对象</summary>
-        [SerializeField] GameObject _lockTarget;
+        [SerializeField] TargetObj _lockTarget = new TargetObj();
         /// <summary> 锁定的目标对象 </summary>
-        public GameObject LockTarget => _lockTarget;
+        public GameObject LockTarget => _lockTarget.Target;
 
         #endregion
 
@@ -44,20 +53,28 @@ namespace Souls
 
         protected override void OnFixedUpdate()
         {
-            if (_lockTarget != null)
-                if ((_lockTarget.transform.position - transform.position).sqrMagnitude > SqrDistanceTargetToSelf)
+            if (_lockTarget.Target != null)
+            {
+                if ((_lockTarget.Target.transform.position - transform.position).sqrMagnitude > SqrDistanceTargetToSelf)
                     RelesaseLockOn();
+                if (_lockTarget.AM != null)
+                    if (_lockTarget.AM.SM.CharacterState.IsDie)
+                    {
+                        RelesaseLockOn();
+                    }
+
+            }
         }
 
         protected override void Rotate()
         {
-            if (_lockTarget == null)
+            if (_lockTarget.Target == null)
                 base.Rotate();
             else
             {
                 if (true)
                 {
-                    Vector3 forward = _lockTarget.transform.position - TargetModel.position;
+                    Vector3 forward = _lockTarget.Target.transform.position - TargetModel.position;
                     forward = Vector3.Scale(forward, new Vector3(1, 0, 1));
                     transform.forward = forward;
                     ////计算方向向量
@@ -65,8 +82,8 @@ namespace Souls
                     //tmpForward.y = 0;
                     //transform.forward = tmpForward;//父级Player的方向指向目标物体
                 }
-                CameraPivot.LookAt(_lockTarget.transform);
-                AimPointImg.rectTransform.position = Camera.main.WorldToScreenPoint(_lockTarget.transform.position);
+                CameraPivot.LookAt(_lockTarget.Target.transform);
+                AimPointImg.rectTransform.position = Camera.main.WorldToScreenPoint(_lockTarget.Target.transform.position);
             }
         }
 
@@ -82,7 +99,7 @@ namespace Souls
             Vector3 modelOrigin1 = TargetModel.transform.position;
             Vector3 modelOrigin2 = modelOrigin1 + new Vector3(0, 1, 0);
             Vector3 boxCenter = modelOrigin2 + TargetModel.transform.forward * 5f;
-
+            Debug.DrawLine(boxCenter, Vector3.up, Color.red, 100);
             ///TODO:不应该用box来检测，用球？还是扇形，需要实际测试比较一下
             var colliders = Physics.OverlapBox(boxCenter, new Vector3(8f, 1f, 5f), TargetModel.transform.rotation, CheckMask);
             //var colliders = Physics.OverlapSphere(_model.position, 5f, CheckMask);
@@ -91,10 +108,11 @@ namespace Souls
                 RelesaseLockOn();
                 return;
             }
-            _lockTarget = SharedMethods.CalculateNearestCollider(TargetModel, colliders).gameObject;
+            _lockTarget.Target = SharedMethods.CalculateNearestCollider(TargetModel, colliders).gameObject;
+            _lockTarget.AM = _lockTarget.Target.GetComponent<ActorManager>();
             AimPointImg.enabled = true;
             LockState = true;
-            Vector3 tmpForward = _lockTarget.transform.position - TargetModel.transform.position;
+            Vector3 tmpForward = _lockTarget.Target.transform.position - TargetModel.transform.position;
             //StartCoroutine(WaitForCameraRotate());
         }
 
@@ -103,7 +121,7 @@ namespace Souls
         /// <summary> Input System 控制锁定 </summary>
         public void CameraLockOn()
         {
-            if (_lockTarget != null)
+            if (_lockTarget.Target != null)
             {
                 RelesaseLockOn();
                 return;
@@ -115,7 +133,8 @@ namespace Souls
         public void RelesaseLockOn()
         {
             AimPointImg.enabled = false;
-            _lockTarget = null;
+            _lockTarget.Target = null;
+            _lockTarget.AM = null;
             LockState = false;
         }
     }

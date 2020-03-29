@@ -24,16 +24,17 @@ namespace Souls
         public string LeftButton = "LeftButton";
         public string RightTrigger = "RightTrigger";
         public string LeftTrigger = "LeftTrigger";
+        public string CounterBackButton = "CounterBack";
 
         protected override void Init()
         {
             Cursor.lockState = CursorLockMode.Locked;
 
-            RightButtonInfo = new InputInfo(RightButton);
-            LeftButtonInfo = new InputInfo(LeftButton);
+            //RightButtonInfo = new InputInfo(RightButton);
+            //LeftButtonInfo = new InputInfo(LeftButton);
 
-            RightTriggerInfo = new InputInfo(RightTrigger);
-            LeftTriggerInfo = new InputInfo(LeftTrigger);
+            //RightTriggerInfo = new InputInfo(RightTrigger);
+            //LeftTriggerInfo = new InputInfo(LeftTrigger);
         }
 
         void Update()
@@ -61,10 +62,6 @@ namespace Souls
                 Vertical = Input.GetAxis(VerticalAxis);
             }
 
-
-            Debug.Log(LockMovementInput);
-
-
             //按压触发的按键
             IsRun = Input.GetButton(RunButton);
             IsDefense = Input.GetButton(DefenseButton);
@@ -72,7 +69,6 @@ namespace Souls
             IsRightButton = Input.GetButton(RightButton);
             IsLeftButton = Input.GetButton(LeftButton);
 
-            IsDefense = (IsRightButton || IsLeftButton);
 
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);
@@ -81,8 +77,8 @@ namespace Souls
             IsLeftTrigger = Input.GetButtonDown(LeftTrigger);
             IsRightTrigger = Input.GetButtonDown(RightTrigger);
 
+            IsDefense = (Input.GetButton(LeftTrigger) || Input.GetButton(RightTrigger));
             IsAttack = (IsLeftTrigger || IsRightTrigger);
-
         }
 
     }

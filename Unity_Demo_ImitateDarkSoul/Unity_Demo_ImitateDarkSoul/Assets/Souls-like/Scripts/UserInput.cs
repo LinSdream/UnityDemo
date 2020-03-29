@@ -26,10 +26,10 @@ namespace Souls
 
 
 
-        [HideInInspector] public InputInfo RightButtonInfo;
-        [HideInInspector]public InputInfo LeftButtonInfo;
-        [HideInInspector]public InputInfo RightTriggerInfo;
-        [HideInInspector]public InputInfo LeftTriggerInfo;
+        //[HideInInspector] public InputInfo RightButtonInfo;
+        //[HideInInspector]public InputInfo LeftButtonInfo;
+        //[HideInInspector]public InputInfo RightTriggerInfo;
+        //[HideInInspector]public InputInfo LeftTriggerInfo;
 
 
         private void Awake()

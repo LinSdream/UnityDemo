@@ -40,9 +40,9 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnAttackR_01A", OnAttackR_01A);
             MessageCenter.Instance.AddListener("OnHitEnter", OnHitEnter);
             MessageCenter.Instance.AddListener("OnStunnedEnter", OnStunnedEnter);
-            MessageCenter.Instance.AddListener("OnCounterBack", OnCounterBack);
+            MessageCenter.Instance.AddListener("OnCounterBackEnter", OnCounterBackEnter);
+            
         }
-
 
         private void OnDestroy()
         {
@@ -60,6 +60,8 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);
             MessageCenter.Instance.RemoveListener("OnHitEnter", OnHitEnter);
             MessageCenter.Instance.RemoveListener("OnStunnedEnter", OnStunnedEnter);
+            MessageCenter.Instance.RemoveListener("OnCounterBackEnter", OnCounterBackEnter);
+            
         }
 
         #endregion
@@ -183,13 +185,14 @@ namespace Souls
         }
 
 
-        private void OnCounterBack(GameObject sender, EventArgs e)
+        private void OnCounterBackEnter(GameObject sender, EventArgs e)
         {
             if (sender != gameObject)
                 return;
             _playerController.SetInputLock(true);
             _playerController.ResetMoveDirZero();
         }
+
         #endregion
     }
 

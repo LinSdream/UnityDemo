@@ -16,14 +16,17 @@ namespace Souls
         private void Start()
         {
             _defCol = GetComponent<CapsuleCollider>();
-            _defCol.center = Vector3.up * 1f;
-            _defCol.height = 2f;
-            _defCol.isTrigger = true;
+            if (_defCol == null)
+            {
+                _defCol.center = Vector3.up * 1f;
+                _defCol.height = 2f;
+                _defCol.isTrigger = true;
+
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.name);
 
             var wc = other.GetComponentInParent<WeaponController>();
 
@@ -39,13 +42,15 @@ namespace Souls
             float counterAngle1 = Vector3.Angle(receiver.transform.forward, counterDir);
             float counterAngle2 = Vector3.Angle(attacker.transform.forward, receiver.transform.forward);
 
-            bool attackValid = (Mathf.Abs(attackAngle) < 45);
-            bool counterValid = (Mathf.Abs(counterAngle1) < 30 && Mathf.Abs(counterAngle2 - 180) < 30f);
+            Debug.DrawLine(attacker.transform.position, receiver.transform.position, Color.red);
 
+            bool attackValid = (attackAngle < 45);
+            bool counterValid = counterAngle1 < 180f;
+            //bool counterValid = (counterAngle1 < 180f && Mathf.Abs(counterAngle2 - 180) < 45f);
+            Debug.Log(counterAngle1 + " " + counterAngle2);
             if (other.CompareTag("Weapon"))
             {
-                if(Mathf.Abs(attackAngle)<=45f)
-                    AM.TryDoDamg(wc,attackValid,counterValid);
+                AM.TryDoDamg(wc, attackValid, counterValid);
             }
         }
 

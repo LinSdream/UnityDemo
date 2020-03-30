@@ -50,11 +50,12 @@ namespace Souls
    
             if (SM.CharacterState.IsDie)
                 return;
-
             if(SM.CharacterState.IsCounterBackSuccess)
             {
+                Debug.Log("!!!!!!!!!!");
                 if (counterValid)
                 {
+                    Debug.Log("valid");
                     wc.WM.AM.Controller.Stunned();
                     return;
                 }
@@ -110,6 +111,7 @@ namespace Souls
         private void Register()
         {
             MessageCenter.Instance.AddListener("OnAttackExit", OnAttackExit);
+            MessageCenter.Instance.AddListener("OnCounterBackExit", OnCounterBackExit);
         }
 
         /// <summary>
@@ -118,6 +120,7 @@ namespace Souls
         private void UnRegister()
         {
             MessageCenter.Instance.RemoveListener("OnAttackExit", OnAttackExit);
+            MessageCenter.Instance.RemoveListener("OnCounterBackExit", OnCounterBackExit);
         }
 
         private void OnAttackExit(GameObject sender, EventArgs e)
@@ -125,6 +128,11 @@ namespace Souls
             if (sender != gameObject)
                 return;
             WM.WeaponDisable();
+        }
+
+        private void OnCounterBackExit(GameObject sender,EventArgs eventArgs)
+        {
+            WM.CounterBackDisable();
         }
         #endregion
 

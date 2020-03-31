@@ -211,7 +211,6 @@ namespace Souls
 
         #region Private Methdos
 
-
         /// <summary> 旋转 </summary>
         void Rotation()
         {
@@ -232,9 +231,7 @@ namespace Souls
             }
         }
 
-        /// <summary>
-        /// 位移
-        /// </summary>
+        /// <summary> 位移 </summary>
         void Move()
         {
             AnimatorUpdate();
@@ -250,9 +247,7 @@ namespace Souls
             DeltaPos = Vector3.zero;
         }
 
-        /// <summary>
-        /// 翻滚，跳跃
-        /// </summary>
+        /// <summary> 翻滚，跳跃 </summary>
         void Jump()
         {
             if (_rigidbody.velocity.sqrMagnitude > _sqrHightFallStiff)
@@ -266,11 +261,7 @@ namespace Souls
                 _anim.SetBool("IsInGround", false);
         }
 
-
-
-        /// <summary>
-        /// 防御
-        /// </summary>
+        /// <summary> 防御 </summary>
         void Defense()
         {
 
@@ -309,15 +300,13 @@ namespace Souls
             }
         }
 
-        /// <summary>
-        /// 计算方向向量
-        /// </summary>
+        /// <summary> 计算方向向量 </summary>
         void CalculateMoveDirection()
         {
-
             if (!LockPlanar)
             {
-                _moveDir = Vector3.Scale(CameraCol.CameraObj.forward, new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal;
+                _moveDir = Vector3.Scale(CameraCol.CameraObj.forward, 
+                    new Vector3(1, 0, 1)) * _input.Vertical + CameraCol.CameraObj.right * _input.Horizontal;
                 if (_moveDir.magnitude > 1f)
                     _moveDir.Normalize();
                 _moveDir = transform.InverseTransformDirection(_moveDir);
@@ -368,11 +357,13 @@ namespace Souls
 
         #region Public Methods
 
+        /// <summary> 重置方向向量为0 </summary>
         public void ResetMoveDirZero()
         {
             _moveDir = Vector3.zero;
         }
 
+        /// <summary> 锁定输入，true为锁定，false为解锁 </summary>
         public void SetInputLock(bool on)
         {
             _input.LockMovementInput = on;

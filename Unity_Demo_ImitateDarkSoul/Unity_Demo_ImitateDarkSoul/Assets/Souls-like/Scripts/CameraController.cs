@@ -138,6 +138,8 @@ namespace Souls
             LockState = false;
         }
     }
+
+    #region  Bug Code
     //public class CameraController : MonoBehaviour
     //{
     //    public UserInput _input;
@@ -335,5 +337,5 @@ namespace Souls
     //    }
     //    #endregion
     //}
-
+    #endregion
 }

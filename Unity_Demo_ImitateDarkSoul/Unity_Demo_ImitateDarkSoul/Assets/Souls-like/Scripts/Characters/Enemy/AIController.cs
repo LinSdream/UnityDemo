@@ -59,6 +59,7 @@ namespace Souls
 
         public override void Hit()
         {
+            Debug.Log("!");
             _anim.SetTrigger("Hit");
         }
 

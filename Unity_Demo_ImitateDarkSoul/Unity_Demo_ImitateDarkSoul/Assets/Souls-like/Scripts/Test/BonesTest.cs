@@ -13,7 +13,7 @@ namespace Souls.Test
         {
             foreach (var cell in TargetMeshRenderers)
             {
-                Debug.Log(cell.bones.Length);
+    
 
                 cell.bones = OriginMeshRenderer.bones;
             }

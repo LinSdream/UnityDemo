@@ -6,14 +6,16 @@ using UnityEngine;
 
 namespace Souls
 {
-
-
+    /// <summary> 角色管理 </summary>
     public class ActorManager : MonoBehaviour
     {
-
+        /// <summary> 战斗模块管理 </summary>
         [HideInInspector] public BattleManager BM;
+        /// <summary> 武器管理，之后的武器系统有WM完成 </summary>
         [HideInInspector] public WeaponManager WM;
+        /// <summary> 状态管理，多种状态的判断 </summary>
         [HideInInspector] public StateManager SM;
+        /// <summary> 角色控制器 </summary>
         [HideInInspector] public BaseController Controller;
 
         #region MonoBehaviour Callbacks
@@ -47,9 +49,11 @@ namespace Souls
         /// </summary>
         public void TryDoDamg(WeaponController wc,bool attackValid,bool counterValid)
         {
-   
+            Debug.Log(attackValid);
+            //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
                 return;
+            //角色弹反成功
             if(SM.CharacterState.IsCounterBackSuccess)
             {
                 Debug.Log("!!!!!!!!!!");
@@ -60,28 +64,35 @@ namespace Souls
                     return;
                 }
             }
+            //弹反失败
             if (SM.CharacterState.isCounterBackFailure)
             {
+                //如果攻击有效，即在弹反过程中受到伤害
                 if(attackValid)
-                    SM.AddHP(0f);
+                    SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
                 return;
             }
+            //是否无敌，无敌状态下，不收到任何伤害
             if (SM.CharacterState.IsImmortal)
                 return;
+            //是否防御，防御情况下，动画展示
             if (SM.CharacterState.IsDefence)
                 Controller.Blocked();
-            else
-                if(attackValid)
-                    SM.AddHP(0f);
-
+            else//所有情况外，就是受伤
+                if(attackValid)//敌人攻击范围有效
+                    SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
         }
 
+        /// <summary> 根据血条进行不同的动画展示 </summary>
         public void SetAnimAfterDoDamg(float hp)
         {
             if (hp > 0)
                 Controller.Hit();
             else if (hp <= 0)
+            {
                 Controller.Die();
+                WM.WeaponDisable();
+            }
         }
 
         public void SetIsCounterBack(bool on)
@@ -102,7 +113,6 @@ namespace Souls
         }
 
         #endregion
-
 
         #region Message Private Methods
         /// <summary>

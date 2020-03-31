@@ -58,14 +58,11 @@ namespace Souls
 
     #endregion
 
-    /// <summary>
-    /// 数值状态管理
-    /// </summary>
+    /// <summary> 数值状态管理 </summary>
     public class StateManager : AbstractActorManager
     {
         [HideInInspector] public CharacterInfo Info;
         public CharacterTempInfo TempInfo;
-
         public CharacterStateFlag CharacterState;
 
         #region MonoBehaviour Callbacks

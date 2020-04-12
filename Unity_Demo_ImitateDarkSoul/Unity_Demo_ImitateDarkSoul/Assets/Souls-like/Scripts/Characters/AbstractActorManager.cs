@@ -7,7 +7,7 @@ namespace Souls
     public abstract class AbstractActorManager : MonoBehaviour
     {
         /// <summary> 角色管理器 </summary>
-        [HideInInspector] public ActorManager AM;
+         public ActorManager AM;
     }
 
 }

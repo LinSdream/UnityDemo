@@ -28,7 +28,10 @@ namespace Souls
         private void OnTriggerEnter(Collider other)
         {
             var wc = other.GetComponentInParent<WeaponController>();
-
+            //这里有两种碰撞，一种是Layer Weapon的碰撞，一种是Layer Caster的碰撞，Layer Caster上面不存在WeaponController
+            if (wc == null)
+                return;
+            //Debug.Log(wc == null ? 1 : 0);
             var attacker = wc.WM.AM;
             var receiver = AM;
 
@@ -45,7 +48,7 @@ namespace Souls
             bool attackValid = (attackAngle < 360);
             bool counterValid = counterAngle1 < 180f;
             //bool counterValid = (counterAngle1 < 180f && Mathf.Abs(counterAngle2 - 180) < 45f);
-            Debug.Log(counterAngle1 + " " + counterAngle2);
+            //Debug.Log(counterAngle1 + " " + counterAngle2);
             if (other.CompareTag("Weapon"))
             {
                 AM.TryDoDamg(wc, true, counterValid);

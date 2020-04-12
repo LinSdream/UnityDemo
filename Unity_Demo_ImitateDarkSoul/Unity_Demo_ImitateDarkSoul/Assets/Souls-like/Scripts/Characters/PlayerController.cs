@@ -31,6 +31,7 @@ namespace Souls
         /// <summary> 模型的正前方</summary>
         [HideInInspector] public Vector3 Forward => Model.transform.forward;
 
+        [HideInInspector] public UserInput UserInput => _input;
         /// <summary> 是否处于跑步状态 </summary>
         public bool IsRun
         {
@@ -75,7 +76,7 @@ namespace Souls
         #region MonoBehaviour Callbacks
         protected override void Awake()
         {
-            base.Awake();
+                base.Awake();
 
             _input = GetComponent<UserInput>();
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
@@ -83,7 +84,7 @@ namespace Souls
             CameraCol.MoveSpeed = WalkSpeed;
         }
 
-        private void Update()
+        protected override void Update()
         {
             //镜头是否锁定
             if (_input.IsLockOn)
@@ -102,6 +103,8 @@ namespace Souls
 
             //查看是否有重攻击
             HeavyAttack();
+            if(_input.IsInteration)
+                base.Update();
 
         }
 
@@ -367,11 +370,10 @@ namespace Souls
         public void SetInputLock(bool on)
         {
             _input.LockMovementInput = on;
-            _input.Horizontal = 0;
-            _input.Vertical = 0;
+            _input.ResetInputVec();
         }
 
         #endregion
     }
 
-}
+}      

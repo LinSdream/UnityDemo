@@ -9,22 +9,21 @@ namespace Souls
     {
 
         //pressing signal
-        [HideInInspector] public bool IsRun = false;
-        [HideInInspector] public bool IsDefense = false;
-        [HideInInspector] public bool IsLockOn = false;
-        [HideInInspector] public bool IsRightTrigger = false;
-        [HideInInspector] public bool IsLeftTrigger = false;
+        [HideInInspector] public bool IsRun { get; protected set; }
+        [HideInInspector] public bool IsDefense { get; protected set; }
+        [HideInInspector] public bool IsLockOn { get; protected set; }
+        [HideInInspector] public bool IsRightTrigger { get; protected set; }
+        [HideInInspector] public bool IsLeftTrigger { get; protected set; }
 
         //trigger signal
-        [HideInInspector] public bool IsJump = false;
-        [HideInInspector] public bool IsAttack = false;
-        [HideInInspector] public bool IsRightButton = false;
-        [HideInInspector] public bool IsLeftButton = false;
+        [HideInInspector] public bool IsJump { get; protected set; }
+        [HideInInspector] public bool IsAttack { get; protected set; }
+        [HideInInspector] public bool IsRightButton { get; protected set; }
+        [HideInInspector] public bool IsLeftButton { get; protected set; }
+        [HideInInspector] public bool IsInteration { get; protected set; }
 
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
         [HideInInspector] public bool LockMovementInput = false;
-
-
 
         //[HideInInspector] public InputInfo RightButtonInfo;
         //[HideInInspector]public InputInfo LeftButtonInfo;
@@ -35,9 +34,15 @@ namespace Souls
         private void Awake()
         {
             IsRun = false;
+            IsDefense = false;
+            IsLockOn = false;
             IsJump = false;
+            IsLeftButton = false;
+            IsRightButton = false;
+            IsRightTrigger = false;
             LockCursor = true;
             IsAttack = false;
+            IsInteration = false;
             LockMovementInput = false;
             Init();
         }
@@ -47,6 +52,12 @@ namespace Souls
 
         }
 
+        public void ResetInputVec()
+        {
+            Horizontal = 0;
+            Vertical = 0;
+        }
+       
     }
 
 }

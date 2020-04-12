@@ -14,17 +14,29 @@ namespace Souls
     [RequireComponent(typeof(Rigidbody))]
     public abstract class BaseController : MonoBehaviour
     {
+
+        public delegate void InterationHandle();
+
+        #region Public Fields
         public GameObject Model;
         [Tooltip("旋转速度")] public float RotationSpeed;
         [Tooltip("行走速度")] public float WalkSpeed;
         [Tooltip("跑步系数")] public float RunMultiplier = 2f;
         [Tooltip("角色的基本信息")] public CharacterInfo Info;
+        public event InterationHandle InterationEvent;
+        public Animator Anim => _anim;
 
         ///<summary> 是否在地面 </summary>
         [HideInInspector] public bool IsGrounded = true;
 
+        #endregion
+
+        #region Protected Fields
+
         protected Animator _anim;
         protected Rigidbody _rigidbody;
+
+        #endregion 
 
         #region MonoBehaviour Callbacks
 
@@ -32,6 +44,11 @@ namespace Souls
         {
             _anim = Model.GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        protected virtual void Update()
+        {
+            InterationEvent?.Invoke();
         }
 
         #endregion
@@ -74,6 +91,21 @@ namespace Souls
             _anim.SetLayerWeight(layerIndex, weight);
         }
 
+        public void IssueTrigger(string triggerName)
+        {
+            _anim.SetTrigger(triggerName);
+        }
+
+        public void IssueBool(string booleanName,bool boolean)
+        {
+            _anim.SetBool(booleanName, boolean);
+        }
+
+        public void IssueFloat(string floatName,float value)
+        {
+            _anim.SetFloat(floatName, value);
+        }
+
         #endregion
 
         #region Virtual Methods
@@ -88,6 +120,7 @@ namespace Souls
 
         /// <summary> 硬值 </summary>
         public virtual void Stunned() { }
+
         #endregion
 
         #region Abstract Methods

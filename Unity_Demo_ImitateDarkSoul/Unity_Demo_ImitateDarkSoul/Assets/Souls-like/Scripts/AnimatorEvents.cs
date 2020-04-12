@@ -14,17 +14,12 @@ namespace Souls
         //    "/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand/ShieldHandle";
 
         Animator _anim;
-        BattleManager _battlerManager;
 
         private void Awake()
         {
             _anim = GetComponent<Animator>();
            
         }
-
-        #region Public Methods
-      
-        #endregion
 
         #region AnimatorEvents
         public void ResetTrigger(string name)

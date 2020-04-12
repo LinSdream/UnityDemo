@@ -6,9 +6,12 @@ using UnityEngine;
 
 namespace Souls
 {
+
     /// <summary> 角色管理 </summary>
     public class ActorManager : MonoBehaviour
     {
+
+        #region Manager Fields
         /// <summary> 战斗模块管理 </summary>
         [HideInInspector] public BattleManager BM;
         /// <summary> 武器管理，之后的武器系统有WM完成 </summary>
@@ -17,25 +20,34 @@ namespace Souls
         [HideInInspector] public StateManager SM;
         /// <summary> 角色控制器 </summary>
         [HideInInspector] public BaseController Controller;
+        /// <summary> 导演控制器 </summary>
+        [HideInInspector] public DirectorManager DM;
+        /// <summary> 交互管理器 </summary>
+        [HideInInspector] public InteractionManager IM;
+
+        #endregion
 
         #region MonoBehaviour Callbacks
 
         private void Awake()
         {
-            Register();
 
             Controller = GetComponent<BaseController>();
 
+            var sensor = transform.Find("BattleSensor").gameObject;
+
             //脚本获取
-            BM = Bind<BattleManager>(transform.Find("BattleSensor").gameObject);
+            BM = Bind<BattleManager>(sensor);
             WM = Bind<WeaponManager>(Controller.Model);
             SM = Bind<StateManager>(gameObject);
+            DM = Bind<DirectorManager>(gameObject);
+            IM = Bind<InteractionManager>(sensor);
 
             //创建游玩过程中的角色信息
             SM.Info = Controller.Info;
             SM.TempInfo = new CharacterTempInfo(Controller.Info);
 
-            SM.Test();
+            Register();
         }
 
         private void OnDestroy()
@@ -44,12 +56,27 @@ namespace Souls
         }
         #endregion
 
+        #region Other Methods
+
+        public void DoInterationEvent()
+        {
+            foreach(var cell in IM.OverlapEcastms)
+            {
+                Debug.Log(name + cell.EventName);
+                switch(cell.EventName)
+                {
+                    case "StabFront":
+                        DM.Play("FrontStab", this, cell.AM);
+                            break;
+                }
+            }
+        }
+
         /// <summary>
         /// 尝试计算伤害，根据计算后得出的不同值进行不同的处理
         /// </summary>
         public void TryDoDamg(WeaponController wc,bool attackValid,bool counterValid)
         {
-            Debug.Log(attackValid);
             //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
                 return;
@@ -100,6 +127,13 @@ namespace Souls
             SM.CharacterState.IsCounterBackEnable = on;
         }
 
+        public void LockUnLockActorController(bool on)
+        {
+            Controller.IssueBool("Lock", on);
+        }
+
+        #endregion
+
         #region Private Help Methods
 
         /// <summary> 绑定脚本，如果脚本不存在，则自动添加 </summary>
@@ -122,6 +156,8 @@ namespace Souls
         {
             MessageCenter.Instance.AddListener("OnAttackExit", OnAttackExit);
             MessageCenter.Instance.AddListener("OnCounterBackExit", OnCounterBackExit);
+
+            Controller.InterationEvent += DoInterationEvent;
         }
 
         /// <summary>
@@ -131,6 +167,8 @@ namespace Souls
         {
             MessageCenter.Instance.RemoveListener("OnAttackExit", OnAttackExit);
             MessageCenter.Instance.RemoveListener("OnCounterBackExit", OnCounterBackExit);
+
+            Controller.InterationEvent -= DoInterationEvent;
         }
 
         private void OnAttackExit(GameObject sender, EventArgs e)

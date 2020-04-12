@@ -13,6 +13,12 @@ namespace Souls
         public Animator Victim;
 
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.H))
+                Play();
+        }
+
         public void Play()
         {
 

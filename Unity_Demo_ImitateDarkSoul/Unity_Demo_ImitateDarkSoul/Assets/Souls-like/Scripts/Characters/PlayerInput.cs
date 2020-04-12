@@ -25,6 +25,7 @@ namespace Souls
         public string RightTrigger = "RightTrigger";
         public string LeftTrigger = "LeftTrigger";
         public string CounterBackButton = "CounterBack";
+        public string InterationButton = "Interation";
 
         protected override void Init()
         {
@@ -73,10 +74,11 @@ namespace Souls
             //瞬间触发的按键
             IsJump = Input.GetButtonDown(JumpButton);
             IsLockOn = Input.GetButtonDown(LockOnButton);
+            IsInteration = Input.GetButtonDown(InterationButton);
 
             IsLeftTrigger = Input.GetButtonDown(LeftTrigger);
             IsRightTrigger = Input.GetButtonDown(RightTrigger);
-
+ 
             IsDefense = (Input.GetButton(LeftTrigger) || Input.GetButton(RightTrigger));
             IsAttack = (IsLeftTrigger || IsRightTrigger);
         }

@@ -15,6 +15,8 @@ namespace Test.TestCamera
         public string CameraHorizontalAxis;
         public string CameraVerticalAxis;
 
+        [Header("Key Button")]
+        public string InterationButton = "Interation";
         public string LockCursorButton = "Esc";
         void Update()
         {
@@ -26,6 +28,8 @@ namespace Test.TestCamera
 
             if (Input.GetButtonDown(LockCursorButton))
                 LockCursor = !LockCursor;
+
+            IsInteration = Input.GetKeyDown(InterationButton);
 
             //镜头移量
             if (LockCursor)

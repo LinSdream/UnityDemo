@@ -11,7 +11,6 @@ namespace Souls
     public class AIController : BaseController
     {
 
-        public Animator Anim => _anim;
         AIFSM _fsm;
 
         #region Callbacks
@@ -23,7 +22,7 @@ namespace Souls
             _fsm.AI.angularSpeed = RotationSpeed;
         }
 
-        private void Update()
+        protected override  void Update()
         {
             _fsm.AI.speed = WalkSpeed;
             _fsm.AI.angularSpeed = RotationSpeed;
@@ -36,6 +35,7 @@ namespace Souls
             {
                 _anim.SetBool("IsInGround", false);
             }
+
         }
 
         private void FixedUpdate()
@@ -59,7 +59,6 @@ namespace Souls
 
         public override void Hit()
         {
-            Debug.Log("!");
             _anim.SetTrigger("Hit");
         }
 

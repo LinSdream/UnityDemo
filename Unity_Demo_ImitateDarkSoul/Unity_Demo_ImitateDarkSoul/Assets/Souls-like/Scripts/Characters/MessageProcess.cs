@@ -41,7 +41,6 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnHitEnter", OnHitEnter);
             MessageCenter.Instance.AddListener("OnStunnedEnter", OnStunnedEnter);
             MessageCenter.Instance.AddListener("OnCounterBackEnter", OnCounterBackEnter);
-            
         }
 
         private void OnDestroy()

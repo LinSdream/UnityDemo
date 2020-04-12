@@ -62,11 +62,10 @@ namespace Souls
         {
             foreach(var cell in IM.OverlapEcastms)
             {
-                Debug.Log(name + cell.EventName);
                 switch(cell.EventName)
                 {
                     case "StabFront":
-                        DM.Play("FrontStab", this, cell.AM);
+                        DM.Play("FrontStab", this,cell.AM);
                             break;
                 }
             }

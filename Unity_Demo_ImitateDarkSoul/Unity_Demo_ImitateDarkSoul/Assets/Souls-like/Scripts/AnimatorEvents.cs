@@ -18,7 +18,6 @@ namespace Souls
         private void Awake()
         {
             _anim = GetComponent<Animator>();
-           
         }
 
         #region AnimatorEvents
@@ -27,7 +26,6 @@ namespace Souls
             _anim.ResetTrigger(name);
         }
 
-       
         #endregion
     }
 

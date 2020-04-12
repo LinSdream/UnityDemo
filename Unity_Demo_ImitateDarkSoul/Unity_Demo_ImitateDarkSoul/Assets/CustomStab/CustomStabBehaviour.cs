@@ -13,7 +13,7 @@ public class CustomStabBehaviour : PlayableBehaviour
     public override void OnGraphStart(Playable playable)
     {
         _director = playable.GetGraph().GetResolver() as PlayableDirector;
-
+        Debug.Log("!");
         foreach(var cell in _director.playableAsset.outputs)
         {
             if(cell.streamName== "AttackerScript" || cell.streamName == "VictimScript")

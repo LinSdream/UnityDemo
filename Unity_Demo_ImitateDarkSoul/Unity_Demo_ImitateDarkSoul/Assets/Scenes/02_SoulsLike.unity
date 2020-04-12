@@ -280,6 +280,7 @@ MonoBehaviour:
   RightTrigger: RightTrigger
   LeftTrigger: LeftTrigger
   CounterBackButton: CounterBack
+  InterationButton: Interation
 --- !u!54 &35711453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4962,8 +4963,8 @@ GameObject:
   - component: {fileID: 1436646436}
   - component: {fileID: 1436646434}
   - component: {fileID: 1436646433}
-  - component: {fileID: 1436646439}
   - component: {fileID: 1436646438}
+  - component: {fileID: 1436646439}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -5090,6 +5091,7 @@ MonoBehaviour:
   RightTrigger: RightTrigger
   LeftTrigger: LeftTrigger
   CounterBackButton: CounterBack
+  InterationButton: Interation
 --- !u!54 &1436646437
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5137,15 +5139,7 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 8149764965809749136, guid: 25b0e7ab262326b49b26477d375838d1, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 2673929329019979301, guid: 25b0e7ab262326b49b26477d375838d1, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 23854216488181025, guid: 25b0e7ab262326b49b26477d375838d1, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 9166548967205996647, guid: 25b0e7ab262326b49b26477d375838d1, type: 2}
-    value: {fileID: 0}
+  m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &1452795181
@@ -5748,6 +5742,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2644139369392408315}
   m_PrefabAsset: {fileID: 0}
+--- !u!320 &1648389567
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648389566}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 0}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!95 &1648389568 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2644139368311740926, guid: f7665b7807f965541a253456a2370a7f,
@@ -6968,8 +6979,8 @@ GameObject:
   - component: {fileID: 1896597042}
   - component: {fileID: 1896597039}
   - component: {fileID: 1896597046}
-  - component: {fileID: 1896597047}
   - component: {fileID: 1896597040}
+  - component: {fileID: 1896597047}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy

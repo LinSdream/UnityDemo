@@ -46,6 +46,7 @@ namespace Souls
         /// <param name="virctiom">受击者</param>
         public void Play(string timelineName, ActorManager attacker, ActorManager virctiom)
         {
+
             if (timelineName == "FrontStab")
             {
                 Director.playableAsset = Instantiate(FrontStab);

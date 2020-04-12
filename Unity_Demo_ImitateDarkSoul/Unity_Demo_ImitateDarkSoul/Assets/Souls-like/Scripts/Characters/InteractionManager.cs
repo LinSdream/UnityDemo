@@ -33,9 +33,8 @@ namespace Souls
             EventCasterManger[] eventCasters = other.GetComponents<EventCasterManger>();
             foreach (var cell in eventCasters)
             {
-                if (!OverlapEcastms.Contains(cell))
+                if (OverlapEcastms.Contains(cell))
                     OverlapEcastms.Remove(cell);
-
             }
         }
 

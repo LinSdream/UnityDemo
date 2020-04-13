@@ -36,6 +36,8 @@ namespace Souls
         /// <param name="virctiom">受击者</param>
         public void Play(string timelineName, ActorManager attacker, ActorManager virctiom)
         {
+            if (Director.playableAsset != null)
+                return;
 
             if (timelineName == "FrontStab")
             {

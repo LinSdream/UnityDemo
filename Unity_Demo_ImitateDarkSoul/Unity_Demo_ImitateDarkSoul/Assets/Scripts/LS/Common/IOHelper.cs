@@ -29,10 +29,10 @@ namespace LS.Common
         /// </summary>
         /// <param name="filePath">文件路径名</param>
         /// <param name="obj">存储对象</param>
-        public static void SetData(string filePath, object obj)
+        public static bool SetData(string filePath, object obj)
         {
             string toSave = SerializeObject(obj);
-            Stream_FileWriter(filePath, toSave, false, Encoding.UTF8);
+            return Stream_FileWriter(filePath, toSave, false, Encoding.UTF8);
             //StreamWriter writer = File.CreateText(filePath);
             //writer.Write(toSave);
             //writer.Close(); 
@@ -91,7 +91,7 @@ namespace LS.Common
         /// <param name="path">文件路径</param>
         /// <param name="data">文本数据</param>
         /// <param name="encodingType">编码</param>
-        public static void Stream_FileReadByLine(string path, out List<string> data, Encoding encodingType)
+        public static bool Stream_FileReadByLine(string path, out List<string> data, Encoding encodingType)
         {
             data = new List<string>();
             try
@@ -102,13 +102,16 @@ namespace LS.Common
                     data.Add(reader.ReadLine());
                 }
                 reader.Close();
+                return true;
             }
             catch (OutOfMemoryException)
             {
                 Debug.LogError("IOHelper/ReadFileByLine Error : Out of memory !");
+                return false;
             }catch(FileNotFoundException)
             {
                 Debug.LogError("IOHelper/ReadFileByLine Error : Can't find the file ,the path of file is " + path);
+                return false;
             }
         }
 
@@ -118,7 +121,7 @@ namespace LS.Common
         /// <param name="filePath">文件路径</param>
         /// <param name="data">文件数据</param>
         /// <param name="encodingType">编码</param>
-        public static void Stream_FileRead(string filePath,out string data,Encoding encodingType)
+        public static bool Stream_FileRead(string filePath,out string data,Encoding encodingType)
         {
             data = string.Empty;
             try
@@ -126,12 +129,15 @@ namespace LS.Common
                 StreamReader reader = new StreamReader(filePath, encodingType);
                 data = reader.ReadToEnd();
                 reader.Close();
+                return true;
             }catch(OutOfMemoryException)
             {
                 Debug.LogError("IOHelper/ReadFile Error : Out of memory !");
+                return false;
             }catch(FileNotFoundException)
             {
                 Debug.LogError("IOHelper/ReadFile Error : Can't find the file ,the path of file is " + filePath) ;
+                return false;
             }
         }
 
@@ -142,21 +148,24 @@ namespace LS.Common
         /// <param name="data">数据</param>
         /// <param name="isCover">是否覆盖，true追加，false 覆盖 如果该文件不存在则创建</param>
         /// <param name="encodingType">编码</param>
-        public static void Stream_FileWriter(string filePath,string data,bool isCover,Encoding encodingType)
+        public static bool Stream_FileWriter(string filePath,string data,bool isCover,Encoding encodingType)
         {
             try
             {
                 StreamWriter writer = new StreamWriter(filePath, isCover, encodingType);
                 writer.Write(data);
                 writer.Close();
+                return true;
             }
             catch(ObjectDisposedException e)
             {
                 Debug.Log(e.ToString());
+                return false;
             }
             catch(NotSupportedException e)
             {
                 Debug.Log(e.ToString());
+                return false;
             }
         }
 
@@ -181,9 +190,9 @@ namespace LS.Common
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="content">文件内容</param>
-        public static void CreateFile(string filePath, string content)
+        public static bool CreateFile(string filePath, string content)
         {
-            Stream_FileWriter(filePath,content, false, Encoding.UTF8);
+            return Stream_FileWriter(filePath,content, false, Encoding.UTF8);
             //StreamWriter streamWriter = File.CreateText(filePath);
             //streamWriter.Write(content);
             //streamWriter.Close();
@@ -274,7 +283,7 @@ namespace LS.Common
         /// <param name="passFiles">要忽略的文件后缀名</param>
         public static void GetFilePathNameToDic(ref Dictionary<string,string> dic,string path,params string[] passFiles)
         {
-            string objPath = Application.dataPath+ path;
+            string objPath = Application.streamingAssetsPath+ path;
 
             string[] directoryEntries;
             bool restart;
@@ -286,7 +295,7 @@ namespace LS.Common
                 {
                     restart = false;
                     string url = directoryEntries[i];
-                    string[] tempPaths = SplitWithString(url, "/Assets" + path + "\\");
+                    string[] tempPaths = SplitWithString(url, "/Assets/StreamingAssets" + path + "\\");
                     if (tempPaths[1].EndsWith(".meta"))
                         continue;
                     foreach(string cell in passFiles)
@@ -303,7 +312,7 @@ namespace LS.Common
                     string[] pathSplit = SplitWithString(tempPaths[1], ".");
                     if(pathSplit.Length>1)
                     {
-                        string pathName = SplitWithString(url, "/Assets/")[1];
+                        string pathName = SplitWithString(url, "/Assets/StreamingAssets")[1];
                         dic.Add(pathName, pathSplit[0]);
                     }
                     else

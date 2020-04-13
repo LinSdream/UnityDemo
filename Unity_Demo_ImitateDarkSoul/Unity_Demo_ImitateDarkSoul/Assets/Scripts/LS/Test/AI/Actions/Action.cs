@@ -9,9 +9,8 @@ namespace LS.Test.AI.Actions
     [System.Serializable]
     public abstract class Action: ScriptableObject,IAction<FSMBase>
     {
-        public virtual string ActionName => name;
+        public string ActionName => name;
         public abstract void Act(FSMBase controller);
-
     }
 
 }

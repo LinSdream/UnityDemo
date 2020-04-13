@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace LS.Helper.Others
+namespace LS.Others
 {
     public class TransitionScene : MonoBehaviour
     {
@@ -12,7 +12,6 @@ namespace LS.Helper.Others
         #region Fields
         public Slider LoadingSlider = null;
 
-        float _loadingSpeed = 1f;
         float _targetValue;
         AsyncOperation _operation;
         bool _haveSlider = false;

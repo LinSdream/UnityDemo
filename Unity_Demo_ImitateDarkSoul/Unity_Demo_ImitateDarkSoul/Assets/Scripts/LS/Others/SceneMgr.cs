@@ -4,9 +4,9 @@ using UnityEngine;
 using LS.Common;
 using UnityEngine.SceneManagement;
 
-namespace LS.Helper.Others
+namespace LS.Others
 {
-    public class SceneMgr : ASingletonBasis<SceneMgr>
+    public class SceneMgr : MonoSingletionBasisDontClear<SceneMgr>
     {
         #region Public Fields
 

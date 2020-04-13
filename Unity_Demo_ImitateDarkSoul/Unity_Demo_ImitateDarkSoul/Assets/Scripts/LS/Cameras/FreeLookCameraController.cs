@@ -19,9 +19,6 @@ namespace LS.Cameras
             LERP,
             SMOOTHDAMP
         }
-
-        #region Public Fields
-
         [Tooltip("Track the update mode of the TargetModel")] public TargetMoveType TargetModelUpdateType = TargetMoveType.LERP;
         [Tooltip("The speed of rig rotate")] [Range(0f, 10f)] public float TurnSpeed = 1.5f;
         [Tooltip("The speed of camera track to TargetModel")] public float MoveSpeed = 1f;
@@ -36,10 +33,6 @@ namespace LS.Cameras
         /// <summary>Get Camera Transform </summary>
         public Transform CameraObj { get; protected set; }
 
-        #endregion
-
-        #region Private Fields
-
         float _lookAngle;
         float _limitAngle;
         Vector3 _pivotEulers;
@@ -47,9 +40,6 @@ namespace LS.Cameras
         Quaternion _transformTargetRot;
         Vector3 _targetDampVelocity;
 
-        #endregion
-
-        #region MonoBehaviour Callbacks
         protected virtual void Awake()
         {
             CameraObj = CameraPivot.GetChild(0);
@@ -60,16 +50,12 @@ namespace LS.Cameras
             _transformTargetRot = transform.localRotation;
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             Rotate();
         }
 
-        #endregion
-
-        #region Protected Methods
-
-        protected virtual void Rotate()
+       protected  virtual void Rotate()
         {
             _lookAngle += InputModel.CameraHorizontal * TurnSpeed;
             _transformTargetRot = Quaternion.Euler(0f, _lookAngle, 0f);
@@ -115,8 +101,6 @@ namespace LS.Cameras
                     break;
             }
         }
-
-        #endregion
     }
 
 

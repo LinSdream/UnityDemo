@@ -14,7 +14,7 @@ namespace LS.Common
     ///  播放音频前，调用SetAudioPath，加载音频文件
     ///  场景切换后，单例类不被销毁
     /// </summary>
-    public class AudioManager : ASingletonBasis<AudioManager>
+    public class AudioManager : MonoSingletionBasisDontClear<AudioManager>
     {
         #region Private Methods
         private AudioSource _musicAudioSource;//背景音源

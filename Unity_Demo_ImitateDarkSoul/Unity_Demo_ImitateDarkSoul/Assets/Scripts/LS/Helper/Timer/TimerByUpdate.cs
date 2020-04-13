@@ -24,7 +24,6 @@ namespace LS.Helper.Timer
         Action _updateAction;
         Action _callAction;
 
-        private bool _isPause;
         public bool TimePause { set; private get; }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace LS.Helper.Timer
             }
             else
             {
-                if (!_isPause && _updateAction != null)
+                if ( _updateAction != null)
                 {
                     _updateAction.Invoke();
                 }

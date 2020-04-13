@@ -11,7 +11,7 @@ namespace LS.Helper.Timer
     /// Update方式实现
     /// Time:  2018.4.2
     /// </summary>
-    public class TimerManagerByUpdate : ASingletonBasis<TimerManagerByUpdate>
+    public class TimerManagerByUpdate : MonoSingletionBasisDontClear<TimerManagerByUpdate>
     {
         private List<TimerByUpdate> _timers;
         private Dictionary<string, TimerByUpdate> _timersDict;

@@ -9,21 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d920573d6a2daa7429a189e35f712e5d, type: 3}
+  m_Script: {fileID: 0}
   m_Name: DefaultGroup
   m_EditorClassIdentifier: 
-  Preload: 1
-  Name: DefaultGroup
-  Volume: 1
-  Pool: 10
-  AudioMixer: {fileID: 0}
-  AudioAssets:
-  - m_AssetGUID: 69658257b476d2d4180683d8d3579954
-  - m_AssetGUID: 2bab43d39791ce54c95025b6f0956dcc
-  - m_AssetGUID: 8dcc662918874a7409a4976c210d0d91
-  - m_AssetGUID: 90e2d724006394c4b89fb957f0f28419
-  - m_AssetGUID: 830069ef16a026748a74a0fd2d6863b5
-  - m_AssetGUID: fbe023bc33a67d444b341614f9827845
-  - m_AssetGUID: 0e58317324109e84d8f4a84a15397a34
-  - m_AssetGUID: 30c182c125ba3c04a98392a51dcb37ea
-  AudioAssetsLabel: []

@@ -60,13 +60,23 @@ namespace Souls
 
         public void DoInterationEvent()
         {
-            foreach(var cell in IM.OverlapEcastms)
+            foreach (var cell in IM.OverlapEcastms)
             {
-                switch(cell.EventName)
+                if (!cell.IsActive)
+                    continue;
+                switch (cell.EventName)
                 {
                     case "StabFront":
-                        DM.Play("FrontStab", this,cell.AM);
-                            break;
+                        DM.Play("FrontStab", this, cell.AM);
+                        break;
+                    case "Box":
+                        if (BattleManager.CheckAngleOrigin(Controller.Model, cell.AM.gameObject, 15))
+                        {
+
+                            cell.IsActive = false;
+                            DM.Play("Box", this, cell.AM);
+                        }
+                        break;
                 }
             }
         }
@@ -74,18 +84,16 @@ namespace Souls
         /// <summary>
         /// 尝试计算伤害，根据计算后得出的不同值进行不同的处理
         /// </summary>
-        public void TryDoDamg(WeaponController wc,bool attackValid,bool counterValid)
+        public void TryDoDamg(WeaponController wc, bool attackValid, bool counterValid)
         {
             //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
                 return;
             //角色弹反成功
-            if(SM.CharacterState.IsCounterBackSuccess)
+            if (SM.CharacterState.IsCounterBackSuccess)
             {
-                Debug.Log("!!!!!!!!!!");
                 if (counterValid)
                 {
-                    Debug.Log("valid");
                     wc.WM.AM.Controller.Stunned();
                     return;
                 }
@@ -94,7 +102,7 @@ namespace Souls
             if (SM.CharacterState.isCounterBackFailure)
             {
                 //如果攻击有效，即在弹反过程中受到伤害
-                if(attackValid)
+                if (attackValid)
                     SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
                 return;
             }
@@ -105,8 +113,10 @@ namespace Souls
             if (SM.CharacterState.IsDefence)
                 Controller.Blocked();
             else//所有情况外，就是受伤
-                if(attackValid)//敌人攻击范围有效
+            {
+                if (attackValid)//敌人攻击范围有效
                     SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
+            }
         }
 
         /// <summary> 根据血条进行不同的动画展示 </summary>
@@ -136,7 +146,7 @@ namespace Souls
         #region Private Help Methods
 
         /// <summary> 绑定脚本，如果脚本不存在，则自动添加 </summary>
-        T Bind<T>(GameObject go) where T :AbstractActorManager
+        T Bind<T>(GameObject go) where T : AbstractActorManager
         {
             T temp = go.GetComponent<T>();
             if (temp == null)
@@ -177,7 +187,7 @@ namespace Souls
             WM.WeaponDisable();
         }
 
-        private void OnCounterBackExit(GameObject sender,EventArgs eventArgs)
+        private void OnCounterBackExit(GameObject sender, EventArgs eventArgs)
         {
             WM.CounterBackDisable();
         }

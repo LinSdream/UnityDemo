@@ -10,12 +10,17 @@ namespace Souls
         public List<EventCasterManger> OverlapEcastms = new List<EventCasterManger>();
 
         CapsuleCollider _collider;
-
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             _collider = GetComponent<CapsuleCollider>();
         }
+
+        private void OnEnable()
+        {
+            _collider.enabled = true;
+        }
+
+        // Start is called before the first frame update
 
         private void OnTriggerEnter(Collider other)
         {
@@ -38,6 +43,14 @@ namespace Souls
             }
         }
 
+        private void OnDisable()
+        {
+            //_collider.enabled = false;
+            //var obj = transform.Find("Caster").GetComponent<BoxCollider>();
+            //if(obj==null)
+            //    return;
+            //.enabled = false;
+        }
     }
 
 }

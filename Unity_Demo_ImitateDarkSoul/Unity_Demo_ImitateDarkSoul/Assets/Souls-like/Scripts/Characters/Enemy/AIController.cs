@@ -64,6 +64,19 @@ namespace Souls
 
         public override void Die()
         {
+            //关闭碰撞框
+            var list=gameObject.GetComponentsInChildren<InteractionManager>();
+            foreach(var cell in list)
+            {
+                foreach (var caster in cell.OverlapEcastms)
+                {
+                    var collider = caster.GetComponent<Collider>();
+                    if (collider != null)
+                        collider.enabled = false;
+                }
+                cell.enabled = false;
+            }
+            //动画
             _anim.SetTrigger("Die");
         }
 

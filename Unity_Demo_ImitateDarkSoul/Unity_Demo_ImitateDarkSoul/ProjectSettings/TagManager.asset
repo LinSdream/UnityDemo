@@ -12,6 +12,7 @@ TagManager:
   - AttackWeapon
   - DefenceWeapon
   - Weapon
+  - Box
   layers:
   - Default
   - TransparentFX

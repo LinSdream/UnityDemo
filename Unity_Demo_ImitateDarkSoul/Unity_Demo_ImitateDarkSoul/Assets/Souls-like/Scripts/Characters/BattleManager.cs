@@ -37,7 +37,8 @@ namespace Souls
 
             ////攻击角度判断
             //Vector3 attackDir = receiver.transform.position - attacker.transform.position;//攻击者到受击者的方向
-            //float attackAngle = Mathf.Acos(Vector3.Dot(attacker.Controller.Model.transform.forward, attackDir)) * Mathf.Rad2Deg;//= Vector3.Angle(attacker.transform.forward, attackDir);
+            //float attackAngle = Mathf.Acos(Vector3.Dot(attacker.Controller.Model.transform.forward, attackDir)) * Mathf.Rad2Deg;
+            //= Vector3.Angle(attacker.transform.forward, attackDir);
 
             ////弹反
             //Vector3 counterDir = attacker.transform.position - receiver.transform.position;

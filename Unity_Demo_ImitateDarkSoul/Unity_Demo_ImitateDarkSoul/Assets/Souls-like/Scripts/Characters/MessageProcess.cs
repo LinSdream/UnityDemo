@@ -41,6 +41,8 @@ namespace Souls
             MessageCenter.Instance.AddListener("OnHitEnter", OnHitEnter);
             MessageCenter.Instance.AddListener("OnStunnedEnter", OnStunnedEnter);
             MessageCenter.Instance.AddListener("OnCounterBackEnter", OnCounterBackEnter);
+            MessageCenter.Instance.AddListener("OnLockEnter", OnLockEnter);
+            MessageCenter.Instance.AddListener("OnLockExit", OnLockExit);
         }
 
         private void OnDestroy()
@@ -60,7 +62,8 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnHitEnter", OnHitEnter);
             MessageCenter.Instance.RemoveListener("OnStunnedEnter", OnStunnedEnter);
             MessageCenter.Instance.RemoveListener("OnCounterBackEnter", OnCounterBackEnter);
-            
+            MessageCenter.Instance.RemoveListener("OnLockEnter", OnLockEnter);
+            MessageCenter.Instance.RemoveListener("OnLockExit", OnLockExit);
         }
 
         #endregion
@@ -191,6 +194,20 @@ namespace Souls
             _playerController.SetInputLock(true);
             _playerController.ResetMoveDirZero();
         }
+
+        private void OnLockExit(GameObject sender, EventArgs e)
+        {
+            if (sender != gameObject)
+                return;
+            _playerController.SetInputLock(false);
+        }
+
+        private void OnLockEnter(GameObject sender, EventArgs e)
+        {
+            if (sender != gameObject)
+                _playerController.SetInputLock(true);
+        }
+
 
         #endregion
     }

@@ -28,16 +28,6 @@ namespace Souls
             //Director.playableAsset = FrontStab;
         }
 
-        private void Update()
-        {
-            //if (Input.GetKey(KeyCode.H))
-            //{
-            //    Debug.Log("!!!!!!!!!!");
-            //    Director.Play();
-            //}
-
-        }
-
         /// <summary>
         /// 弹反的动画播放
         /// </summary>
@@ -51,24 +41,35 @@ namespace Souls
             {
                 Director.playableAsset = Instantiate(FrontStab);
 
-                foreach (var cell in Director.playableAsset.outputs)
+                TimelineAsset timeline = Director.playableAsset as TimelineAsset;
+                foreach (var track in timeline.GetOutputTracks())
                 {
-                    switch (cell.streamName)
+                    switch (track.name)
                     {
-                        case "VictimScript":
-                            Director.SetGenericBinding(cell.sourceObject, virctiom);
+                        case "VictimScript": 
+                            Director.SetGenericBinding(track, virctiom); 
+                            foreach(var cell in track.GetClips())
+                            {
+                                CustomStabClip clip = cell.asset as CustomStabClip;
+                                CustomStabBehaviour behaviour = clip.template;
+                                Director.SetReferenceValue(clip.ActorMgr.exposedName, virctiom);
+                            }
                             break;
-                        case "AttackerScript":
-                            Director.SetGenericBinding(cell.sourceObject, attacker);
+                        case "AttackerScript": 
+                            Director.SetGenericBinding(track, attacker); 
+                            foreach(var cell in track.GetClips())
+                            {
+                                CustomStabClip clip = cell.asset as CustomStabClip;
+                                CustomStabBehaviour behaviour = clip.template;
+                                Director.SetReferenceValue(clip.ActorMgr.exposedName, attacker);
+                            }
                             break;
-                        case "Animation Attacker":
-                            Director.SetGenericBinding(cell.sourceObject, attacker.Controller.Anim);
-                            break;
-                        case "Animation Victim":
-                            Director.SetGenericBinding(cell.sourceObject, virctiom.Controller.Anim);
-                            break;
+                        case "Animation Attacker": Director.SetGenericBinding(track, attacker.Controller.Anim); break;
+                        case "Animation Victim": Director.SetGenericBinding(track, virctiom.Controller.Anim); break;
                     }
                 }
+
+                Director.Evaluate();
                 Director.Play();
             }
         }

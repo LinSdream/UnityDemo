@@ -7,36 +7,21 @@ using Souls;
 [Serializable]
 public class CustomStabBehaviour : PlayableBehaviour
 {
-
+    public ActorManager ActorMgr;
     PlayableDirector _director;
 
-    public override void OnGraphStart(Playable playable)
+    public override void OnBehaviourPause(Playable playable, FrameData info)
     {
-        _director = playable.GetGraph().GetResolver() as PlayableDirector;
-        Debug.Log("!");
-        foreach(var cell in _director.playableAsset.outputs)
-        {
-            if(cell.streamName== "AttackerScript" || cell.streamName == "VictimScript")
-            {
-                var am = (ActorManager)_director.GetGenericBinding(cell.sourceObject);
-                if (am == null)
-                    Debug.LogError("!!!!1!!ERROR");
-                am.LockUnLockActorController(true);
-            }
-        }
+        if (ActorMgr == null)
+            Debug.LogWarning("CustomStabTrack PrepareFrame ActorManager is null");
+        ActorMgr.LockUnLockActorController(false);
     }
 
-    public override void OnGraphStop(Playable playable)
+    public override void PrepareFrame(Playable playable, FrameData info)
     {
-        if (_director == null)
-            return;
-        foreach (var cell in _director.playableAsset.outputs)
-        {
-            if (cell.streamName == "AttackerScript" || cell.streamName == "VictimScript")
-            {
-                var am = _director.GetGenericBinding(cell.sourceObject) as ActorManager;
-                am.LockUnLockActorController(false);
-            }
-        }
+        if (ActorMgr == null)
+            Debug.LogWarning("CustomStabTrack PrepareFrame ActorManager is null");
+        ActorMgr.LockUnLockActorController(true);
     }
+
 }

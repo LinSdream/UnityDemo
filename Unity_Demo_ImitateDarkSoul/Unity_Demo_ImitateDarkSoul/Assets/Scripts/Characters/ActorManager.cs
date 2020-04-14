@@ -27,7 +27,7 @@ namespace Souls
 
         #endregion
 
-        #region MonoBehaviour Callbacks
+            #region MonoBehaviour Callbacks
 
         private void Awake()
         {
@@ -68,6 +68,9 @@ namespace Souls
                 {
                     case "StabFront":
                         DM.Play("FrontStab", this, cell.AM);
+                        cell.AM.SM.AddHP(-(2 * WM.RightWC.GetATK));
+                        if (cell.AM.SM.TempInfo.HP <= 0)
+                            cell.AM.Controller.Die();
                         break;
                     case "Box":
                         if (BattleManager.CheckAngleOrigin(Controller.Model, cell.AM.gameObject, 15))
@@ -75,6 +78,7 @@ namespace Souls
 
                             cell.IsActive = false;
                             DM.Play("Box", this, cell.AM);
+                            cell.AM.Controller.Die();
                         }
                         break;
                 }
@@ -130,8 +134,9 @@ namespace Souls
                     break;
                 case WeaponType.Shield://如果是盾牌，不进行伤害判定
                     break;
-                case WeaponType.Sword://如果是是剑，则进行伤害判定
-                    SM.AddHP(-atk);
+                case WeaponType.Sword:
+                case WeaponType.WoodenClub: //如果是是伤害性，则进行伤害判定
+                    SetAnimAfterDoDamg(SM.AddHP(-atk));
                     break;
             }
         }

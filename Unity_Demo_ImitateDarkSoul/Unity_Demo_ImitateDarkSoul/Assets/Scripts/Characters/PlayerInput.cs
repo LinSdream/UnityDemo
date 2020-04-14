@@ -46,7 +46,8 @@ namespace Souls
             else
                 Cursor.lockState = CursorLockMode.None;
 
-            if (Input.GetButtonDown(LockCursorButton))
+            IsEsc = Input.GetButtonDown(LockCursorButton);
+            if (IsEsc)
                 LockCursor = !LockCursor;
 
             //镜头移量

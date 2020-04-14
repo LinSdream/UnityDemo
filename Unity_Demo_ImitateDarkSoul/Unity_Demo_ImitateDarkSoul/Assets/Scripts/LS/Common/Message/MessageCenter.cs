@@ -12,6 +12,11 @@ namespace LS.Common.Message
     {
         Dictionary<string, CustomMessageHandle> _listeners = new Dictionary<string, CustomMessageHandle>();
 
+        internal void AddListener(object weaponUIChange)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 注册消息监听事件
         /// </summary>

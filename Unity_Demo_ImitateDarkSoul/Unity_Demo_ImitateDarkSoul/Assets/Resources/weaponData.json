@@ -1,14 +1,32 @@
-{
+﻿{
   "Falchion": {
-    "DEF": 7,
-    "ATK": 15
+    "ATK": 20.0,
+    "DEF": 30.0,
+    "Type": 2
   },
   "Sword": {
-    "ATK": 10,
-    "DEF": 10
+    "ATK": 10.0,
+    "DEF": 10.0,
+    "Type": 2
   },
-  "Mace":{
-		"ATK": 200,
-		"DEF": 5
-	}
+  "Mace": {
+    "ATK": 50.0,
+    "DEF": 30.0,
+    "Type": 3
+  },
+  "MoonSword": {
+    "ATK": 5.0,
+    "DEF": 0.0,
+    "Type": 2
+  },
+  "Shield": {
+    "ATK": 0.0,
+    "DEF": 10.0,
+    "Type": 1
+  },
+  "Test": {
+    "ATK": 0.0,
+    "DEF": 0.0,
+    "Type": 0
+  }
 }

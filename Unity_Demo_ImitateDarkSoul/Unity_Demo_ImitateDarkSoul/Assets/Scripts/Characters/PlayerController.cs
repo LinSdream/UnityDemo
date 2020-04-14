@@ -17,6 +17,7 @@ namespace Souls
         [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
+        [Tooltip("UI")] public GameObject UI;
 
         public CameraController CameraCol;
         /// <summary> 锁定平面位移量，跳跃的时候，不更改Move Direction </summary>
@@ -49,6 +50,8 @@ namespace Souls
         #region Private Fields
 
         UserInput _input;
+        bool _isOpenUI = false;
+        Animator _weaponUIAnim;
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
@@ -82,10 +85,25 @@ namespace Souls
             _sqrHightFallStiff = HightFallStiff * HightFallStiff;
 
             CameraCol.MoveSpeed = WalkSpeed;
+            _weaponUIAnim = UI.GetComponent<Animator>();
         }
 
         protected override void Update()
         {
+            if(_input.IsEsc)
+            {
+                if(!_isOpenUI)
+                {
+                    _weaponUIAnim.SetTrigger("OpenWeaponUI");
+                    _isOpenUI = true;
+                }
+                else
+                {
+                    _weaponUIAnim.SetTrigger("CloseWeaponUI");
+                    _isOpenUI = false;
+                }
+            }
+
             //镜头是否锁定
             if (_input.IsLockOn)
                 CameraCol.CameraLockOn();

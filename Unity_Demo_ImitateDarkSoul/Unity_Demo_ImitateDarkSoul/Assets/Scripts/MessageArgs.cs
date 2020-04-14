@@ -24,4 +24,21 @@ namespace Souls
         public Vector3 deltaPosition;
     }
 
+    /// <summary>
+    /// WeaponUI add new weapon
+    /// </summary>
+    public class WeaponUIEventArgs : EventArgs
+    {
+        public string WeaponName;
+    }
+
+    /// <summary>
+    /// Switch weapons
+    /// </summary>
+    public class SwitchWeaponEventArgs : EventArgs
+    {
+        public string CurrentName;
+        public string SwitchName;
+    }
+
 }

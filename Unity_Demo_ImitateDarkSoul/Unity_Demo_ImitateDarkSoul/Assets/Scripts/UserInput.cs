@@ -22,6 +22,8 @@ namespace Souls
         [HideInInspector] public bool IsLeftButton { get; protected set; }
         [HideInInspector] public bool IsInteration { get; protected set; }
 
+        [HideInInspector] public bool IsEsc { get; protected set; }
+
         [HideInInspector] public Vector3 InputVec => new Vector3(Horizontal, 0, Vertical);
         [HideInInspector] public bool LockMovementInput = false;
 
@@ -43,6 +45,7 @@ namespace Souls
             LockCursor = true;
             IsAttack = false;
             IsInteration = false;
+            IsEsc = false;
             LockMovementInput = false;
             Init();
         }

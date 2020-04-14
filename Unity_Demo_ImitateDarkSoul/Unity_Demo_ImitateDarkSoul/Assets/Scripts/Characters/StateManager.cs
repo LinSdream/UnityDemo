@@ -84,12 +84,13 @@ namespace Souls
         /// <summary>
         /// 生命值操作
         /// </summary>
-        public void AddHP(float value)
+        public float AddHP(float value)
         {
             TempInfo.HP += value;
             TempInfo.HP = Mathf.Clamp(TempInfo.HP, 0, Info.HP);
 
-            AM.SetAnimAfterDoDamg(TempInfo.HP);
+            return TempInfo.HP;
+
         }
 
         public void Test()

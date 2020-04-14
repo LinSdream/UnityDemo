@@ -16,6 +16,7 @@ namespace LS.Common
     /// 
     /// Update Log:
     ///         1.对io操作进行一个封装，Stream流的读写操作，同时将Set/GetData方法从file操作更改为Stream操作
+    ///         2.Json操作添加泛型
 
     /// <summary>
     /// IO辅助类
@@ -31,11 +32,18 @@ namespace LS.Common
         /// <param name="obj">存储对象</param>
         public static bool SetData(string filePath, object obj)
         {
+
             string toSave = SerializeObject(obj);
             return Stream_FileWriter(filePath, toSave, false, Encoding.UTF8);
             //StreamWriter writer = File.CreateText(filePath);
             //writer.Write(toSave);
             //writer.Close(); 
+        }
+
+        public static bool SetData<T>(string filePath,T obj)
+        {
+            string toSave = SerializeObject<T>(obj);
+            return Stream_FileWriter(filePath, toSave, false, Encoding.UTF8);
         }
 
         /// <summary>
@@ -49,14 +57,32 @@ namespace LS.Common
             return DeserializeObject(data, type);
         }
 
+        public static T GetData<T>(string filePath)
+        {
+            Stream_FileRead(filePath, out string data, Encoding.UTF8);
+            return DeserializeObject<T>(data);
+        }
+
         /// <summary>
         /// 将对象转化为字符串
         /// </summary>
         /// <param name="obj">目标对象</param>
-        public static string SerializeObject(object obj)
+        public static string SerializeObject(object obj, Formatting format = Formatting.None)
         {
             string serializedString = string.Empty;
-            serializedString = JsonConvert.SerializeObject(obj);
+            serializedString = JsonConvert.SerializeObject(obj,format);
+            if (serializedString == string.Empty || serializedString == null)
+            {
+                Debug.LogWarning("IOHelper/SerializeObject Warning : the serialized string is null or empty ," +
+                    "the object is " + obj);
+            }
+            return serializedString;
+        }
+
+        public static string SerializeObject<T>(T obj, Formatting format=Formatting.None)
+        {
+            string serializedString = string.Empty;
+            serializedString = JsonConvert.SerializeObject(obj, format);
             if (serializedString == string.Empty || serializedString == null)
             {
                 Debug.LogWarning("IOHelper/SerializeObject Warning : the serialized string is null or empty ," +
@@ -75,6 +101,17 @@ namespace LS.Common
             object obj = null;
             obj = JsonConvert.DeserializeObject(serializedString, type);
 
+            if (obj == null)
+            {
+                Debug.LogWarning("IOHelper/DeserializeObject Warning : the deserialized string to object is null !");
+            }
+            return obj;
+        }
+
+        public static T DeserializeObject<T>(string serializedString)
+        {
+            T obj;
+            obj = JsonConvert.DeserializeObject<T>(serializedString);
             if (obj == null)
             {
                 Debug.LogWarning("IOHelper/DeserializeObject Warning : the deserialized string to object is null !");

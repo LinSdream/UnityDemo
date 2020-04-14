@@ -57,7 +57,6 @@ namespace Souls
         /// <param name="isRight">是否是右手</param>
         public Collider ChangeWeaponCollider(int index, bool isRight = true)
         {
-            Debug.Log(index);
             SetWeaponData(index, isRight);
             //右手
             if (isRight)

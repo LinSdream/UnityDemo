@@ -25,7 +25,7 @@ namespace Souls
             //var s = IOHelper.SerializeObject(keyValuePairs, Newtonsoft.Json.Formatting.Indented);
             //IOHelper.Stream_FileWriter(Application.dataPath + "/Resources/WeaponData.json", s, false, Encoding.UTF8);
             _factory = new WeaponFactory((Resources.Load("WeaponData") as TextAsset).text);
-            _factory.Log();
+            //_factory.Log();
             _player = GameObject.Find("Player");
         }
 

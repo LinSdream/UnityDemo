@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Souls
 {
@@ -17,6 +18,7 @@ namespace Souls
         [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
         [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
+        [Tooltip("血条")] public Slider HPSlider;
         [Tooltip("UI")] public GameObject UI;
 
         public CameraController CameraCol;
@@ -52,6 +54,7 @@ namespace Souls
         UserInput _input;
         bool _isOpenUI = false;
         Animator _weaponUIAnim;
+        ActorManager _actorMgr;
 
         ///TODO:武器系统暂时未制作，左手先进行模拟武器系统
         /// <summary> 左手是否盾牌</summary>
@@ -86,6 +89,11 @@ namespace Souls
 
             CameraCol.MoveSpeed = WalkSpeed;
             _weaponUIAnim = UI.GetComponent<Animator>();
+        }
+
+        private void Start()
+        {
+            _actorMgr = GetComponent<ActorManager>();
         }
 
         protected override void Update()
@@ -153,6 +161,9 @@ namespace Souls
                     * Mathf.Lerp(_anim.GetFloat("Forward"), (_input.IsRun && !_input.IsDefense ? 2f : 1f), 0.5f));
                 _anim.SetFloat("Right", 0);
             }
+
+            //血条更新
+            HPSlider.value = (_actorMgr.SM.TempInfo.HP / Info.HP);
 
         }
 

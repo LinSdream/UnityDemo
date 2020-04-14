@@ -28,7 +28,7 @@ namespace Souls
         {
             foreach(var pair in _dir)
             {
-                Debug.Log(pair.Key + " : ATK=" + pair.Value.ATK + " DEF=" + pair.Value.DEF + " Type="+pair.Value.Type);
+                Debug.Log(pair.Key + " : ATK=" + pair.Value.ATK + ", DEF=" + pair.Value.DEF + ", Type="+pair.Value.Type);
             }
         }
 

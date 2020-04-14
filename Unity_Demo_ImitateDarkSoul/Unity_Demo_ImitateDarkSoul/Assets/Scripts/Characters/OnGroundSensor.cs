@@ -25,12 +25,27 @@ namespace Souls
 
         private void FixedUpdate()
         {
+            if (gameObject.CompareTag("Enemy"))
+            {
+                _controller.IsGrounded = true;
+                return;
+            }
+
             _pointDown = transform.position + transform.up * (_radius - SensorGroundOffset);
             _pointUp = transform.position + transform.up * (ModelCollider.height - SensorGroundOffset) - transform.up * _radius;
 
             _controller.IsGrounded = Physics.CheckCapsule(_pointDown, _pointUp, _radius, Mask);
+
         }
 
+
+        private void OnDrawGizmos()
+        {
+            _pointDown = transform.position + transform.up * (_radius - SensorGroundOffset);
+            _pointUp = transform.position + transform.up * (ModelCollider.height - SensorGroundOffset) - transform.up * _radius;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(_pointDown, _pointUp);
+        }
         #endregion
     }
 

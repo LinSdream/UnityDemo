@@ -112,6 +112,28 @@ namespace LS.Common
             return colliders[index];
         }
 
+       
+        /// <summary> 计算目标对象是否在源对象的范围内 </summary>
+        /// <param name="origin">源对象</param>
+        /// <param name="target">目标对象</param>
+        /// <param name="sqrDistance">距离平方</param>
+        /// <param name="halfAngle">半角</param>
+        public static bool IsInArea(Transform origin,Transform target,float sqrDistance, float halfAngle)
+        {
+            if (target == null)
+                return false;
+
+            //计算自己到目标的向量
+            Vector3 toTarget = target.position - origin.position;
+            //如果距离超出视线范围
+            float distance = toTarget.sqrMagnitude;
+            if (distance > sqrDistance)
+                return false;
+            float angle = Mathf.Acos(Vector3.Dot(origin.forward.normalized, toTarget.normalized)) * Mathf.Rad2Deg;
+            if (angle > halfAngle)
+                return false;
+            return true;
+        }
 
         /// <summary>
         /// 获取最大或最小值的下标

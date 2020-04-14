@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2d6f455536626428bf07d1803e7aee, type: 3}
-  m_Name: MoveTarget
+  m_Script: {fileID: 11500000, guid: 75e80194aea080746ae1ae043be49e21, type: 3}
+  m_Name: Trick
   m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: e5a812094c56e5f4e81554f1a94a33ac, type: 2}
+  Transitions: []

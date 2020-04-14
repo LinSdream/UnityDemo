@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23789c90a3cbb604ba3e991c5910ab98, type: 3}
-  m_Name: Init
+  m_Script: {fileID: 11500000, guid: 7f175d71555d38a4daf6a93e69fe1610, type: 3}
+  m_Name: FindPlayer
   m_EditorClassIdentifier: 
-  Actions:
-  - {fileID: 11400000, guid: aacf5d6a62addbf4cb093dbd50c1ff72, type: 2}
-  Transitions: []
+  SqrDistance: 2500
+  HalfAngle: 45

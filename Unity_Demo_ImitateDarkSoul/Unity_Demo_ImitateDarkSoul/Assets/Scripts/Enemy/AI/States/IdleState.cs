@@ -12,7 +12,6 @@ namespace Souls.AI
         public override void OnEnter(FSMBase controller)
         {
             (controller as BlackKnightFSM).SetForwardAnimator(0);
-            Debug.Log("!");
         }
     }
 

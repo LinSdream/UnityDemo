@@ -11,11 +11,19 @@ namespace Souls
     [RequireComponent(typeof(NavMeshAgent))]
     public class BlackKnightFSM : FSMBase
     {
-        public State Show;
         [HideInInspector] public NavMeshAgent AI;
         [HideInInspector] public BaseController Controller;
 
+        /// <summary> 当前攻击敌人中，在GameManager中的Enemies的Index </summary>
+        public bool ReadyAttack;
+        public bool CanAttack;
+        public int CurrentEnemiesIndex = -1;
+        public State Show;
+
         NavMeshTriangulation _navMeshData;
+        int _timer;//计时
+        int _frame;//延迟帧数
+
         #region Callbacks
         private void Awake()
         {
@@ -23,17 +31,32 @@ namespace Souls
             Controller = GetComponent<BaseController>();
             AI.speed = Controller.WalkSpeed;
             AI.angularSpeed = Controller.RotationSpeed;
+
+            _navMeshData = NavMesh.CalculateTriangulation();
         }
 
         protected override void OnStart()
         {
             TargetGameObject = GameObject.Find("Player");
+            _frame = Random.Range(0, 2);
         }
 
         protected override void OnUpdate()
         {
-            Show = CurrentState;
-            Debug.Log(CurrentState == null ? 1 : 0);
+           if(ReadyAttack)//接收到可以攻击的指令后
+            {
+                if(_timer>=_frame)//延迟n帧后开始攻击
+                {
+                    _timer = 0;
+                    _frame = Random.Range(0, 2);
+                    CanAttack = true;
+                }
+                else
+                {
+                    _timer++;
+                    CanAttack = false;
+                }
+            }
         }
 
         #endregion

@@ -96,6 +96,44 @@ namespace LS.Common
         #endregion
 
         #region Others
+
+        //this的作用是扩展方法 
+        //官方文档：https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
+        /// <summary>从原数组中获取随机个数量的不重复的数组</summary>
+        /// <param name="list">源数组</param>
+        /// <param name="min">最小值</param>
+        /// <param name="max">最大值</param>
+        public static T[] GetRandomArrayFromList<T>(this List<T> list,int min,int max)
+        {
+            //取随机数
+            int value = UnityEngine.Random.Range(min, max);
+            if(value>list.Count)
+            {
+                Debug.LogError("SharedMethods/GetRandomArrayFromList Error : Array out of bounds ");
+                return null;
+            }
+
+            T[] res = new T[value];
+
+            //记录源数组的下标
+            List<int> temp = new List<int>();
+            for(int i=0;i<list.Count;i++)
+            {
+                temp.Add(i);
+            }
+
+            int randomNum;
+            int index = 0;
+            while(temp.Count>list.Count-value)
+            {
+                randomNum = UnityEngine.Random.Range(0, temp.Count);
+                res[index++] = list[temp[randomNum]];
+                temp.Remove(temp[randomNum]);
+            }
+            return res;
+
+        }
+
         /// <summary>
         /// 计算离源目标最近的collider
         /// </summary>
@@ -108,7 +146,7 @@ namespace LS.Common
                 distance[index] = (cell.transform.position - origin.position).sqrMagnitude;
                 index++;
             }
-            index = GetMinOrMaxIndexInArray(distance, false);
+            index = distance.GetMinOrMaxIndexInArray(false);
             return colliders[index];
         }
 
@@ -141,7 +179,7 @@ namespace LS.Common
         /// <typeparam name="T">继承自IComparable</typeparam>
         /// <param name="arr">数组</param>
         /// <param name="isMax">是否是取最大值</param>
-        public static int GetMinOrMaxIndexInArray<T>(T[] arr, bool isMax = true) where T : IComparable<T>
+        public static int GetMinOrMaxIndexInArray<T>(this T[] arr, bool isMax = true) where T : IComparable<T>
         {
             int index = 0;
             if (arr == null || arr.Length == 0)

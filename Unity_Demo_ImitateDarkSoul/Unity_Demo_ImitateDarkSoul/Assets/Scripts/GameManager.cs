@@ -11,10 +11,12 @@ namespace Souls
 
     public class GameManager : MonoSingletionBasis<GameManager>
     {
+        #region Fields
         WeaponFactory _factory;
         GameObject _player;
-        Dictionary<string, WeaponValue> keyValuePairs = new Dictionary<string, WeaponValue>();
+        #endregion
 
+        #region Mono Callbacks
         protected override void Init()
         {
             //keyValuePairs.Add("Falchion", new WeaponValue() { ATK = 20, DEF = 30,Type=WeaponType.Sword});
@@ -46,11 +48,19 @@ namespace Souls
             wm.ChangeWeaponCollider(0);
         }
 
+        #endregion
+
+        #region Public Methods
+
         public GameObject CreateWeapon(string name)
         {
             return _factory.CreateWeapon(name, _player.GetComponentInChildren<WeaponManager>());
         }
 
+
+        #endregion
+
+        #region Messages 
         private void ChangeWeapon(GameObject render, EventArgs e)
         {
             SwitchWeaponEventArgs args = e as SwitchWeaponEventArgs;
@@ -75,7 +85,7 @@ namespace Souls
             wm.RightWC.WeaponEnable(index, false);
         }
 
-
+        #endregion
     }
 
 }

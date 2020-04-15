@@ -12,7 +12,7 @@ namespace Souls.AI
         public override void Act(FSMBase controller)
         {
             var fsm = controller as BlackKnightFSM;
-            if (fsm.AI.isStopped)//如果AI停下
+            if (fsm.AI.isStopped&&fsm.CanAttack)//如果AI停下并且由Enemies通告可以攻击
             {
                 fsm.Controller.Attack();
             }

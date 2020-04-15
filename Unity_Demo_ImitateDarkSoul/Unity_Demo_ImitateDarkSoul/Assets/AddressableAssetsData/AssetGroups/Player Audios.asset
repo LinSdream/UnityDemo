@@ -16,47 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 644d0af8dd74c634784088753bb09c4a
-  m_SerializeEntries:
-  - m_GUID: 0e58317324109e84d8f4a84a15397a34
-    m_Address: SwordSpecial
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 2bab43d39791ce54c95025b6f0956dcc
-    m_Address: SwitchWeapon
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 30c182c125ba3c04a98392a51dcb37ea
-    m_Address: Roll
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 69658257b476d2d4180683d8d3579954
-    m_Address: FootSetp
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 830069ef16a026748a74a0fd2d6863b5
-    m_Address: Sword02
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 8dcc662918874a7409a4976c210d0d91
-    m_Address: Punch
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: 90e2d724006394c4b89fb957f0f28419
-    m_Address: Sword
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
-  - m_GUID: fbe023bc33a67d444b341614f9827845
-    m_Address: Drink
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Audio
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d1398916415d0bd4894f7ce6d39c8254, type: 2}
   m_SchemaSet:

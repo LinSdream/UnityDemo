@@ -140,7 +140,8 @@ namespace LS.Common
 
         }
 
-
+        /// <summary>根据权重获得随机数</summary>
+        /// <param name="list">随机数组</param>
         public static WeightRandom GetWeightedRandomRes(WeightRandom[] list)
         {
             //将所有的权重累加

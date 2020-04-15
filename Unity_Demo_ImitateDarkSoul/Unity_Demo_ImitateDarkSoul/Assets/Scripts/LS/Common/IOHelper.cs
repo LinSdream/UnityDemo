@@ -320,7 +320,7 @@ namespace LS.Common
         /// <param name="passFiles">要忽略的文件后缀名</param>
         public static void GetFilePathNameToDic(ref Dictionary<string,string> dic,string path,params string[] passFiles)
         {
-            string objPath = Application.streamingAssetsPath+ path;
+            string objPath = Application.dataPath+ path;
 
             string[] directoryEntries;
             bool restart;
@@ -332,7 +332,7 @@ namespace LS.Common
                 {
                     restart = false;
                     string url = directoryEntries[i];
-                    string[] tempPaths = SplitWithString(url, "/Assets/StreamingAssets" + path + "\\");
+                    string[] tempPaths = SplitWithString(url, "/Assets" + path + "\\");
                     if (tempPaths[1].EndsWith(".meta"))
                         continue;
                     foreach(string cell in passFiles)
@@ -349,7 +349,7 @@ namespace LS.Common
                     string[] pathSplit = SplitWithString(tempPaths[1], ".");
                     if(pathSplit.Length>1)
                     {
-                        string pathName = SplitWithString(url, "/Assets/StreamingAssets")[1];
+                        string pathName = SplitWithString(url, "/Assets")[1];
                         dic.Add(pathName, pathSplit[0]);
                     }
                     else

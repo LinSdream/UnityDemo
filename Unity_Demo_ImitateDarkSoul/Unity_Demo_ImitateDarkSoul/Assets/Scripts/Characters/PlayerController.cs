@@ -172,6 +172,7 @@ namespace Souls
         /// </summary>
         public override void Attack()
         {
+
             //如果触发攻击信号，并且在地面。或者已经处于连段攻击abc中任意一段，认为进入攻击状态
             if (_input.IsAttack && (CheckAnimatorState("Ground") || CheckAnimatorStateTag("AttackLTag")
                 || CheckAnimatorStateTag("AttackRTag")) && IsGrounded)
@@ -186,6 +187,7 @@ namespace Souls
                 {
                     _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
+                    AudioManager.Instance.PlaySFX("Sword");
                 }
 
             }
@@ -194,6 +196,7 @@ namespace Souls
         public override void Hit()
         {
             _anim.SetTrigger("Hit");
+            AudioManager.Instance.PlaySFX("Hit");
         }
 
         public override void Die()
@@ -201,7 +204,7 @@ namespace Souls
             _anim.SetTrigger("Die");
             SetInputLock(true);
             CameraCol.RelesaseLockOn();
-
+            AudioManager.Instance.PlaySFX("Die");
         }
 
         public override void HeavyAttack()

@@ -16,7 +16,6 @@ namespace Souls
         public override bool Decide(FSMBase controller)
         {
             var check = (controller as BlackKnightFSM).IsInArea(SqrDistance, HalfAngle);
-            Debug.Log(check);
             return check;
         }
     }

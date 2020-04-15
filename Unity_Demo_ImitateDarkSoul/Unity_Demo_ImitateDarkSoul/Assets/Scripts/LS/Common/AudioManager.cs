@@ -35,6 +35,8 @@ namespace LS.Common
         public AudioSource MusicAudioSource => _musicAudioSource;
         /// <summary>  正在播放的音效列表SFX列表 </summary>
         public List<AudioSource> PlayingSounds => _playingSounds;
+        /// <summary> 物件池锁，加锁情况下如果超出物件池的数目的时候，不会再新增音频 </summary>
+        public bool PoolLock = false;
 
         public int PoolCount
         {
@@ -235,13 +237,18 @@ namespace LS.Common
         public void PlaySFX(string name, Action callback = null)
         {
             if (_unusedSoundAudioSourceList.Count == 0)
+            {
+                if(_usedSoundAudioSourceList.Count>=PoolCount)//如果已使用的数量超出物件池数
+                    if (PoolLock)//并且还被加锁情况下
+                        return;//直接返回，不在新增AudioSource,同时该音频不在播放
                 AddAudioSource();
+            }   
+
 
             AudioSource audioSource = UnusedToUsed();
             audioSource.clip = GetAudioClip(name);
             audioSource.volume = _soundVolume;
             _playingSounds.Add(audioSource);
-            Debug.Log("Play");
             audioSource.Play();
             StartCoroutine(WaitOfPlaySfxEnd(audioSource, audioSource.clip.length, callback));//协程，一个音效一个协程
 

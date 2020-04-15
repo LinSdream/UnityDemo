@@ -4,6 +4,7 @@ using UnityEngine;
 using LS.Common.Message;
 using System;
 using LS.Helper.Timer;
+using LS.Common;
 
 namespace Souls
 {
@@ -109,6 +110,8 @@ namespace Souls
         {
             if (sender != gameObject)
                 return;
+
+            AudioManager.Instance.PlaySFX("Roll");
             _playerController.TrackDirection = true;
             if (_playerController.CameraCol.LockTarget != null)
             {

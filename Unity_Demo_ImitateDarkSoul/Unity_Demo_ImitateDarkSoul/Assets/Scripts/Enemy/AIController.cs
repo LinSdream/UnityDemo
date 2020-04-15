@@ -59,6 +59,7 @@ namespace Souls
         public override void Hit()
         {
             _anim.SetTrigger("Hit");
+            AudioManager.Instance.PlaySFX("Hit");
         }
 
         public override void Die()
@@ -77,6 +78,8 @@ namespace Souls
             }
             //动画
             _anim.SetTrigger("Die");
+
+            AudioManager.Instance.PlaySFX("EnemyDie");
         }
 
         public override void Attack()

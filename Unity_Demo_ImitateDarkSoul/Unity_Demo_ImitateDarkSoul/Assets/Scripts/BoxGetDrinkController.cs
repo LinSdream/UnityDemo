@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Souls
 {
-    public class PropController : BaseController
+    public class BoxGetDrinkController : BaseController
     {
         public override void Attack()
         {

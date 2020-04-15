@@ -46,6 +46,14 @@ namespace Souls
             wm.SetWeaponData(0, false);
             //给玩家的Collider赋值
             wm.ChangeWeaponCollider(0);
+            var list = new List<string>();
+            IOHelper.GetFileNameToArray(ref list, "/Resources/Audio/Used");
+            foreach(var cell in list)
+            {
+                AudioManager.Instance.SetAudioPath(cell,"Audio/Used/"+cell);
+            }
+            AudioManager.Instance.SetSFXVolume(1f);
+            AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
         }
 
         #endregion
@@ -82,6 +90,7 @@ namespace Souls
                 Debug.LogError("GameManger/ChangeWeapon Error : can't get the weapon data");
                 return;
             }
+            AudioManager.Instance.PlaySFX("SwitchWeapon");
             wm.RightWC.WeaponEnable(index, false);
         }
 

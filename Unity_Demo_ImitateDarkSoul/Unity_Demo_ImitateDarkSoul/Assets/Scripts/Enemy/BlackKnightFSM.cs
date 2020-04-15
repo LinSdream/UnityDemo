@@ -56,7 +56,7 @@ namespace Souls
             IsReady = false;
 
             WeightedStatus = new SharedMethods.WeightRandom[3];
-            WeightedStatus[0]=new SharedMethods.WeightRandom() { Name = "Attack", Weighted = 5 };//攻击
+            WeightedStatus[0]=new SharedMethods.WeightRandom() { Name = "Attack", Weighted = 10 };//攻击
             WeightedStatus[1]=new SharedMethods.WeightRandom() { Name = "Defence", Weighted = 1 };//防御
             WeightedStatus[2]=new SharedMethods.WeightRandom() { Name = "Stab", Weighted = 0 };//弹反
         }

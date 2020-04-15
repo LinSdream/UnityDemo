@@ -107,6 +107,11 @@ namespace Souls
 
         #region Public Methods
 
+        public void Rotation(Transform  target)
+        {
+            transform.LookAt(target);
+        }
+
         public void Defense(bool on)
         {
             if(on)

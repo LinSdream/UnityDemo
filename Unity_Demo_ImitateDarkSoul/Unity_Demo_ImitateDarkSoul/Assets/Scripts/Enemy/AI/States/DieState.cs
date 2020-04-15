@@ -15,6 +15,7 @@ namespace Souls.AI
             var fsm = controller as BlackKnightFSM;
             EnemyManager.Instance.RemoveEnemies(fsm.CurrentEnemiesIndex);
             fsm.IsReady = false;
+            fsm.FsmStatus = BlackKnightFSM.Stauts.None;
             fsm.CurrentEnemiesIndex = -1;
         }
     }

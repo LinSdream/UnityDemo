@@ -18,9 +18,8 @@ namespace Souls
         public TimelineAsset FrontStab;
         public TimelineAsset OpenBox;
 
-        [Header("Assets Settings")]
-        public ActorManager Attacker;
-        public ActorManager Victim;
+        ////用于动画播放完成后进行判断用的，临时变量
+        //public string _virctimGUID;
 
         private void Start()
         {
@@ -46,6 +45,7 @@ namespace Souls
                     SetPlayableDirector("Animation Attacker", "Animation Victim", "AttackerScript", "VictimScript", attacker, virctiom);
                     Director.Evaluate();
                     Director.Play();
+                    //Director.stopped += IfDeath;
                     break;
                 case "Box":
                     Director.playableAsset = Instantiate(OpenBox);
@@ -56,7 +56,17 @@ namespace Souls
             }
         }
 
-        void SetPlayableDirector(string attackerAnim,string virctiomAnim,string attackerScript,string virctiomScript,ActorManager attacker,ActorManager virctiom)
+        //private void IfDeath(PlayableDirector obj)
+        //{
+
+        //    var timeline = obj.playableAsset as TimelineAsset;
+        //    var actor = obj.GetReferenceValue(_virctimGUID, out bool id) as ActorManager;
+        //    actor.Controller.Hit();
+        //    obj.stopped -= IfDeath;
+        //}
+
+        void SetPlayableDirector(string attackerAnim,string virctiomAnim,string attackerScript,
+            string virctiomScript,ActorManager attacker,ActorManager virctiom)
         {
             TimelineAsset timeline = Director.playableAsset as TimelineAsset;
             foreach (var track in timeline.GetOutputTracks())
@@ -71,6 +81,7 @@ namespace Souls
                         CustomStabBehaviour behaviour = clip.template;
                         //对对象绑定ID，用于后面的赋值
                         clip.ActorMgr.exposedName = System.Guid.NewGuid().ToString();
+                        //clip.ActorMgr.exposedName = _virctimGUID;
                         Director.SetReferenceValue(clip.ActorMgr.exposedName, virctiom);
                     }
                 }else if(track.name== attackerScript)

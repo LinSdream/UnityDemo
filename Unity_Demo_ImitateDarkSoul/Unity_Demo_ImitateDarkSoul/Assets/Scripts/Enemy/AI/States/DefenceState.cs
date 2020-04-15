@@ -12,11 +12,15 @@ namespace Souls
 
         [Tooltip("举盾时长")]
         public float DefenceTime = 5f;
+        public State NextState;
 
         public override void OnEnter(FSMBase controller)
         {
             //举盾
-            (controller as BlackKnightFSM).Controller.Defense(true);
+            var fsm = controller as BlackKnightFSM;
+            fsm.SetForwardAnimator(0);
+            fsm.Controller.Defense(true);
+            fsm.AI.isStopped = true;
         }
 
         public override void OnUpdate(FSMBase controller)
@@ -27,16 +31,18 @@ namespace Souls
             var fsm = controller as BlackKnightFSM;
             fsm.TimerForDefence += Time.deltaTime;
             if (fsm.TimerForDefence >= DefenceTime)
-                fsm.TransitionToState(fsm.PreviousState);//转向上一个状态
+                fsm.TransitionToState(NextState);//转向上一个状态
             else
                 fsm.Controller.Defense(true);
         }
 
         public override void OnExit(FSMBase controller)
         {
+            var fsm = controller as BlackKnightFSM;
             //放下盾牌
-            (controller as BlackKnightFSM).Controller.Defense(false);
-            (controller as BlackKnightFSM).TimerForDefence = 0;
+            fsm.Controller.Defense(false);
+            fsm.AI.isStopped = false;
+            fsm.TimerForDefence = 0;
 
         }
     }

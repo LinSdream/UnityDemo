@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e86838ba853ce40bc54f96d219fadc, type: 3}
   m_Name: Defence
   m_EditorClassIdentifier: 
-  Actions: []
-  Transitions: []
+  Actions:
+  - {fileID: 11400000, guid: bc2a1905c8232f345a0f831b7107db1e, type: 2}
+  Transitions:
+  - Condition: {fileID: 11400000, guid: 1ffa468072aef9543b70d06c7d7db1c9, type: 2}
+    TrueState: {fileID: 11400000, guid: f2ae8ac0fbb06d94c93700239cc5f0fd, type: 2}
+    FalseState: {fileID: 0}
+  - Condition: {fileID: 11400000, guid: 63c3e508b9e35fc40ae72bf85b1ed329, type: 2}
+    TrueState: {fileID: 0}
+    FalseState: {fileID: 11400000, guid: a10fcc6af217edd4798a94cefbd15fe9, type: 2}
   DefenceTime: 5
+  NextState: {fileID: 11400000, guid: a10fcc6af217edd4798a94cefbd15fe9, type: 2}

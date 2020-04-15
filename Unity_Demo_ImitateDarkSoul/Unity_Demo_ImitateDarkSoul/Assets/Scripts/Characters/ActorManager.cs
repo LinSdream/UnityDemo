@@ -27,7 +27,7 @@ namespace Souls
 
         #endregion
 
-            #region MonoBehaviour Callbacks
+        #region MonoBehaviour Callbacks
 
         private void Awake()
         {
@@ -67,10 +67,11 @@ namespace Souls
                 switch (cell.EventName)
                 {
                     case "StabFront":
-                        DM.Play("FrontStab", this, cell.AM);
-                        cell.AM.SM.AddHP(-(2 * WM.RightWC.GetATK));
-                        if (cell.AM.SM.TempInfo.HP <= 0)
-                            cell.AM.Controller.Die();
+                        //if (cell.AM.Controller.CheckAnimatorState("Stunned"))//只有在硬直状态下才能够处决
+                        //{
+                            DM.Play("FrontStab", this, cell.AM);
+                            cell.AM.SM.AddHP(-(2 * WM.RightWC.GetATK));
+                        //}
                         break;
                     case "Box":
                         if (BattleManager.CheckAngleOrigin(Controller.Model, cell.AM.gameObject, 15))
@@ -109,7 +110,7 @@ namespace Souls
                 //如果攻击有效，即在弹反过程中受到伤害
                 if (attackValid)
                     CalculateWeaponData(wc.Data.WType, wc.GetATK);
-                    //SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
+                //SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
                 return;
             }
             //是否无敌，无敌状态下，不收到任何伤害
@@ -122,13 +123,13 @@ namespace Souls
             {
                 if (attackValid)//敌人攻击范围有效
                     CalculateWeaponData(wc.Data.WType, wc.GetATK);
-                    //SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
+                //SM.AddHP(-wc.WM.AM.SM.TempInfo.Damage);
             }
         }
 
-        public void CalculateWeaponData(WeaponType type,float atk)
+        public void CalculateWeaponData(WeaponType type, float atk)
         {
-            switch(type)
+            switch (type)
             {
                 case WeaponType.None://没有被设值，不做任何事情
                     break;

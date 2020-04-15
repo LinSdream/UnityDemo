@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85f64e34055063542b742150c0669d70, type: 3}
-  m_Name: Trick
+  m_Script: {fileID: 11500000, guid: 44723cde0db20bc43b44c61bd103b12c, type: 3}
+  m_Name: LookAtPlayer
   m_EditorClassIdentifier: 
-  Offset: {x: 25, y: 1000, z: 3600}
-  SqrDistanceToPlayer: 4

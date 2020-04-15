@@ -27,6 +27,12 @@ public class CustomStabBehaviour : PlayableBehaviour
         if (ActorMgr == null)
             Debug.LogWarning("CustomStabTrack PrepareFrame ActorManager is null");
         ActorMgr.LockUnLockActorController(false);
+
+        if (ActorMgr.CompareTag("Box"))
+            return;
+
+        if (ActorMgr.SM.TempInfo.HP <= 0)
+            ActorMgr.Controller.Die();
     }
 
     public override void PrepareFrame(Playable playable, FrameData info)

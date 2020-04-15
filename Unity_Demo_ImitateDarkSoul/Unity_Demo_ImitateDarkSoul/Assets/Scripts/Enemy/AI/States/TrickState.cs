@@ -14,17 +14,10 @@ namespace Souls.AI
         {
             var fsm = controller as BlackKnightFSM;
             fsm.CurrentEnemiesIndex= EnemyManager.Instance.AddEnemies(fsm);
-            fsm.ReadyAttack = false;
+            fsm.IsReady = false;
         }
 
-        //退出的时候要删除
-        public override void OnExit(FSMBase controller)
-        {
-            var fsm = controller as BlackKnightFSM;
-            EnemyManager.Instance.RemoveEnemies(fsm.CurrentEnemiesIndex);
-            fsm.ReadyAttack = false;
-            fsm.CurrentEnemiesIndex = -1;
-        }
+        
     }
 
 }

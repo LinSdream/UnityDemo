@@ -23,7 +23,7 @@ namespace Souls
         [HideInInspector] public WeaponController LeftWC;
 
         //启用的武器攻击collider
-        Collider WeaponCollider;
+        [SerializeField] Collider _weaponCollider;
         WeaponUIEventArgs _args = new WeaponUIEventArgs();
         List<Collider> _rightColliders = new List<Collider>();
         List<Collider> _leftColliders = new List<Collider>();
@@ -44,7 +44,7 @@ namespace Souls
             var colliders = RightHandle.GetComponentsInChildren<Collider>();
             if (colliders.Length == 0)
                 return;
-            WeaponCollider = colliders[0];
+            _weaponCollider = colliders[0];
 
             _rightColliders = colliders.ToList();
             _leftColliders = LeftHandle.GetComponentsInChildren<Collider>().ToList();
@@ -60,11 +60,11 @@ namespace Souls
             SetWeaponData(index, isRight);
             //右手
             if (isRight)
-                WeaponCollider = _rightColliders[index];
+                _weaponCollider = _rightColliders[index];
             else//左手
-                WeaponCollider = _leftColliders[index];
-            if (WeaponCollider == null)//如果获取到的Collider为空，说明手下没有武器，默认更改为第一个武器
-                WeaponCollider = ChangeWeaponCollider(0, isRight);
+                _weaponCollider = _leftColliders[index];
+            if (_weaponCollider == null)//如果获取到的Collider为空，说明手下没有武器，默认更改为第一个武器
+                _weaponCollider = ChangeWeaponCollider(0, isRight);
 
             if (isRight)
                 _args.WeaponName = RightWC.Data.WeaponName;
@@ -73,7 +73,7 @@ namespace Souls
 
             MessageCenter.Instance.SendMessage("WeaponUIChange",AM.gameObject,_args);
 
-            return WeaponCollider;
+            return _weaponCollider;
         }
 
         public WeaponData SetWeaponData(int index, bool isRight = true)
@@ -117,15 +117,15 @@ namespace Souls
         /// <summary> 武器启用 </summary>
         public void WeaponEnable()
         {
-            if (WeaponCollider == null)
+            if (_weaponCollider == null)
                 return;
-            WeaponCollider.enabled = true;
+            _weaponCollider.enabled = true;
         }
 
         /// <summary> 武器禁用 </summary>
         public void WeaponDisable()
         {
-            WeaponCollider.enabled = false;
+            _weaponCollider.enabled = false;
         }
         /// <summary> 弹反启用 </summary>
         public void CounterBackEnable()

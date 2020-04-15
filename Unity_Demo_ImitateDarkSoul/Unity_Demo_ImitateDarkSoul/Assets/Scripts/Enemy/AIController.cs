@@ -1,4 +1,5 @@
-﻿using Souls.AI;
+﻿using LS.Common;
+using Souls.AI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -87,15 +88,40 @@ namespace Souls
             }
         }
 
+        /// <summary>
+        /// 被弹反后的硬直
+        /// </summary>
         public override void Stunned()
         {
             _anim.SetTrigger("Stunned");
         }
 
+        /// <summary>
+        /// 盾牌格挡
+        /// </summary>
         public override void Blocked()
         {
             _anim.SetTrigger("Blocked");
         }
+        #endregion
+
+        #region Public Methods
+
+        public void Defense(bool on)
+        {
+            if(on)
+            {
+                SetLayerWeight("Defanse Layer", 1);
+                _anim.SetBool("Defense", true);
+            }
+            else
+            {
+                SetLayerWeight("Defanse Layer", 0);
+                _anim.SetBool("Defense", false);
+            }
+
+        }
+
         #endregion
     }
 

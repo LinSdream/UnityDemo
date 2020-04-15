@@ -69,7 +69,7 @@ namespace Souls
             EnemyStatus[] arr = _enemies.GetRandomArrayFromList(1, random);
             for(int i=0;i<arr.Length;i++)
             {
-                arr[i].FSM.ReadyAttack = !arr[i].FSM.ReadyAttack;
+                arr[i].FSM.IsReady = !arr[i].FSM.IsReady;
                 arr[i].Active = !arr[i].Active;
             }
             

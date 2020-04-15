@@ -11,14 +11,26 @@ namespace Souls
     [RequireComponent(typeof(NavMeshAgent))]
     public class BlackKnightFSM : FSMBase
     {
-        [HideInInspector] public NavMeshAgent AI;
-        [HideInInspector] public BaseController Controller;
+        public enum Stauts
+        {
+            None,
+            Attack,
+            Defence
+        }
 
+
+        [HideInInspector] public NavMeshAgent AI;
+        [HideInInspector] public AIController Controller;
+        public Stauts FsmStatus = Stauts.None;
+        //权重状态
+        public SharedMethods.WeightRandom[] WeightedStatus;
         /// <summary> 当前攻击敌人中，在GameManager中的Enemies的Index </summary>
-        public bool ReadyAttack;
+        public bool IsReady;
         public bool CanAttack;
         public int CurrentEnemiesIndex = -1;
         public State Show;
+        //计时器给DefenceState状态使用
+        public float TimerForDefence = 0;
 
         NavMeshTriangulation _navMeshData;
         int _timer;//计时
@@ -28,7 +40,7 @@ namespace Souls
         private void Awake()
         {
             AI = GetComponent<NavMeshAgent>();
-            Controller = GetComponent<BaseController>();
+            Controller = GetComponent<AIController>();
             AI.speed = Controller.WalkSpeed;
             AI.angularSpeed = Controller.RotationSpeed;
 
@@ -39,22 +51,41 @@ namespace Souls
         {
             TargetGameObject = GameObject.Find("Player");
             _frame = Random.Range(0, 2);
+
+            WeightedStatus = new SharedMethods.WeightRandom[3];
+            WeightedStatus[0]=new SharedMethods.WeightRandom() { Name = "Attack", Weighted = 5 };//攻击
+            WeightedStatus[1]=new SharedMethods.WeightRandom() { Name = "Defence", Weighted = 1 };//防御
+            WeightedStatus[2]=new SharedMethods.WeightRandom() { Name = "Stab", Weighted = 0 };//弹反
         }
 
         protected override void OnUpdate()
         {
-           if(ReadyAttack)//接收到可以攻击的指令后
+            Show = CurrentState;
+
+           if (IsReady)//接收到可以准备的指令后
             {
                 if(_timer>=_frame)//延迟n帧后开始攻击
                 {
+                    switch(SharedMethods.GetWeightedRandomRes(WeightedStatus).Name)//根据权重结果分配具体行为
+                    {
+                        case "Attack":
+                            FsmStatus = Stauts.Attack;
+                            break;
+                        case "Defence":
+                            FsmStatus = Stauts.Defence;
+                            break;
+                        default:
+                            FsmStatus = Stauts.None;
+                            break;
+                    }
+                    //重置
                     _timer = 0;
                     _frame = Random.Range(0, 2);
-                    CanAttack = true;
                 }
                 else
                 {
                     _timer++;
-                    CanAttack = false;
+                    FsmStatus = Stauts.None;//状态保存咸鱼
                 }
             }
         }

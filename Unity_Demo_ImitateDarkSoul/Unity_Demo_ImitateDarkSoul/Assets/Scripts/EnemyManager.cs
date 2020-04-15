@@ -58,6 +58,11 @@ namespace Souls
                 return;
             }
             _enemies.RemoveAt(index);
+            //重置所有的状态机的index
+            for(int i=0;i<_enemies.Count;i++)
+            {
+                _enemies[i].FSM.CurrentEnemiesIndex = i;
+            }
         }
 
         void EnemiesCanAttack()

@@ -27,6 +27,10 @@ namespace Souls
 
         private void OnTriggerEnter(Collider other)
         {
+            //禁止友伤
+            if (other.CompareTag(gameObject.tag))
+                return;
+
             var wc = other.GetComponentInParent<WeaponController>();
             //这里有两种碰撞，一种是Layer Weapon的碰撞，一种是Layer Caster的碰撞，Layer Caster上面不存在WeaponController
             if (wc == null)

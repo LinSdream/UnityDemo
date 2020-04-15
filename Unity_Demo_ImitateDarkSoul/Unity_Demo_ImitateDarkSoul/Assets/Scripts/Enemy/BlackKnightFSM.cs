@@ -52,6 +52,9 @@ namespace Souls
             TargetGameObject = GameObject.Find("Player");
             _frame = Random.Range(0, 2);
 
+            CurrentEnemiesIndex = EnemyManager.Instance.AddEnemies(this);
+            IsReady = false;
+
             WeightedStatus = new SharedMethods.WeightRandom[3];
             WeightedStatus[0]=new SharedMethods.WeightRandom() { Name = "Attack", Weighted = 5 };//攻击
             WeightedStatus[1]=new SharedMethods.WeightRandom() { Name = "Defence", Weighted = 1 };//防御

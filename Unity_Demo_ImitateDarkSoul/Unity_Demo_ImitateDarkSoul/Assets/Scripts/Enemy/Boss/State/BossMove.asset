@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230c7839b12dc634882626d5431e1846, type: 3}
+  m_Name: BossMove
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: bd952bc22f9e3a948a1814f9e83e2810, type: 2}
+  - {fileID: 11400000, guid: 836435dfb3b462746a9c891135ba50a7, type: 2}
+  Transitions:
+  - Condition: {fileID: 11400000, guid: 348a5d83a750b1f4f892c3a8ced49f86, type: 2}
+    TrueState: {fileID: 11400000, guid: d721d36621497bd4eaa837fde9e4487f, type: 2}
+    FalseState: {fileID: 0}

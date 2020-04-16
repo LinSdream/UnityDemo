@@ -8,10 +8,10 @@ namespace LS.Common
     public static class SharedMethods
     {
         /// <summary> 权重 </summary>
-        public struct WeightRandom
+        public class WeightRandom
         {
-            public string Name;
-            public int Weighted;
+            public string WeightedName { set; get; }
+            public int Weighted { set; get; }
         }
 
         #region BeizerCurve Methods 2阶

@@ -16,12 +16,12 @@ namespace Souls
 
         protected override void Register()
         {
-            BossMessageCnter.Instance.AddListener("BossAttackEnable", BossAttackEnable);
+            BossMessageCenter.Instance.AddListener("BossAttackEnable", BossAttackEnable);
         }
 
         protected override void UnRegister()
         {
-            BossMessageCnter.Instance.RemoveListener("BossAttackEnable", BossAttackEnable);
+            BossMessageCenter.Instance.RemoveListener("BossAttackEnable", BossAttackEnable);
         }
 
         #endregion

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb5f2cbd5e82eb47ad55ed355738698, type: 3}
+  m_Name: BossAttack
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: 18e0c084fc9e18c43acfa54df3d59ae5, type: 2}
+  - {fileID: 11400000, guid: 388b7aa8ef64e4041b52e2af22209acf, type: 2}
+  - {fileID: 11400000, guid: 836435dfb3b462746a9c891135ba50a7, type: 2}
+  Transitions:
+  - Condition: {fileID: 11400000, guid: 348a5d83a750b1f4f892c3a8ced49f86, type: 2}
+    TrueState: {fileID: 0}
+    FalseState: {fileID: 11400000, guid: 096405d1f27cba742b7c506a04e653be, type: 2}

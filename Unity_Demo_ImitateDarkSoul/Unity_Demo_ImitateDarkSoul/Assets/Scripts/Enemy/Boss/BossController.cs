@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LS.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace Souls
 
         public override void Hit()
         {
+            AudioManager.Instance.PlaySFX("EnemyGetHit");
             _anim.SetTrigger("GetHit");
         }
 

@@ -12,7 +12,17 @@ namespace Souls.AI
         public override void Act(FSMBase controller)
         {
             var fsm = controller as BossFSM;
-            fsm.Controller.Attack(fsm.BossCombo);
+            if (fsm.BehaviourTimer >= fsm.CurrentBehaviourFrequency)
+            {
+                fsm.Controller.Attack(fsm.BossCombo);
+                fsm.BehaviourTimer = 0;
+                fsm.CurrentBehaviourFrequency = Random.Range(fsm.BehaviourFrequency.x, fsm.BehaviourFrequency.y + 0.01f);//做闭区间
+            }
+            else
+            {
+                fsm.BehaviourTimer += Time.deltaTime;
+            }
+
         }
 
     }

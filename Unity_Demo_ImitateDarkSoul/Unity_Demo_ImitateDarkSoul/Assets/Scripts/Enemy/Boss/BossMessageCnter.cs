@@ -5,6 +5,6 @@ using UnityEngine;
 
 namespace Souls
 {
-    public class BossMessageCnter : MessageCenter { }
+    public class BossMessageCenter : MessageCenter { }
 
 }

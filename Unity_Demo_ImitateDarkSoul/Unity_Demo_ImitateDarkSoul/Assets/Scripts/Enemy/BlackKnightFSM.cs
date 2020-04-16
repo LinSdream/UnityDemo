@@ -26,7 +26,6 @@ namespace Souls.AI
         public bool IsReady;
         public bool CanAttack;
         public int CurrentEnemiesIndex = -1;
-        public State Show;
         //计时器给DefenceState状态使用
         public float TimerForDefence = 0;
 
@@ -51,9 +50,9 @@ namespace Souls.AI
             IsReady = false;
 
             WeightedStatus = new SharedMethods.WeightRandom[3];
-            WeightedStatus[0]=new SharedMethods.WeightRandom() { Name = "Attack", Weighted = 10 };//攻击
-            WeightedStatus[1]=new SharedMethods.WeightRandom() { Name = "Defence", Weighted = 1 };//防御
-            WeightedStatus[2]=new SharedMethods.WeightRandom() { Name = "Stab", Weighted = 0 };//弹反
+            WeightedStatus[0]=new SharedMethods.WeightRandom() { WeightedName = "Attack", Weighted = 10 };//攻击
+            WeightedStatus[1]=new SharedMethods.WeightRandom() { WeightedName = "Defence", Weighted = 1 };//防御
+            WeightedStatus[2]=new SharedMethods.WeightRandom() { WeightedName = "Stab", Weighted = 0 };//弹反
         }
 
         protected override void OnUpdate()
@@ -64,7 +63,7 @@ namespace Souls.AI
             {
                 if(_timer>=_frame)//延迟n帧后开始攻击
                 {
-                    switch(SharedMethods.GetWeightedRandomRes(WeightedStatus).Name)//根据权重结果分配具体行为
+                    switch(SharedMethods.GetWeightedRandomRes(WeightedStatus).WeightedName)//根据权重结果分配具体行为
                     {
                         case "Attack":
                             FsmStatus = Stauts.Attack;

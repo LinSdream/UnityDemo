@@ -42603,10 +42603,11 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.46666667
-    functionName: BossNormalAttack
+  - time: 0.5
+    functionName: BossAttackEnable
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 6d7f19b33903fd249a336dfd44acdd4a,
+      type: 3}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0

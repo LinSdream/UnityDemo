@@ -26,16 +26,34 @@ namespace Souls
             _anim.ResetTrigger(name);
         }
 
+        /// <summary>
+        /// Boss攻击动画的音效
+        /// </summary>
         public void PlayWeaponAudioInBossBattle()
         {
             AudioManager.Instance.PlaySFX("BigSword");
         }
 
+        /// <summary>
+        /// 攻击时候对武器的Collider进行开关，如果关闭则要讲动画的参数置0
+        /// </summary>
+        /// <param name="on"></param>
         public void BossAttackEnable(int on)
         {
-            BossMessageCnter.Instance.SendMessage("BossAttackEnable", null, new BossAttackEnableEventArgs() { On = on });
+            BossMessageCenter.Instance.SendMessage("BossAttackEnable", null, new BossAttackEnableEventArgs() { On = on });
+            if(on==0)
+            {
+                BossMessageCenter.Instance.SendMessage("ResetCombo");
+            }
         }
 
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        public void PlayAudioInBossBattle(string audioName)
+        {
+            AudioManager.Instance.PlaySFX(audioName);
+        }
         #endregion
     }
 

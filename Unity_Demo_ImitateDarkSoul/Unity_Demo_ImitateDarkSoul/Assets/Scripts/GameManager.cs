@@ -40,7 +40,7 @@ namespace Souls
         {
             //武器初始化
             var wm = _player.GetComponentInChildren<WeaponManager>();
-            _factory.CreateWeapon("MoonSword",wm);
+            _factory.CreateWeapon("MoonSword", wm);
             wm.SetWeaponData(0);
             _factory.CreateWeapon("Shield", wm, false);
             wm.SetWeaponData(0, false);
@@ -48,12 +48,17 @@ namespace Souls
             wm.ChangeWeaponCollider(0);
             var list = new List<string>();
             IOHelper.GetFileNameToArray(ref list, "/Resources/Audio/Used");
-            foreach(var cell in list)
+            foreach (var cell in list)
             {
-                AudioManager.Instance.SetAudioPath(cell,"Audio/Used/"+cell);
+                AudioManager.Instance.SetAudioPath(cell, "Audio/Used/" + cell);
             }
             AudioManager.Instance.SetSFXVolume(1f);
             AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
+
+
+            //test
+
+            BossMessageCenter.Instance.SendMessage("BeginBossBattle");
         }
 
         #endregion

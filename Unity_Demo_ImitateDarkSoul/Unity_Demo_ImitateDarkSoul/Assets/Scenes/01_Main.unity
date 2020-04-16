@@ -420,12 +420,12 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Show: {fileID: 0}
   Controller: {fileID: 0}
   FsmStatus: 0
   IsReady: 0
   CanAttack: 0
   CurrentEnemiesIndex: -1
-  Show: {fileID: 0}
   TimerForDefence: 0
 --- !u!195 &61807312
 NavMeshAgent:
@@ -526,7 +526,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61807310}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -3875,12 +3875,12 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Show: {fileID: 0}
   Controller: {fileID: 0}
   FsmStatus: 0
   IsReady: 0
   CanAttack: 0
   CurrentEnemiesIndex: -1
-  Show: {fileID: 0}
   TimerForDefence: 0
 --- !u!195 &448751596
 NavMeshAgent:
@@ -3912,7 +3912,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448751590}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -4588,12 +4588,12 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Show: {fileID: 0}
   Controller: {fileID: 0}
   FsmStatus: 0
   IsReady: 0
   CanAttack: 0
   CurrentEnemiesIndex: -1
-  Show: {fileID: 0}
   TimerForDefence: 0
 --- !u!195 &622840970
 NavMeshAgent:
@@ -4694,7 +4694,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622840968}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -5355,7 +5355,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754486415}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 8
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -13071,12 +13071,12 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Show: {fileID: 0}
   Controller: {fileID: 0}
   FsmStatus: 0
   IsReady: 0
   CanAttack: 0
   CurrentEnemiesIndex: -1
-  Show: {fileID: 0}
   TimerForDefence: 0
 --- !u!195 &1123863217
 NavMeshAgent:
@@ -13177,7 +13177,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123863215}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -14067,7 +14067,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307798896}
   serializedVersion: 2
-  m_Mass: 3
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -14173,8 +14173,14 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 33f714090e8297149a34cde8cd130122, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Controller: {fileID: 0}
+  Show: {fileID: 0}
+  BossBattle: {fileID: 11400000, guid: ee27af30813e8c94fa8f78d0d3665ae3, type: 2}
+  DistanceType: 0
   BossCombo: 0
+  BehaviourFrequency: {x: 5, y: 10}
+  Controller: {fileID: 0}
+  BehaviourTimer: 0
+  CurrentBehaviourFrequency: 0
 --- !u!195 &1307798905
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14907,12 +14913,12 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Show: {fileID: 0}
   Controller: {fileID: 0}
   FsmStatus: 0
   IsReady: 0
   CanAttack: 0
   CurrentEnemiesIndex: -1
-  Show: {fileID: 0}
   TimerForDefence: 0
 --- !u!195 &1536108621
 NavMeshAgent:
@@ -15013,7 +15019,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536108619}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -16697,7 +16703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00013923645}
+  m_AnchoredPosition: {x: 0, y: -0.00012777373}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1712981472
@@ -20417,6 +20423,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2635553536163295124, guid: ba260d8445cccd645b0e09f07f8ed63f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba260d8445cccd645b0e09f07f8ed63f, type: 3}
 --- !u!1001 &8431702377153855312
@@ -20426,6 +20437,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1307798897}
     m_Modifications:
+    - target: {fileID: 1699629744646368092, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6157754272110773194, guid: ae06bb7d155c3524aad13f78aa150b23,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -20541,7 +20557,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: 7031828904421540961, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6309102511575529082, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
     - {fileID: 6244839808226523718, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6245086559236535146, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6245038434323929356, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6257704671690508216, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6244492188677301940, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6245083774549944672, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6244423733914719772, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6244864915359812634, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+    - {fileID: 6244683731063084762, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}

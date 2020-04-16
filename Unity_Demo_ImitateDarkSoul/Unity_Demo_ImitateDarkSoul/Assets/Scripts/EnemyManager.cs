@@ -1,4 +1,5 @@
 ﻿using LS.Common;
+using Souls.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

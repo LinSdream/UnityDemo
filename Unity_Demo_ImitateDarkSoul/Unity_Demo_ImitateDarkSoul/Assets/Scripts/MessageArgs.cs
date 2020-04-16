@@ -41,4 +41,12 @@ namespace Souls
         public string SwitchName;
     }
 
+    /// <summary>
+    /// boss武器开关
+    /// </summary>
+    public class BossAttackEnableEventArgs : EventArgs
+    {
+        public int On;
+    }
+
 }

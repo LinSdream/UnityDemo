@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace LS.Test.AI.States
 {
-    [System.Serializable]
+    [System.Serializable,CreateAssetMenu(menuName ="LS/AI/States/BaseState")]
     public class State : ScriptableObject,IState<FSMBase>
     {
 

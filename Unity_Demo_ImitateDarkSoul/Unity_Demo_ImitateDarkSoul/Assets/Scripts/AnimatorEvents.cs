@@ -26,6 +26,16 @@ namespace Souls
             _anim.ResetTrigger(name);
         }
 
+        public void PlayWeaponAudioInBossBattle()
+        {
+            AudioManager.Instance.PlaySFX("BigSword");
+        }
+
+        public void BossAttackEnable(int on)
+        {
+            BossMessageCnter.Instance.SendMessage("BossAttackEnable", null, new BossAttackEnableEventArgs() { On = on });
+        }
+
         #endregion
     }
 

@@ -58,7 +58,7 @@ namespace Souls
 
         #region Other Methods
 
-        public void DoInterationEvent()
+        public virtual void DoInterationEvent()
         {
             foreach (var cell in IM.OverlapEcastms)
             {
@@ -89,7 +89,7 @@ namespace Souls
         /// <summary>
         /// 尝试计算伤害，根据计算后得出的不同值进行不同的处理
         /// </summary>
-        public void TryDoDamg(WeaponController wc, bool attackValid, bool counterValid)
+        public virtual void TryDoDamg(WeaponController wc, bool attackValid, bool counterValid)
         {
             //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
@@ -127,7 +127,7 @@ namespace Souls
             }
         }
 
-        public void CalculateWeaponData(WeaponType type, float atk)
+        public virtual void CalculateWeaponData(WeaponType type, float atk)
         {
             switch (type)
             {
@@ -143,7 +143,7 @@ namespace Souls
         }
 
         /// <summary> 根据血条进行不同的动画展示 </summary>
-        public void SetAnimAfterDoDamg(float hp)
+        public virtual void SetAnimAfterDoDamg(float hp)
         {
             if (hp > 0)
                 Controller.Hit();
@@ -154,7 +154,7 @@ namespace Souls
             }
         }
 
-        public void SetIsCounterBack(bool on)
+        public  virtual void SetIsCounterBack(bool on)
         {
             SM.CharacterState.IsCounterBackEnable = on;
         }
@@ -184,7 +184,7 @@ namespace Souls
         /// <summary>
         /// MessageCenter 事件注册
         /// </summary>
-        private void Register()
+        protected virtual void Register()
         {
             MessageCenter.Instance.AddListener("OnAttackExit", OnAttackExit);
             MessageCenter.Instance.AddListener("OnCounterBackExit", OnCounterBackExit);
@@ -195,7 +195,7 @@ namespace Souls
         /// <summary>
         /// MessageCenter 事件反注册
         /// </summary>
-        private void UnRegister()
+        protected virtual  void UnRegister()
         {
             MessageCenter.Instance.RemoveListener("OnAttackExit", OnAttackExit);
             MessageCenter.Instance.RemoveListener("OnCounterBackExit", OnCounterBackExit);

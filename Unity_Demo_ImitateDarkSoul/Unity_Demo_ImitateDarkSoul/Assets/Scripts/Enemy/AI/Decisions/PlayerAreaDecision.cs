@@ -3,7 +3,7 @@ using LS.Test.AI;
 using LS.Test.AI.Decisions;
 using UnityEngine;
 
-namespace Souls
+namespace Souls.AI
 {
 
     [CreateAssetMenu(menuName = "Souls/EnemyAI/Decision/PlayerInArea")]

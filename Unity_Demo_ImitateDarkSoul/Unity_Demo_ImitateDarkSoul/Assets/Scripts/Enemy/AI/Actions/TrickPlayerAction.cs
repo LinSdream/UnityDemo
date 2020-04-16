@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Souls
+namespace Souls.AI
 {
 
     [CreateAssetMenu(menuName = "Souls/EnemyAI/Actions/Trick")]

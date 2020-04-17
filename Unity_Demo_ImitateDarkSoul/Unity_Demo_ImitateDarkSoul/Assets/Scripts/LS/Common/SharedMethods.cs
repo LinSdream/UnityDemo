@@ -8,10 +8,10 @@ namespace LS.Common
     public static class SharedMethods
     {
         /// <summary> 权重 </summary>
-        public class WeightRandom
+        public interface IWeightedPair
         {
-            public string WeightedName { set; get; }
-            public int Weighted { set; get; }
+            string WeightedName {  get; }
+            int WeightedValue {  get; }
         }
 
         #region BeizerCurve Methods 2阶
@@ -142,20 +142,20 @@ namespace LS.Common
 
         /// <summary>根据权重获得随机数</summary>
         /// <param name="list">随机数组</param>
-        public static WeightRandom GetWeightedRandomRes(WeightRandom[] list)
+        public static T GetWeightedRandomRes<T>(T[] list) where T:IWeightedPair
         {
             //将所有的权重累加
             int sum = 0;
             for(int i=0;i<list.Length;i++)
             {
-                sum += list[i].Weighted;
+                sum += list[i].WeightedValue;
             }
             //从1到权重随机取值
             int random = UnityEngine.Random.Range(1, sum+1);//取闭区间
             sum = 0;
             for(int i=0;i<list.Length;i++)//遍历所有的权重
             {
-                sum += list[i].Weighted;
+                sum += list[i].WeightedValue;
                 if (sum >= random)//如果权重和大于等于随机数，则该值为索要选取的随机数
                     return list[i];
             }

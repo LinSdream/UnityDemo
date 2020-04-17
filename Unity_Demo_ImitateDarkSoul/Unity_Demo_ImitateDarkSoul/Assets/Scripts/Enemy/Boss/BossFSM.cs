@@ -31,10 +31,11 @@ namespace Souls.AI
         /// <summary> Boss的行动频率</summary>
         [Tooltip("行动频率，[min,max]")]public Vector2 BehaviourFrequency = new Vector2(5f, 10f);
         [HideInInspector] public BossController Controller;
-        /// <summary>招式权重 </summary>
-        [HideInInspector] public List<SharedMethods.WeightRandom> Weighted = new List<SharedMethods.WeightRandom>();
+
+        //计时器
         /// <summary> 行动计时器</summary>
         public float BehaviourTimer = 0f;
+        /// <summary>当前频率 </summary>
         public float CurrentBehaviourFrequency;
         #endregion
 
@@ -44,11 +45,6 @@ namespace Souls.AI
         {
             base.Awake();
             Controller = GetComponent<BossController>();
-
-            //之后作为ScriptableObject或者Json，这里先用来测试
-            Weighted.Add(new SharedMethods.WeightRandom() { WeightedName = "Attack1", Weighted = 5 });
-            Weighted.Add(new SharedMethods.WeightRandom() { WeightedName = "Attack2", Weighted = 3 });
-            Weighted.Add(new SharedMethods.WeightRandom() { WeightedName = "Attack3", Weighted = 3 });
          
         }
 
@@ -83,6 +79,8 @@ namespace Souls.AI
         /// <summary> 通过消息来进入boss战状态 </summary>
         private void BeginBossBattle(GameObject render, EventArgs e)
         {
+            if (BossBattle == null)
+                Debug.Log("!");
             TransitionToState(BossBattle);
         }
 

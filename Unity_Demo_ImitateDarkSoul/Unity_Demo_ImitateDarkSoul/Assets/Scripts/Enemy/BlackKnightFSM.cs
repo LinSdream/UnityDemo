@@ -8,6 +8,16 @@ using UnityEngine.AI;
 
 namespace Souls.AI
 {
+    [System.Serializable]
+    public struct WeightedRandomValue : SharedMethods.IWeightedPair
+    {
+        public string Name;
+        public int Value;
+
+        public string WeightedName => Name;
+        public int WeightedValue => Value;
+    }
+
     public class BlackKnightFSM : EnemyBaseFSM
     {
         public enum Stauts
@@ -17,17 +27,16 @@ namespace Souls.AI
             Defence
         }
 
-
-        [HideInInspector] public AIController Controller;
-        public Stauts FsmStatus = Stauts.None;
+          [HideInInspector] public AIController Controller;
+        [HideInInspector] public Stauts FsmStatus = Stauts.None;
         //权重状态
-        public SharedMethods.WeightRandom[] WeightedStatus;
+        [HideInInspector] public WeightedRandomValue[] WeightedStatus;
         /// <summary> 当前攻击敌人中，在GameManager中的Enemies的Index </summary>
-        public bool IsReady;
-        public bool CanAttack;
-        public int CurrentEnemiesIndex = -1;
+        [HideInInspector] public bool IsReady;
+        [HideInInspector] public bool CanAttack;
+        [HideInInspector] public int CurrentEnemiesIndex = -1;
         //计时器给DefenceState状态使用
-        public float TimerForDefence = 0;
+        [HideInInspector] public float TimerForDefence = 0;
 
         int _timer;//计时
         int _frame;//延迟帧数
@@ -49,10 +58,10 @@ namespace Souls.AI
             CurrentEnemiesIndex = EnemyManager.Instance.AddEnemies(this);
             IsReady = false;
 
-            WeightedStatus = new SharedMethods.WeightRandom[3];
-            WeightedStatus[0]=new SharedMethods.WeightRandom() { WeightedName = "Attack", Weighted = 10 };//攻击
-            WeightedStatus[1]=new SharedMethods.WeightRandom() { WeightedName = "Defence", Weighted = 1 };//防御
-            WeightedStatus[2]=new SharedMethods.WeightRandom() { WeightedName = "Stab", Weighted = 0 };//弹反
+            WeightedStatus = new WeightedRandomValue[3];
+            WeightedStatus[0]=new WeightedRandomValue() { Name = "Attack", Value = 10 };//攻击
+            WeightedStatus[1]=new WeightedRandomValue() { Name = "Defence", Value = 1 };//防御
+            WeightedStatus[2]=new WeightedRandomValue() { Name = "Stab", Value = 0 };//弹反
         }
 
         protected override void OnUpdate()

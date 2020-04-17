@@ -54,6 +54,11 @@ namespace Souls
         {
             AudioManager.Instance.PlaySFX(audioName);
         }
+
+        public void BossSpecialAttack()
+        {
+
+        }
         #endregion
     }
 

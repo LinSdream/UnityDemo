@@ -29,6 +29,7 @@ namespace Souls
             _factory = new WeaponFactory((Resources.Load("WeaponData") as TextAsset).text);
             //_factory.Log();
             _player = GameObject.Find("Player");
+
         }
 
         private void OnEnable()
@@ -55,10 +56,8 @@ namespace Souls
             AudioManager.Instance.SetSFXVolume(1f);
             AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
 
-
             //test
-
-            BossMessageCenter.Instance.SendMessage("BeginBossBattle");
+            StartCoroutine(WaitForBossBattle());
         }
 
         #endregion
@@ -82,7 +81,7 @@ namespace Souls
             int index = wm.GetWeaponIndex(args.SwitchName);
             Debug.Log("GameManger" + index);
             wm.RightWC.WeaponEnable(index, true);
-            if(index==-1)
+            if (index == -1)
             {
                 Debug.LogError("GameManger/ChangeWeapon Error : can't get the weapon data");
                 return;
@@ -100,6 +99,14 @@ namespace Souls
         }
 
         #endregion
+
+        //test
+        IEnumerator WaitForBossBattle()
+        {
+            yield return new WaitForSeconds(1);
+            BossMessageCenter.Instance.SendMessage("BeginBossBattle");
+
+        }
     }
 
 }

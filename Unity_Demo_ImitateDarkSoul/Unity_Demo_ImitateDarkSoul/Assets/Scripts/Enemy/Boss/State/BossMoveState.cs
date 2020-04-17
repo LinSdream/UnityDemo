@@ -20,10 +20,6 @@ namespace Souls.AI
             fsm.AI.isStopped = false;
         }
 
-        public override void OnUpdate(FSMBase controller)
-        {
-            base.OnUpdate(controller);
-        }
 
 
         public override void OnExit(FSMBase controller)

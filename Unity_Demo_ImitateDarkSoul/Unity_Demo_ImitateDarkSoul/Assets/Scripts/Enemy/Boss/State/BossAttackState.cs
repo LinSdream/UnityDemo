@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Souls.AI
 {
     [CreateAssetMenu(menuName = "Souls/EnemyAI/State/Boss/Attack")]
-    public class BossAttack : State
+    public class BossAttackState : State
     {
 
         public override void OnEnter(FSMBase controller)
@@ -16,6 +16,23 @@ namespace Souls.AI
 
             //这里就先用Attack1
             fsm.BossCombo = 1;
+        }
+
+        public override void OnUpdate(FSMBase controller)
+        {
+            base.OnUpdate(controller);
+            var fsm = controller as BossFSM;
+
+            if (fsm.BehaviourTimer >= fsm.CurrentBehaviourFrequency)
+            {
+                fsm.BehaviourTimer = 0;
+                fsm.CurrentBehaviourFrequency = Random.Range(fsm.BehaviourFrequency.x, fsm.BehaviourFrequency.y + 0.01f);//做闭区间
+            }
+            else
+            {
+                fsm.BehaviourTimer += Time.deltaTime;
+            }
+
         }
 
         public override void OnExit(FSMBase controller)

@@ -8,6 +8,7 @@ namespace Souls
     {
         public GameObject GroundExplosion;
         public float Force = 30f;
+        public float DamageValue = 100f;
 
         Collider _checkCollider;
         ActorManager _playerAM;
@@ -60,7 +61,8 @@ namespace Souls
         void SpecialAttack()
         {
             (_playerAM.Controller as PlayerController).ResetMoveDirZero();
-            _playerAM.Controller.Rig.AddForce((transform.forward + Vector3.up)*Force);
+            _playerAM.Controller.Rig.AddForce((transform.forward + Vector3.up) * Force);
+            _playerAM.SetAnimAfterDoDamg(_playerAM.SM.AddHP(-DamageValue));
             StartCoroutine(WaitForAttackEnd(_playerAM.Controller as PlayerController));
         }
 

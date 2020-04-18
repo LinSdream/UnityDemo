@@ -8,10 +8,10 @@ namespace Souls
     public enum WeaponType
     {
         None,
-        Special,
         Shield,
         Sword,
         WoodenClub,
+        Special,
     }
 
     public class WeaponData : MonoBehaviour

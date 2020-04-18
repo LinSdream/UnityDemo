@@ -20482,10 +20482,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1307798897}
     m_Modifications:
+    - target: {fileID: 1246789442090383207, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: WType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1699629744646368092, guid: ae06bb7d155c3524aad13f78aa150b23,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3682618182316428880, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: WType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6157754272110773194, guid: ae06bb7d155c3524aad13f78aa150b23,
         type: 3}

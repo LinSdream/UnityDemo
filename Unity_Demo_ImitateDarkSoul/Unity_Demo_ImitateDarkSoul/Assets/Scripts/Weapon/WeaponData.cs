@@ -8,6 +8,7 @@ namespace Souls
     public enum WeaponType
     {
         None,
+        Special,
         Shield,
         Sword,
         WoodenClub,

@@ -25,6 +25,7 @@ namespace Souls
         [Tooltip("角色的基本信息")] public CharacterInfo Info;
         public event InterationHandle InterationEvent;
         public Animator Anim => _anim;
+        public Rigidbody Rig => _rigidbody;
 
         ///<summary> 是否在地面 </summary>
         [HideInInspector] public bool IsGrounded = true;

@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ec002a4473721947a129a07a9539dc9, type: 3}
-  m_Name: CalculatePlayerDistance
+  m_Name: BossCalculatePlayerDistance
   m_EditorClassIdentifier: 
   Distance: {x: 4, y: 25, z: 100}

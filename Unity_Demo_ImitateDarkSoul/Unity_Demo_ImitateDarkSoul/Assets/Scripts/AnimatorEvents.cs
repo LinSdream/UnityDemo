@@ -47,6 +47,11 @@ namespace Souls
             }
         }
 
+        public void EndAttack()
+        {
+            BossMessageCenter.Instance.SendMessage("ResetCombo");
+        }
+
         /// <summary>
         /// 播放音效
         /// </summary>
@@ -56,6 +61,11 @@ namespace Souls
         }
 
         public void BossSpecialAttack()
+        {
+            BossMessageCenter.Instance.SendMessage("BossSpeicialAttack");
+        }
+
+        public void HideParticle()
         {
 
         }

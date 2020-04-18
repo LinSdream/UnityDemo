@@ -127,7 +127,7 @@ namespace Souls
             }
         }
 
-        public virtual void CalculateWeaponData(WeaponType type, float atk)
+        public virtual void CalculateWeaponData(WeaponType type, float atk, Action specialAttack = null)
         {
             switch (type)
             {
@@ -138,6 +138,9 @@ namespace Souls
                 case WeaponType.Sword:
                 case WeaponType.WoodenClub: //如果是是伤害性，则进行伤害判定
                     SetAnimAfterDoDamg(SM.AddHP(-atk));
+                    break;
+                case WeaponType.Special:
+                    specialAttack?.Invoke();
                     break;
             }
         }

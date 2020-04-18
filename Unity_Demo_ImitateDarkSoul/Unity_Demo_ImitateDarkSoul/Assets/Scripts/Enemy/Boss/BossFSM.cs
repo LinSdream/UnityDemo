@@ -51,6 +51,7 @@ namespace Souls.AI
         private void OnEnable()
         {
             BossMessageCenter.Instance.AddListener("BeginBossBattle", BeginBossBattle);
+            BossMessageCenter.Instance.AddListener("BossSpeicialAttack", BossSpeicialAttack);
             BossMessageCenter.Instance.AddListener("ResetCombo", ResetCombo);
         }
 
@@ -66,6 +67,7 @@ namespace Souls.AI
         private void OnDisable()
         {
             BossMessageCenter.Instance.RemoveListener("BeginBossBattle", BeginBossBattle);
+            BossMessageCenter.Instance.RemoveListener("BossSpeicialAttack", BossSpeicialAttack);
             BossMessageCenter.Instance.RemoveListener("ResetCombo", ResetCombo);
         }
 
@@ -88,6 +90,15 @@ namespace Souls.AI
         private void ResetCombo(GameObject render, EventArgs e)
         {
             Controller.Attack(0);
+        }
+
+        private void BossSpeicialAttack(GameObject render, EventArgs e)
+        {
+            if (Controller.CheckAnimatorState("Boss_SpecialAttack01"))
+            {
+                Controller.SpecialOne.enabled = true;
+            }
+
         }
 
     }

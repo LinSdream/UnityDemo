@@ -8,6 +8,8 @@ namespace Souls
     public class BossController : BaseController
     {
 
+        public BossSpecialAttakOne SpecialOne;
+
         public void Attack(int value)
         {
             _anim.SetInteger("Attack", value);
@@ -33,6 +35,12 @@ namespace Souls
         {
 
         }
+
+        public void SpecialAttack()
+        {
+
+        }
+
     }
 
 }

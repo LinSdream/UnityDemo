@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558b1edad31f17945aded4dc6f004b1e, type: 3}
   m_Name: BossRandomComboNum
   m_EditorClassIdentifier: 
-  Weighted: {fileID: 0}
+  Weighted: {fileID: 11400000, guid: 0c95f05254cdee74baa901edb410a606, type: 2}

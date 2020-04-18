@@ -23,7 +23,5 @@ MonoBehaviour:
     Value: 3
   - Name: Attack5
     Value: 1
-  - Name: Attack6
-    Value: 2
-  - Name: Attack7
-    Value: 4
+  - Name: Speical1
+    Value: 1000

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BossAttack
   m_EditorClassIdentifier: 
   Actions:
-  - {fileID: 11400000, guid: 18e0c084fc9e18c43acfa54df3d59ae5, type: 2}
+  - {fileID: 11400000, guid: e89aecb38c28e244989043ef51f225d5, type: 2}
   - {fileID: 11400000, guid: 388b7aa8ef64e4041b52e2af22209acf, type: 2}
+  - {fileID: 11400000, guid: 18e0c084fc9e18c43acfa54df3d59ae5, type: 2}
   - {fileID: 11400000, guid: 836435dfb3b462746a9c891135ba50a7, type: 2}
   Transitions:
   - Condition: {fileID: 11400000, guid: 348a5d83a750b1f4f892c3a8ced49f86, type: 2}

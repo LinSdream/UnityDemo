@@ -56,9 +56,6 @@ namespace Souls
             AudioManager.Instance.SetSFXVolume(.8f);
             AudioManager.Instance.SetMusicVolume(.8f);
             AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
-
-            //test
-            StartCoroutine(WaitForBossBattle());
         }
 
         #endregion
@@ -99,14 +96,6 @@ namespace Souls
         }
 
         #endregion
-
-        //test
-        IEnumerator WaitForBossBattle()
-        {
-            yield return new WaitForSeconds(1);
-            BossMessageCenter.Instance.SendMessage("BeginBossBattle");
-
-        }
     }
 
 }

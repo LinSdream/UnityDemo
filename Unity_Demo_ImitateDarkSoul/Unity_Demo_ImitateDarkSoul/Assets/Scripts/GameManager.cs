@@ -80,7 +80,6 @@ namespace Souls
             WeaponManager wm = _player.GetComponent<ActorManager>().WM;
             //显示
             int index = wm.GetWeaponIndex(args.SwitchName);
-            Debug.Log("GameManger" + index);
             wm.RightWC.WeaponEnable(index, true);
             if (index == -1)
             {

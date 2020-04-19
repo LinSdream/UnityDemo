@@ -420,8 +420,9 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Show: {fileID: 0}
   Controller: {fileID: 0}
+  Show: {fileID: 0}
+  AICol: {fileID: 0}
   FsmStatus: 0
   WeightedStatus: []
   IsReady: 0
@@ -3876,8 +3877,9 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Show: {fileID: 0}
   Controller: {fileID: 0}
+  Show: {fileID: 0}
+  AICol: {fileID: 0}
   FsmStatus: 0
   WeightedStatus: []
   IsReady: 0
@@ -4590,8 +4592,9 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Show: {fileID: 0}
   Controller: {fileID: 0}
+  Show: {fileID: 0}
+  AICol: {fileID: 0}
   FsmStatus: 0
   WeightedStatus: []
   IsReady: 0
@@ -13080,8 +13083,9 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Show: {fileID: 0}
   Controller: {fileID: 0}
+  Show: {fileID: 0}
+  AICol: {fileID: 0}
   FsmStatus: 0
   WeightedStatus: []
   IsReady: 0
@@ -14185,12 +14189,13 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 33f714090e8297149a34cde8cd130122, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
+  Controller: {fileID: 0}
   Show: {fileID: 0}
   BossBattle: {fileID: 11400000, guid: ee27af30813e8c94fa8f78d0d3665ae3, type: 2}
   DistanceType: 0
   BossCombo: 0
   BehaviourFrequency: {x: 5, y: 10}
-  Controller: {fileID: 0}
+  BossCol: {fileID: 0}
   BehaviourTimer: 0
   CurrentBehaviourFrequency: 0
 --- !u!195 &1307798905
@@ -14925,8 +14930,9 @@ MonoBehaviour:
   EnterState: {fileID: 11400000, guid: 9c7c3823a9477ac4ca3a1c07e26cf138, type: 2}
   TargetGameObject: {fileID: 0}
   AI: {fileID: 0}
-  Show: {fileID: 0}
   Controller: {fileID: 0}
+  Show: {fileID: 0}
+  AICol: {fileID: 0}
   FsmStatus: 0
   WeightedStatus: []
   IsReady: 0

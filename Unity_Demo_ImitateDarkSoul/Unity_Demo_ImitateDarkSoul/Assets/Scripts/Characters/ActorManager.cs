@@ -91,6 +91,7 @@ namespace Souls
         /// </summary>
         public virtual void TryDoDamg(WeaponController wc, bool attackValid, bool counterValid)
         {
+
             //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
                 return;

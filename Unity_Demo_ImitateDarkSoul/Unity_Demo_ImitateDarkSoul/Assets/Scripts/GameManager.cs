@@ -53,7 +53,8 @@ namespace Souls
             {
                 AudioManager.Instance.SetAudioPath(cell, "Audio/Used/" + cell);
             }
-            AudioManager.Instance.SetSFXVolume(1f);
+            AudioManager.Instance.SetSFXVolume(.8f);
+            AudioManager.Instance.SetMusicVolume(.8f);
             AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
 
             //test

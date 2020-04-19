@@ -30,7 +30,7 @@ namespace Souls.AI
         public int BossCombo = 1;
         /// <summary> Boss的行动频率</summary>
         [Tooltip("行动频率，[min,max]")]public Vector2 BehaviourFrequency = new Vector2(5f, 10f);
-        [HideInInspector] public BossController Controller;
+        [HideInInspector] public BossController BossCol;
 
         //计时器
         /// <summary> 行动计时器</summary>
@@ -41,12 +41,6 @@ namespace Souls.AI
 
         #region Mono Callbacks
 
-        protected override void Awake()
-        {
-            base.Awake();
-            Controller = GetComponent<BossController>();
-         
-        }
 
         private void OnEnable()
         {
@@ -58,6 +52,7 @@ namespace Souls.AI
 
         protected override void OnStart()
         {
+            BossCol = Controller as BossController;
             DistanceType = Distance.None;
             TargetGameObject = GameObject.Find("Player");
             CurrentBehaviourFrequency = UnityEngine.Random.Range(BehaviourFrequency.x, BehaviourFrequency.y + 0.01f);//做闭区间
@@ -84,19 +79,21 @@ namespace Souls.AI
             if (BossBattle == null)
                 Debug.Log("!");
             TransitionToState(BossBattle);
+            AudioManager.Instance.PlayMusic("BossBGM");
+            BossCol.BeginBossBattle();
         }
 
         /// <summary> 攻击动画置0 </summary>
         private void ResetCombo(GameObject render, EventArgs e)
         {
-            Controller.Attack(0);
+            BossCol.Attack(0);
         }
 
         private void BossSpeicialAttack(GameObject render, EventArgs e)
         {
-            if (Controller.CheckAnimatorState("Boss_SpecialAttack01"))
+            if (BossCol.CheckAnimatorState("Boss_SpecialAttack01"))
             {
-                Controller.SpecialOne.enabled = true;
+                BossCol.SpecialOne.enabled = true;
             }
 
         }

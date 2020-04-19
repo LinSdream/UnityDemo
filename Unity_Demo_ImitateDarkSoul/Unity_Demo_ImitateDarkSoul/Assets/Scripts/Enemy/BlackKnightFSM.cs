@@ -27,7 +27,7 @@ namespace Souls.AI
             Defence
         }
 
-          [HideInInspector] public AIController Controller;
+          [HideInInspector] public AIController AICol;
         [HideInInspector] public Stauts FsmStatus = Stauts.None;
         //权重状态
         [HideInInspector] public WeightedRandomValue[] WeightedStatus;
@@ -42,16 +42,12 @@ namespace Souls.AI
         int _frame;//延迟帧数
 
         #region Callbacks
-        protected override  void Awake()
-        {
-            base.Awake();
-            Controller = GetComponent<AIController>();
-            AI.speed = Controller.WalkSpeed;
-            AI.angularSpeed = Controller.RotationSpeed;
-        }
-
         protected override void OnStart()
         {
+            AICol = Controller as AIController;
+            AI.speed = AICol.WalkSpeed;
+            AI.angularSpeed = AICol.RotationSpeed;
+
             TargetGameObject = GameObject.Find("Player");
             _frame = Random.Range(0, 2);
 
@@ -99,7 +95,7 @@ namespace Souls.AI
         #endregion
         public void SetForwardAnimator(float value)
         {
-            Controller.Anim.SetFloat("Forward", value);
+            AICol.Anim.SetFloat("Forward", value);
         }
 
     }

@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Souls.AI
 {
-    [CreateAssetMenu(menuName = "Souls/EnemyAI/Decision/IsDie")]
-    public class IsDieDecision : Decision
+    [CreateAssetMenu(menuName = "Souls/EnemyAI/Decision/BossTrickPlayerByDistance")]
+
+    public class EnemyDeath : Decision
     {
         public override bool Decide(FSMBase controller)
         {
-            return (controller as BlackKnightFSM).AICol.CheckAnimatorState("Death");
+            return (controller as EnemyBaseFSM).Controller.CheckAnimatorState("Death");
         }
     }
-
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Souls
 {
@@ -9,6 +10,21 @@ namespace Souls
     {
 
         public BossSpecialAttakOne SpecialOne;
+        public Slider BossHP;
+        BossActorManager _bossAM;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _bossAM = GetComponent<BossActorManager>();
+        }
+
+
+        protected override void Update()
+        {
+            base.Update();
+            AnimatorUpdate();
+        }
 
         public void Attack(int value)
         {
@@ -23,6 +39,7 @@ namespace Souls
         public override void Die()
         {
             _anim.SetTrigger("Die");
+            _bossAM.BM.CloseCollider();
         }
 
         public override void Hit()
@@ -33,12 +50,16 @@ namespace Souls
 
         protected override void AnimatorUpdate()
         {
-
+            if(BossHP.gameObject.activeInHierarchy)
+                BossHP.value = _bossAM.SM.TempInfo.HP / Info.HP;
         }
 
-        public void SpecialAttack()
-        {
+        public void SpecialAttack() { }
 
+        public void BeginBossBattle()
+        {
+            BossHP.gameObject.SetActive(true);
+            BossHP.value = 1;
         }
 
     }

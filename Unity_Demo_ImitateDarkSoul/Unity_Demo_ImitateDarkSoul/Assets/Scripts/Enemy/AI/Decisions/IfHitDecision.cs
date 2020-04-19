@@ -12,7 +12,7 @@ namespace Souls.AI
         public override bool Decide(FSMBase controller)
         {
             var fsm = controller as BlackKnightFSM;
-            return fsm.Controller.CheckAnimatorState("Hit");
+            return fsm.AICol.CheckAnimatorState("Hit");
         }
     }
 

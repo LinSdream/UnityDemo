@@ -14118,6 +14118,7 @@ MonoBehaviour:
   Info: {fileID: 11400000, guid: f9983376fab3c2c40bb4770bda1169f8, type: 2}
   IsGrounded: 1
   SpecialOne: {fileID: 1911930962}
+  BossHP: {fileID: 8431702377153855315}
 --- !u!114 &1307798901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17459,6 +17460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundExplosion: {fileID: 827272875}
   Force: 2500
+  DamageValue: 50
 --- !u!135 &1911930963
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20622,6 +20624,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340935300443706530, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340935300443706530, guid: ae06bb7d155c3524aad13f78aa150b23,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7031828904421540961, guid: ae06bb7d155c3524aad13f78aa150b23,
         type: 3}
       propertyPath: m_Enabled
@@ -20641,3 +20653,15 @@ PrefabInstance:
     - {fileID: 6233138144595023576, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
     - {fileID: 6213239395243412246, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae06bb7d155c3524aad13f78aa150b23, type: 3}
+--- !u!114 &8431702377153855315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6340935300443706530, guid: ae06bb7d155c3524aad13f78aa150b23,
+    type: 3}
+  m_PrefabInstance: {fileID: 8431702377153855312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,7 +12,7 @@ namespace Souls.AI
         public override void Act(FSMBase controller)
         {
             var fsm = controller as BlackKnightFSM;
-            fsm.Controller.Defense(true);
+            fsm.AICol.Defense(true);
         }
     }
 

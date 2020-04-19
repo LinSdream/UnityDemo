@@ -12,11 +12,11 @@ namespace Souls.AI
         public override void OnEnter(FSMBase controller)
         {
             var fsm = controller as BossFSM;
-            fsm.Controller.IssueBool("Walk", true);
+            fsm.BossCol.IssueBool("Walk", true);
             //进入移动状态的时候，停止攻击动画，开启AI寻路
             fsm.BossCombo = 0;
             //攻击动画参数置0
-            fsm.Controller.Attack(0);
+            fsm.BossCol.Attack(0);
             fsm.AI.isStopped = false;
         }
 
@@ -25,7 +25,7 @@ namespace Souls.AI
         public override void OnExit(FSMBase controller)
         {
             var fsm = controller as BossFSM;
-            fsm.Controller.IssueBool("Walk", false);
+            fsm.BossCol.IssueBool("Walk", false);
             fsm.AI.isStopped = true;
         }
     }

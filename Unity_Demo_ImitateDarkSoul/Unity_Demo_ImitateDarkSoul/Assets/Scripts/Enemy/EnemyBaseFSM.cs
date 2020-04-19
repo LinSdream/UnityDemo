@@ -14,11 +14,13 @@ namespace Souls.AI
         [HideInInspector]public NavMeshAgent AI;
 
         protected NavMeshTriangulation _navMeshData;
+        public  BaseController Controller;
 
         public State Show;
 
         protected  virtual  void Awake()
         {
+            Controller = GetComponent<BaseController>();
             AI = GetComponent<NavMeshAgent>();
             _navMeshData = NavMesh.CalculateTriangulation();
         }

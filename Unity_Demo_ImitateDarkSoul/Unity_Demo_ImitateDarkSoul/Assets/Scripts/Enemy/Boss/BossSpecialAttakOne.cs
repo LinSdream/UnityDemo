@@ -13,8 +13,6 @@ namespace Souls
         Collider _checkCollider;
         ActorManager _playerAM;
 
-        
-
         private void Awake()
         {
             _checkCollider = GetComponent<Collider>();
@@ -45,7 +43,7 @@ namespace Souls
             }
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerStay(Collider other) 
         {
             if (other.CompareTag("Player"))
             {

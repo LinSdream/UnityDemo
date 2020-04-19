@@ -17,7 +17,7 @@ namespace Souls.AI
                 switch (fsm.FsmStatus)//根据状态进行处理，当然确保唯一性，这里只处理攻击
                 {
                     case BlackKnightFSM.Stauts.Attack:
-                        fsm.Controller.Attack();
+                        fsm.AICol.Attack();
                         break;
 
                     case BlackKnightFSM.Stauts.None:

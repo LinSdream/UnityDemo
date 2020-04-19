@@ -34,7 +34,7 @@ namespace Souls.AI
                 else//否则更改为走路
                 {
                     fsm.AI.isStopped = false;
-                    fsm.AI.speed = fsm.Controller.WalkSpeed;
+                    fsm.AI.speed = fsm.AICol.WalkSpeed;
                     fsm.AI.SetDestination(fsm.TargetGameObject.transform.position);
                     fsm.SetForwardAnimator(1);
                 }
@@ -42,7 +42,7 @@ namespace Souls.AI
             else if (distance > Offset.x && distance <= Offset.y)//如果在10-50，则跑步追上Player
             {
                 fsm.AI.isStopped = false;
-                fsm.AI.speed = fsm.Controller.WalkSpeed * fsm.Controller.RunMultiplier;
+                fsm.AI.speed = fsm.AICol.WalkSpeed * fsm.AICol.RunMultiplier;
                 fsm.AI.SetDestination(fsm.TargetGameObject.transform.position);
                 fsm.SetForwardAnimator(2);
             }

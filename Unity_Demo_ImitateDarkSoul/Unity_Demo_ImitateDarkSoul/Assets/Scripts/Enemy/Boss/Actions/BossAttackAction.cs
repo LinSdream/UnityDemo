@@ -14,7 +14,7 @@ namespace Souls.AI
             var fsm = controller as BossFSM;
             if (fsm.BehaviourTimer >= fsm.CurrentBehaviourFrequency)//计时器累加由AttackState来计算，这里就不用计算了
             {
-                fsm.Controller.Attack(fsm.BossCombo);
+                fsm.BossCol.Attack(fsm.BossCombo);
             }
 
         }

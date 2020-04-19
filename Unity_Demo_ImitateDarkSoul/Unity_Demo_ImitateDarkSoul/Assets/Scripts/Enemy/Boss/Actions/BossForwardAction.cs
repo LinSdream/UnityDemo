@@ -16,13 +16,13 @@ namespace Souls.AI
         public override void Act(FSMBase controller)
         {
             var fsm = controller as BossFSM;
-            if(fsm.Controller.CheckAnimatorState("Boss_Idle")||fsm.Controller.CheckAnimatorState("Boss_Walk"))
+            if(fsm.BossCol.CheckAnimatorState("Boss_Idle")||fsm.BossCol.CheckAnimatorState("Boss_Walk"))
             {
                 //转向，面对玩家
-                Vector3 lookPos = fsm.TargetGameObject.transform.position - fsm.Controller.transform.position;
+                Vector3 lookPos = fsm.TargetGameObject.transform.position - fsm.BossCol.transform.position;
                 lookPos.y = 0;
                 Quaternion rotation = Quaternion.LookRotation(lookPos);
-                fsm.Controller.transform.rotation = Quaternion.Slerp(fsm.Controller.transform.rotation, rotation, Time.deltaTime * RotationMultiplier);
+                fsm.BossCol.transform.rotation = Quaternion.Slerp(fsm.BossCol.transform.rotation, rotation, Time.deltaTime * RotationMultiplier);
             }
         }
 

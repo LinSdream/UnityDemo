@@ -78,6 +78,11 @@ namespace Souls
             float angle = Vector3.Angle(target.transform.forward, dir);
             return angle < targetAngleLimit;
         }
+
+        public void CloseCollider()
+        {
+            _defCol.enabled = false;
+        }
     }
 
 }

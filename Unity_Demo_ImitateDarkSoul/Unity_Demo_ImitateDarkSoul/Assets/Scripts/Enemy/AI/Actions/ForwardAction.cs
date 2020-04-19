@@ -14,7 +14,7 @@ namespace Souls.AI
             var fsm = (controller as BlackKnightFSM);
             if(fsm.AI.isStopped)
             {
-                fsm.Controller.Rotation(fsm.TargetGameObject.transform);
+                fsm.AICol.Rotation(fsm.TargetGameObject.transform);
             }
         }
     }

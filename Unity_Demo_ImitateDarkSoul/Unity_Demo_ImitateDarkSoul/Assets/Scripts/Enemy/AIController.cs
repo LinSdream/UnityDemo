@@ -76,6 +76,9 @@ namespace Souls
                 }
                 cell.enabled = false;
             }
+
+            GetComponent<ActorManager>().BM.CloseCollider();
+
             //动画
             _anim.SetTrigger("Die");
 

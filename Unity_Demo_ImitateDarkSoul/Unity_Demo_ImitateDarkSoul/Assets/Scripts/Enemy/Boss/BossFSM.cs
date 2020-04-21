@@ -15,9 +15,10 @@ namespace Souls.AI
         public enum Distance
         {
             None,
+            Short,
             Mid,
             Long,
-            Short
+            VLong,
         }
 
         #region Fields

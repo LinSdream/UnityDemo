@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558b1edad31f17945aded4dc6f004b1e, type: 3}
   m_Name: BossRandomComboNum
   m_EditorClassIdentifier: 
-  Weighted: {fileID: 11400000, guid: 0c95f05254cdee74baa901edb410a606, type: 2}
+  ShortWeighted: {fileID: 11400000, guid: 0c95f05254cdee74baa901edb410a606, type: 2}
+  MidWeighted: {fileID: 11400000, guid: 2ec7147b13eead24ea5f2be67f8d1454, type: 2}
+  LongWeighted: {fileID: 11400000, guid: e3687692ac7bc5f439135296698fbc70, type: 2}

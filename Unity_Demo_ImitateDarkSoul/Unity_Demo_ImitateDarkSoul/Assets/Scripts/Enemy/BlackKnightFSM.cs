@@ -13,6 +13,7 @@ namespace Souls.AI
     {
         public string Name;
         public int Value;
+        public int ComboNumber;
 
         public string WeightedName => Name;
         public int WeightedValue => Value;

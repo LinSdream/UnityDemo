@@ -27,10 +27,17 @@ namespace Souls.AI
             //设置玩家与Boss的距离
             if (distance <= Distance.x)
                 fsm.DistanceType = BossFSM.Distance.Short;
-            else if (distance > Distance.y && distance <= Distance.z)
+            else if (distance > Distance.x && distance <= Distance.y)
                 fsm.DistanceType = BossFSM.Distance.Mid;
-            else if (distance > Distance.z)
+            else if (distance > Distance.y && distance <= Distance.z)
                 fsm.DistanceType = BossFSM.Distance.Long;
+            else if (distance > Distance.z)
+                fsm.DistanceType = BossFSM.Distance.VLong;
+            else
+            {
+                fsm.DistanceType = BossFSM.Distance.None;
+                Debug.LogWarning("CalcuatePlayerDistanceAction/Act Warning : the distance is an invalid value");
+            }
         }
 
     }

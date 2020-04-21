@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 548dbad8ffa9aea44ba0199f6d76b599, type: 3}
-  m_Name: BossAttackWeightInfoList
+  m_Name: BossAttackWeightInfoListMid
   m_EditorClassIdentifier: 
   Weighted:
   - Name: Attack1
-    Value: 5
-  - Name: Attack2
-    Value: 2
-  - Name: Attack3
     Value: 4
-  - Name: Attack4
-    Value: 3
-  - Name: Attack5
-    Value: 1
-  - Name: Speical1
+    ComboNumber: 1
+  - Name: Attack3
     Value: 2
+    ComboNumber: 7
+  - Name: Attack2
+    Value: 1
+    ComboNumber: 2
+  - Name: Attack5
+    Value: 3
+    ComboNumber: 6
+  - Name: Special1
+    Value: 1
+    ComboNumber: 6

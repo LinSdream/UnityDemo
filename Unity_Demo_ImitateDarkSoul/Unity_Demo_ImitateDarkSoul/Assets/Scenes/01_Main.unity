@@ -18593,7 +18593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 4ecf0e46de542984f85a088bf72c51aa, type: 3}
       propertyPath: m_Name
-      value: chara180530_2_normalEdited
+      value: Model
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 4ecf0e46de542984f85a088bf72c51aa, type: 3}
       propertyPath: m_IsActive

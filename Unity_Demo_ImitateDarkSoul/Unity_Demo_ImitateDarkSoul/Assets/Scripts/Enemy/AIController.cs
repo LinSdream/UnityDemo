@@ -80,6 +80,7 @@ namespace Souls
             GetComponent<ActorManager>().BM.CloseCollider();
 
             //动画
+            SetLayerWeight("Defanse Layer", 0);
             _anim.SetTrigger("Die");
 
             AudioManager.Instance.PlaySFX("EnemyDie");

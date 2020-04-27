@@ -51,6 +51,7 @@ namespace Souls
             var data = go.AddComponent<WeaponData>();
             data.ATK = _dir[name].ATK;
             data.WType = _dir[name].Type;
+            data.DEF = _dir[name].DEF;
             data.WeaponName = name;
             wc.AddWeaponData(data);
             wc.WM.AddWeaponCollider(data.GetComponent<Collider>(), isRight);

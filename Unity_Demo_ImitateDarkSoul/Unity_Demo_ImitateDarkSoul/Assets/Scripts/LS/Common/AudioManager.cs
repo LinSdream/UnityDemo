@@ -99,11 +99,14 @@ namespace LS.Common
         /// <param name="audioSource">已使用的音源</param>
         private void UsedToUnused(AudioSource audioSource)
         {
-            if (_usedSoundAudioSourceList.Contains(audioSource))//判断是否在已使用列表中存在该音频，如果有则移除
+            //判断是否在已使用列表中存在该音频，如果有则移除
+            if (_usedSoundAudioSourceList.Contains(audioSource))
                 _usedSoundAudioSourceList.Remove(audioSource);
-            if (_unusedSoundAudioSourceList.Count >= _poolCount)//如果未使用列表中总数小于等于物件池，则移除当前音频
+            //如果未使用列表中总数小于等于物件池，则移除当前音频
+            if (_unusedSoundAudioSourceList.Count >= _poolCount)
                 Destroy(audioSource);
-            else if (audioSource != null && !_unusedSoundAudioSourceList.Contains(audioSource))//如果该音频存在且不在未使用音频中，则添加到未使用音频列表中
+            //如果该音频存在且不在未使用音频中，则添加到未使用音频列表中
+            else if (audioSource != null && !_unusedSoundAudioSourceList.Contains(audioSource))
                 _unusedSoundAudioSourceList.Add(audioSource);
         }
 
@@ -227,7 +230,7 @@ namespace LS.Common
         /// <summary>
         /// 背景音协程
         /// </summary>
-        public IEnumerator WaitForMusicPlayEnd(Action callback=null)
+        public IEnumerator WaitForMusicPlayEnd(Action callback = null)
         {
             yield return new WaitForSeconds(_musicAudioSource.clip.length);
             callback?.Invoke();
@@ -236,16 +239,16 @@ namespace LS.Common
         /// <summary> 播放音效 </summary>
         public void PlaySFX(string name, Action callback = null)
         {
+            AudioSource audioSource;
             if (_unusedSoundAudioSourceList.Count == 0)
             {
-                if(_usedSoundAudioSourceList.Count>=PoolCount)//如果已使用的数量超出物件池数
+                if (_usedSoundAudioSourceList.Count >= PoolCount)//如果已使用的数量超出物件池数
                     if (PoolLock)//并且还被加锁情况下
                         return;//直接返回，不在新增AudioSource,同时该音频不在播放
-                AddAudioSource();
-            }   
-
-
-            AudioSource audioSource = UnusedToUsed();
+                audioSource = AddAudioSource();
+            }
+            else
+                audioSource = UnusedToUsed();
             audioSource.clip = GetAudioClip(name);
             audioSource.volume = _soundVolume;
             _playingSounds.Add(audioSource);
@@ -394,7 +397,7 @@ namespace LS.Common
             StopMusic();
         }
 
-        
+
         //public void Clear()
         //{
         //    StopAudio();

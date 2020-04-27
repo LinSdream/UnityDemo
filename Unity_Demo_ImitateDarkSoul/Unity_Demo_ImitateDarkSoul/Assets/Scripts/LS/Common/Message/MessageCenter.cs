@@ -6,7 +6,7 @@ using System;
 namespace LS.Common.Message
 {
 
-    public delegate void CustomMessageHandle(GameObject render, EventArgs e);
+    public delegate void CustomMessageHandle(GameObject sender, EventArgs e);
 
     public class MessageCenter : SingletonBasisNoMono<MessageCenter>
     {
@@ -117,7 +117,7 @@ namespace LS.Common.Message
 
     #region 泛型事件？？？？？减少装拆箱的操作？？？感觉没啥意义
     //泛型事件
-    public delegate void CustomMessageHandle<T, K>(T render, K e) where K : EventArgs;
+    public delegate void CustomMessageHandle<T, K>(T sender, K e) where K : EventArgs;
 
     public class MessageCenter<T,K> : SingletonBasisNoMono<MessageCenter<T, K>> where K:EventArgs
     {

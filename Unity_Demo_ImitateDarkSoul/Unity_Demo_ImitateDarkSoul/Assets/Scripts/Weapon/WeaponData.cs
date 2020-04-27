@@ -19,6 +19,7 @@ namespace Souls
         public string WeaponName;
         public WeaponType WType = WeaponType.None;
         public float ATK = 5f;
+        public float DEF = 0f;
     }
 
 }

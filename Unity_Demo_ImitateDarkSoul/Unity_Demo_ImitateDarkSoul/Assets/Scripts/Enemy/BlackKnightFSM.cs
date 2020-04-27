@@ -69,7 +69,7 @@ namespace Souls.AI
             {
                 if(_timer>=_frame)//延迟n帧后开始攻击
                 {
-                    switch(SharedMethods.GetWeightedRandomRes(WeightedStatus).WeightedName)//根据权重结果分配具体行为
+                    switch(WeightedStatus.GetWeightedRandomRes().WeightedName)//根据权重结果分配具体行为
                     {
                         case "Attack":
                             FsmStatus = Stauts.Attack;

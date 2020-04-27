@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Souls
 {
 
-    public class EnemyManager:MonoSingletionBasis<EnemyManager>
+    public class EnemyManager:MonoSingletonBasis<EnemyManager>
     {
 
         struct EnemyStatus

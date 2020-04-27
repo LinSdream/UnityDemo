@@ -142,7 +142,7 @@ namespace LS.Common
 
         /// <summary>根据权重获得随机数</summary>
         /// <param name="list">随机数组</param>
-        public static T GetWeightedRandomRes<T>(T[] list) where T:IWeightedPair
+        public static T GetWeightedRandomRes<T>(this T[] list) where T:IWeightedPair
         {
             //将所有的权重累加
             int sum = 0;

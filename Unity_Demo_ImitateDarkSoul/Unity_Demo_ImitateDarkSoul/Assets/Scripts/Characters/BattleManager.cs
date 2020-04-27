@@ -73,11 +73,11 @@ namespace Souls
         }
 
         public static bool CheckAngleTarget(GameObject origin,GameObject target,float targetAngleLimit)
-        {
+        {    
             Vector3 dir = origin.transform.position - target.transform.position;
             float angle = Vector3.Angle(target.transform.forward, dir);
             return angle < targetAngleLimit;
-        }
+        }                  
 
         public void CloseCollider()
         {

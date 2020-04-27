@@ -32,7 +32,7 @@ namespace LS.Dialog
     }
 
     /// <summary> 简单的对话框系统 </summary>
-    public class DialogSystem : MonoSingletionBasis<DialogSystem>
+    public class DialogSystem : MonoSingletonBasis<DialogSystem>
     {
         public enum TextShowType
         {

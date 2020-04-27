@@ -9,7 +9,7 @@ using System;
 namespace Souls
 {
 
-    public class GameManager : MonoSingletionBasis<GameManager>
+    public class GameManager : MonoSingletonBasis<GameManager>
     {
         #region Fields
         WeaponFactory _factory;

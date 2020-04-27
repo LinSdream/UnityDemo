@@ -111,6 +111,27 @@ namespace Souls
                 _leftColliders.Add(collider);
         }
 
+        /// <summary>
+        /// 获取盾牌的数据，如果存在的话
+        /// </summary>
+        public WeaponData GetShieldDataIfHas()
+        {
+            //先从左手找起
+            foreach (var cell in _leftColliders)
+            {
+                var data = cell.GetComponent<WeaponData>();
+                if (data.WType == WeaponType.Shield)
+                    return data;
+            }
+            foreach (var cell in _rightColliders)
+            {
+                var data = cell.GetComponent<WeaponData>();
+                if (data.WType == WeaponType.Shield)
+                    return data;
+            }
+            return null;
+        }
+
         #endregion
 
         #region Animation Events

@@ -53,7 +53,7 @@ namespace Souls
         public bool IsCounterBack;// related to state
         public bool IsCounterBackEnable; // related to animation events
         public bool IsCounterBackSuccess;
-        public bool isCounterBackFailure;
+        public bool IsCounterBackFailure;
     }
 
     #endregion
@@ -122,7 +122,7 @@ namespace Souls
 
             CharacterState.IsCounterBack = AM.Controller.CheckAnimatorState("CounterBack");
             CharacterState.IsCounterBackSuccess = CharacterState.IsCounterBackEnable;
-            CharacterState.isCounterBackFailure = CharacterState.IsCounterBack && !CharacterState.IsCounterBackEnable;
+            CharacterState.IsCounterBackFailure = CharacterState.IsCounterBack && !CharacterState.IsCounterBackEnable;
 
         }
 

@@ -61,7 +61,8 @@ namespace LS.Cameras
             _transformTargetRot = Quaternion.Euler(0f, _lookAngle, 0f);
 
             if (VerticalAutoReturn)
-                _limitAngle = InputModel.CameraVertical > 0 ? Mathf.Lerp(0, LimitAngle.x, InputModel.CameraVertical) : Mathf.Lerp(0, LimitAngle.y, -InputModel.CameraVertical);
+                _limitAngle = InputModel.CameraVertical > 0 ? Mathf.Lerp(0, LimitAngle.x, InputModel.CameraVertical) 
+                    : Mathf.Lerp(0, LimitAngle.y, -InputModel.CameraVertical);
             else
             {
                 _limitAngle -= InputModel.CameraVertical * TurnSpeed;

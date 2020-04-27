@@ -95,7 +95,6 @@ namespace Souls
             //角色已经死亡，不计算任何伤害
             if (SM.CharacterState.IsDie)
                 return;
-            //if(wc.Data.ATK=0)
             //角色弹反成功
             if (SM.CharacterState.IsCounterBackSuccess)
             {
@@ -106,7 +105,7 @@ namespace Souls
                 }
             }
             //弹反失败
-            if (SM.CharacterState.isCounterBackFailure)
+            if (SM.CharacterState.IsCounterBackFailure)
             {
                 //如果攻击有效，即在弹反过程中受到伤害
                 if (attackValid)
@@ -119,7 +118,17 @@ namespace Souls
                 return;
             //是否防御，防御情况下，动画展示
             if (SM.CharacterState.IsDefence)
-                Controller.Blocked();
+            {
+                var data = WM.GetShieldDataIfHas();
+                if(data!=null)
+                {
+                    float atk = wc.GetATK - data.DEF;
+                    atk = atk < 0 ? 0 : atk;
+                    CalculateWeaponData(wc.Data.WType, atk);
+                    Controller.Blocked();
+                }
+
+            }
             else//所有情况外，就是受伤
             {
                 if (attackValid)//敌人攻击范围有效

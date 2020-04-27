@@ -10,7 +10,7 @@ namespace LS.CustomTaskSystem
     /// <summary>
     /// 将所有的Task有关的消息进行进一步的处理
     /// </summary>
-    public class TaskUIManagerBase<T>:MonoSingletionBasis<T> where T : MonoSingletionBasis<T>
+    public class TaskUIManagerBase<T>:MonoSingletonBasis<T> where T : MonoSingletonBasis<T>
     {
 
 

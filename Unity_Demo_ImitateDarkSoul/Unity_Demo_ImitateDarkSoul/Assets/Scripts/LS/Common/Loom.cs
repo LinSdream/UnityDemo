@@ -9,7 +9,7 @@ using UnityEngine;
 namespace LS.Common
 {
 
-    public class Loom:MonoSingletionBasis<Loom>
+    public class Loom:MonoSingletonBasis<Loom>
     {
         public struct DelayedQueueItem
         {

@@ -16,7 +16,7 @@ namespace LS.CustomTaskSystem
     public delegate void TaskEventArgsHandle(TaskEventArgs e);
     public delegate void CustomTaskHandle(CustomTask task, TaskEventArgs e);
     /// <summary> 任务管理器 </summary>
-    public class CustomTaskManager : MonoSingletionBasis<CustomTaskManager>
+    public class CustomTaskManager : MonoSingletonBasis<CustomTaskManager>
     {
 
         #region Fields

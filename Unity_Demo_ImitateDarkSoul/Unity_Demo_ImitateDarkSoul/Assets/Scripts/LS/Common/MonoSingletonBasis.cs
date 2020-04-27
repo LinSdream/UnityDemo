@@ -2,7 +2,7 @@
 
 namespace LS.Common
 {
-    public abstract class MonoSingletionBasis<T> : MonoBehaviour where T : MonoSingletionBasis<T>//where 约束子类
+    public abstract class MonoSingletonBasis<T> : MonoBehaviour where T : MonoSingletonBasis<T>//where 约束子类
     {
 
         protected static T _instance;
@@ -10,15 +10,15 @@ namespace LS.Common
         {
             get
             {
-                //if (_instance == null)//如果不存在
-                //{
-                //    _instance = FindObjectOfType(typeof(T)) as T;//在目前已加载的脚本中查找该单例
-                //    if (_instance == null)//创建单例
-                //    {
-                //        GameObject obj = new GameObject("Main :" + typeof(T).Name);
-                //        _instance = obj.AddComponent<T>();
-                //    }
-                //}
+                if (_instance == null)//如果不存在
+                {
+                    _instance = FindObjectOfType(typeof(T)) as T;//在目前已加载的脚本中查找该单例
+                    if (_instance == null)//创建单例
+                    {
+                        GameObject obj = new GameObject("Main :" + typeof(T).Name);
+                        _instance = obj.AddComponent<T>();
+                    }
+                }
                 return _instance;
             }
         }

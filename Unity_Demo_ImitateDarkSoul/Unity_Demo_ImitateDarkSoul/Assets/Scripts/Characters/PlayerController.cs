@@ -205,7 +205,7 @@ namespace Souls
             SetInputLock(true);
             CameraCol.RelesaseLockOn();
             GetComponent<ActorManager>().BM.CloseCollider();
-            AudioManager.Instance.PlaySFX("Die");
+            AudioManager.Instance.PlaySFX("Die", ()=> { GameManager.Instance.Settlement(false); });
         }
 
         public override void HeavyAttack()

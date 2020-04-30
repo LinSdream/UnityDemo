@@ -25,7 +25,7 @@ namespace LS.Others
                 _haveSlider = true;
                 LoadingSlider.value = 0.0f;
             }
-            if (SceneManager.GetActiveScene().name == SceneMgr.Instance.TransitionSceneName)
+            if (SceneManager.GetActiveScene().name == CustomSceneManager.Instance.TransitionSceneName)
             {
                 StartCoroutine(AsyncLoading());
             }
@@ -64,7 +64,7 @@ namespace LS.Others
 
         IEnumerator AsyncLoading()
         {
-            _operation = SceneManager.LoadSceneAsync(SceneMgr.Instance.AsyncLoadNextSceneName);
+            _operation = SceneManager.LoadSceneAsync(CustomSceneManager.Instance.AsyncLoadNextSceneName);
             if(_haveSlider)
                 _operation.allowSceneActivation = false;
             yield return _operation;

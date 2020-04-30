@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace LS.Others
 {
-    public class SceneMgr : MonoSingletionBasisDontClear<SceneMgr>
+    public class CustomSceneManager : MonoSingletionBasisDontClear<CustomSceneManager>
     {
         #region Public Fields
 
@@ -16,8 +16,7 @@ namespace LS.Others
         [HideInInspector]public string AsyncLoadNextSceneName;
         /// <summary> 异步加载的过渡场景名 </summary>
         public string TransitionSceneName;
-        
-
+        public string GetActiveSceneName=> SceneManager.GetActiveScene().name;
         #endregion
 
         #region Public Methods
@@ -38,6 +37,7 @@ namespace LS.Others
             PreviousSceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(name);
         }
+
         #endregion
     }
 

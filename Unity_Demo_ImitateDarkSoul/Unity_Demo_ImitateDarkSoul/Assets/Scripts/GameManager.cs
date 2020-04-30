@@ -5,6 +5,8 @@ using LS.Common;
 using System.Text;
 using LS.Common.Message;
 using System;
+using UnityEngine.UI;
+using LS.Others;
 
 namespace Souls
 {
@@ -12,6 +14,10 @@ namespace Souls
     public class GameManager : MonoSingletonBasis<GameManager>
     {
         #region Fields
+        public Image SettlementPanel;
+
+        Text _loseText;
+        Text _winText;
         WeaponFactory _factory;
         GameObject _player;
         #endregion
@@ -30,6 +36,9 @@ namespace Souls
             //_factory.Log();
             _player = GameObject.Find("Player");
 
+            var texts = SettlementPanel.GetComponentsInChildren<Text>();
+            _loseText = texts[0];
+            _winText = texts[1];
         }
 
         private void OnEnable()
@@ -39,6 +48,10 @@ namespace Souls
 
         private void Start()
         {
+
+            _winText.gameObject.SetActive(false);
+            _loseText.gameObject.SetActive(false);
+
             //武器初始化
             var wm = _player.GetComponentInChildren<WeaponManager>();
             _factory.CreateWeapon("MoonSword", wm);
@@ -67,7 +80,19 @@ namespace Souls
             return _factory.CreateWeapon(name, _player.GetComponentInChildren<WeaponManager>());
         }
 
-
+        public void Settlement(bool isWin)
+        {
+            if(isWin)
+            {
+                _winText.gameObject.SetActive(true);
+            }
+            else 
+            {
+                _loseText.gameObject.SetActive(true);
+                AudioManager.Instance.StopMusic();
+                CustomSceneManager.Instance.CustomLoadScene(CustomSceneManager.Instance.GetActiveSceneName);
+            }
+        }
         #endregion
 
         #region Messages 

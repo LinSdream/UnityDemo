@@ -39,6 +39,7 @@ namespace Souls
         public override void Die()
         {
             _anim.SetTrigger("Die");
+            GameManager.Instance.Settlement(true);
             _bossAM.BM.CloseCollider();
         }
 

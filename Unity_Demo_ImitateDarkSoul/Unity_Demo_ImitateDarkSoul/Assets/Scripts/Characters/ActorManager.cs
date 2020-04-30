@@ -69,8 +69,8 @@ namespace Souls
                     case "StabFront":
                         //if (cell.AM.Controller.CheckAnimatorState("Stunned"))//只有在硬直状态下才能够处决
                         //{
-                            DM.Play("FrontStab", this, cell.AM);
-                            cell.AM.SM.AddHP(-(2 * WM.RightWC.GetATK));
+                        DM.Play("FrontStab", this, cell.AM);
+                        cell.AM.SM.AddHP(-(2 * WM.RightWC.GetATK));
                         //}
                         break;
                     case "Box":
@@ -120,12 +120,11 @@ namespace Souls
             if (SM.CharacterState.IsDefence)
             {
                 var data = WM.GetShieldDataIfHas();
-                if(data!=null)
+                if (data != null)
                 {
                     float atk = wc.GetATK - data.DEF;
                     atk = atk < 0 ? 0 : atk;
-                    CalculateWeaponData(wc.Data.WType, atk);
-                    Controller.Blocked();
+                    CalculateWeaponData(WeaponType.Defence, atk);
                 }
 
             }
@@ -149,6 +148,12 @@ namespace Souls
                 case WeaponType.WoodenClub: //如果是是伤害性，则进行伤害判定
                     SetAnimAfterDoDamg(SM.AddHP(-atk));
                     break;
+                case WeaponType.Defence:
+                    if (SM.AddHP(-atk) <= 0)
+                        Controller.Die();
+                    else
+                        Controller.Blocked();
+                    break;
                 case WeaponType.Special:
                     specialAttack?.Invoke();
                     break;
@@ -158,6 +163,7 @@ namespace Souls
         /// <summary> 根据血条进行不同的动画展示 </summary>
         public virtual void SetAnimAfterDoDamg(float hp)
         {
+
             if (hp > 0)
                 Controller.Hit();
             else if (hp <= 0)
@@ -167,7 +173,7 @@ namespace Souls
             }
         }
 
-        public  virtual void SetIsCounterBack(bool on)
+        public virtual void SetIsCounterBack(bool on)
         {
             SM.CharacterState.IsCounterBackEnable = on;
         }
@@ -208,7 +214,7 @@ namespace Souls
         /// <summary>
         /// MessageCenter 事件反注册
         /// </summary>
-        protected virtual  void UnRegister()
+        protected virtual void UnRegister()
         {
             MessageCenter.Instance.RemoveListener("OnAttackExit", OnAttackExit);
             MessageCenter.Instance.RemoveListener("OnCounterBackExit", OnCounterBackExit);

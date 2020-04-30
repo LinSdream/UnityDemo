@@ -57,6 +57,7 @@ namespace Souls
             MessageCenter.Instance.RemoveListener("OnGroundEnter", OnGroundEnter);
             MessageCenter.Instance.RemoveListener("OnFallEnter", OnFallEnter);
             MessageCenter.Instance.RemoveListener("OnRollEnter", OnRollEnter);
+            MessageCenter.Instance.RemoveListener("OnRollExit", OnRollExit);
             MessageCenter.Instance.RemoveListener("OnJabEnter", OnJabEnter);
             MessageCenter.Instance.RemoveListener("OnJabUpdate", OnJabUpdate);
             MessageCenter.Instance.RemoveListener("OnAttackR_01A", OnAttackR_01A);

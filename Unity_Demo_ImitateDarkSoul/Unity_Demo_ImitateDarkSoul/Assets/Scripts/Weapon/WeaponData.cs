@@ -12,6 +12,7 @@ namespace Souls
         Sword,
         WoodenClub,
         Special,
+        Defence,
     }
 
     public class WeaponData : MonoBehaviour

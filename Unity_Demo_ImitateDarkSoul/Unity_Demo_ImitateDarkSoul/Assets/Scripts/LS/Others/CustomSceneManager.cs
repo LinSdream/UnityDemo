@@ -26,7 +26,7 @@ namespace LS.Others
         /// </summary>
         public void CustomLoadSceneAsync(string name)
         {
-            PreviousSceneName = SceneManager.GetActiveScene().name;
+            PreviousSceneName = GetActiveSceneName;
             AsyncLoadNextSceneName = name;
             SceneManager.LoadScene(TransitionSceneName);
         }
@@ -34,7 +34,7 @@ namespace LS.Others
         /// <summary> 加载场景 </summary>
         public void CustomLoadScene(string name)
         {
-            PreviousSceneName = SceneManager.GetActiveScene().name;
+            PreviousSceneName = GetActiveSceneName;
             SceneManager.LoadScene(name);
         }
 

@@ -60,15 +60,7 @@ namespace Souls
             wm.SetWeaponData(0, false);
             //给玩家的Collider赋值
             wm.ChangeWeaponCollider(0);
-            var list = new List<string>();
-            IOHelper.GetFileNameToArray(ref list, "/Resources/Audio/Used");
-            foreach (var cell in list)
-            {
-                AudioManager.Instance.SetAudioPath(cell, "Audio/Used/" + cell);
-            }
-            AudioManager.Instance.SetSFXVolume(.8f);
-            AudioManager.Instance.SetMusicVolume(.8f);
-            AudioManager.Instance.PoolLock = true;//保护程序不会崩掉
+           
         }
 
         #endregion
@@ -90,7 +82,7 @@ namespace Souls
             {
                 _loseText.gameObject.SetActive(true);
                 AudioManager.Instance.StopMusic();
-                CustomSceneManager.Instance.CustomLoadScene(CustomSceneManager.Instance.GetActiveSceneName);
+                CustomSceneManager.Instance.CustomLoadScene("00_Menu");
             }
         }
         #endregion

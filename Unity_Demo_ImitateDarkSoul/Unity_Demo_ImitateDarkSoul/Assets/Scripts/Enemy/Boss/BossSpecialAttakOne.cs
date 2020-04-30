@@ -58,6 +58,8 @@ namespace Souls
 
         void SpecialAttack()
         {
+            if (_playerAM.SM.CharacterState.IsDie)
+                return;
             (_playerAM.Controller as PlayerController).ResetMoveDirZero();
             _playerAM.Controller.Rig.AddForce((transform.forward + Vector3.up) * Force);
             _playerAM.SetAnimAfterDoDamg(_playerAM.SM.AddHP(-DamageValue));

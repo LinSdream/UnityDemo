@@ -19,7 +19,7 @@ namespace Souls
         Text _loseText;
         Text _winText;
         WeaponFactory _factory;
-        GameObject _player;
+        ActorManager _player;
         #endregion
 
         #region Mono Callbacks
@@ -34,7 +34,7 @@ namespace Souls
             //IOHelper.Stream_FileWriter(Application.dataPath + "/Resources/WeaponData.json", s, false, Encoding.UTF8);
             _factory = new WeaponFactory((Resources.Load("WeaponData") as TextAsset).text);
             //_factory.Log();
-            _player = GameObject.Find("Player");
+            _player = GameObject.Find("Player").GetComponent<ActorManager>();
 
             var texts = SettlementPanel.GetComponentsInChildren<Text>();
             _loseText = texts[0];
@@ -53,13 +53,12 @@ namespace Souls
             _loseText.gameObject.SetActive(false);
 
             //武器初始化
-            var wm = _player.GetComponentInChildren<WeaponManager>();
-            _factory.CreateWeapon("MoonSword", wm);
-            wm.SetWeaponData(0);
-            _factory.CreateWeapon("Shield", wm, false);
-            wm.SetWeaponData(0, false);
+            _factory.CreateWeapon("MoonSword", _player.WM);
+            _player.WM.SetWeaponData(0);
+            _factory.CreateWeapon("Shield", _player.WM, false);
+            _player.WM.SetWeaponData(0, false);
             //给玩家的Collider赋值
-            wm.ChangeWeaponCollider(0);
+            _player.WM.ChangeWeaponCollider(0);
            
         }
 
@@ -84,6 +83,11 @@ namespace Souls
                 AudioManager.Instance.StopMusic();
                 CustomSceneManager.Instance.CustomLoadScene("00_Menu");
             }
+        }
+
+        public bool PlayerIsDie()
+        {
+            return _player.SM.CharacterState.IsDie;
         }
         #endregion
 

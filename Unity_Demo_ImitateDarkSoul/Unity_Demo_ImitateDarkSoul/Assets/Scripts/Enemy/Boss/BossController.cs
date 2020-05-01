@@ -12,11 +12,13 @@ namespace Souls
         public BossSpecialAttakOne SpecialOne;
         public Slider BossHP;
         BossActorManager _bossAM;
+        public  BossInfo BossIF;
 
         protected override void Awake()
         {
             base.Awake();
             _bossAM = GetComponent<BossActorManager>();
+            BossIF = Info as BossInfo;
         }
 
 

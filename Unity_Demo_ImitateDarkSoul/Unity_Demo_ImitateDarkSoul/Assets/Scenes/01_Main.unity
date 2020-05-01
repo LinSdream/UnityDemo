@@ -886,7 +886,7 @@ MonoBehaviour:
   RotationSpeed: 0
   WalkSpeed: 0
   RunMultiplier: 2
-  Info: {fileID: 11400000, guid: 2e07d7ce157f83247b864d2f52fdca27, type: 2}
+  Info: {fileID: 11400000, guid: e412983fff8f44844999a18652ba07d8, type: 2}
   IsGrounded: 1
 --- !u!114 &117789810
 MonoBehaviour:
@@ -14332,10 +14332,11 @@ MonoBehaviour:
   RotationSpeed: 120
   WalkSpeed: 2.4
   RunMultiplier: 2
-  Info: {fileID: 11400000, guid: f9983376fab3c2c40bb4770bda1169f8, type: 2}
+  Info: {fileID: 11400000, guid: 0768fa07891000000078fa0789100000, type: 2}
   IsGrounded: 1
   SpecialOne: {fileID: 1911930962}
   BossHP: {fileID: 8431702377153855315}
+  Info: {fileID: 11400000, guid: 0768fa07891000000078fa0789100000, type: 2}
 --- !u!114 &1307798901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14407,8 +14408,7 @@ MonoBehaviour:
   BossBattle: {fileID: 11400000, guid: ee27af30813e8c94fa8f78d0d3665ae3, type: 2}
   DistanceType: 0
   BossCombo: 0
-  BehaviourFrequency: {x: 3, y: 10}
-  BossCol: {fileID: 0}
+  Controller: {fileID: 0}
   BehaviourTimer: 0
   CurrentBehaviourFrequency: 0
 --- !u!195 &1307798905
@@ -16876,7 +16876,7 @@ MonoBehaviour:
   RotationSpeed: 0
   WalkSpeed: 0
   RunMultiplier: 2
-  Info: {fileID: 11400000, guid: 2e07d7ce157f83247b864d2f52fdca27, type: 2}
+  Info: {fileID: 11400000, guid: e412983fff8f44844999a18652ba07d8, type: 2}
   IsGrounded: 1
 --- !u!114 &1693198904
 MonoBehaviour:

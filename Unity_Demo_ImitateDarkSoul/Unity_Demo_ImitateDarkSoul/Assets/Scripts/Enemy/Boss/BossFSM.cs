@@ -29,8 +29,6 @@ namespace Souls.AI
         public Distance DistanceType;
         /// <summary>Boss的Attack类型</summary>
         public int BossCombo = 1;
-        /// <summary> Boss的行动频率</summary>
-        [Tooltip("行动频率，[min,max]")]public Vector2 BehaviourFrequency = new Vector2(5f, 10f);
         [HideInInspector] public BossController BossCol;
 
         //计时器
@@ -56,7 +54,7 @@ namespace Souls.AI
             BossCol = Controller as BossController;
             DistanceType = Distance.None;
             TargetGameObject = GameObject.Find("Player");
-            CurrentBehaviourFrequency = UnityEngine.Random.Range(BehaviourFrequency.x, BehaviourFrequency.y + 0.01f);//做闭区间
+            CurrentBehaviourFrequency = UnityEngine.Random.Range(BossCol.BossIF.BehaviourFrequency.x, BossCol.BossIF.BehaviourFrequency.y + 0.01f);//做闭区间
             BossCombo = 1;
         }
 

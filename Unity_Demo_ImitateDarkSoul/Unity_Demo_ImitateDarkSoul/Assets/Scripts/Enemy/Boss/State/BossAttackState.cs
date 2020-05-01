@@ -26,7 +26,8 @@ namespace Souls.AI
             if (fsm.BehaviourTimer >= fsm.CurrentBehaviourFrequency)
             {
                 fsm.BehaviourTimer = 0;
-                fsm.CurrentBehaviourFrequency = Random.Range(fsm.BehaviourFrequency.x, fsm.BehaviourFrequency.y + 0.01f);//做闭区间
+                fsm.CurrentBehaviourFrequency = Random.Range(fsm.BossCol.BossIF.BehaviourFrequency.x, 
+                    fsm.BossCol.BossIF.BehaviourFrequency.y + 0.01f);//做闭区间
             }
             else
             {

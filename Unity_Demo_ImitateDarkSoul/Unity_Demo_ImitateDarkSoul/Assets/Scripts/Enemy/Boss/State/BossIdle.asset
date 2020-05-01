@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41199b7ebd418a94ca40d27ba257a50e, type: 3}
   m_Name: BossIdle
   m_EditorClassIdentifier: 
-  Actions:
-  - {fileID: 11400000, guid: 18e0c084fc9e18c43acfa54df3d59ae5, type: 2}
+  Actions: []
   Transitions: []

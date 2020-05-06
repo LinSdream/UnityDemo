@@ -19,46 +19,22 @@ namespace Souls.AI
         {
             var fsm = controller as BossFSM;
             //按照行为频率来调整攻击ComboNum;
-            string weighted;
             switch (fsm.DistanceType)
             {
                 case BossFSM.Distance.Short:
 
-                    weighted = SharedMethods.GetWeightedRandomRes(ShortWeighted.Weighted).WeightedName;
-                    for(int i=0;i < ShortWeighted.Weighted.Length;i++)
-                    {
-                        if(weighted==ShortWeighted.Weighted[i].WeightedName)
-                        {
-                            fsm.BossCombo = ShortWeighted.Weighted[i].ComboNumber;
-                            return;
-                        }
-                    }
+                    if (SetComboValue(fsm,ShortWeighted))
+                        return;
                     fsm.BossCombo = 1;
                     break;
                 case BossFSM.Distance.Mid:
-
-                     weighted = SharedMethods.GetWeightedRandomRes(MidWeighted.Weighted).WeightedName;
-                    for (int i = 0; i < ShortWeighted.Weighted.Length; i++)
-                    {
-                        if (weighted == ShortWeighted.Weighted[i].WeightedName)
-                        {
-                            fsm.BossCombo = ShortWeighted.Weighted[i].ComboNumber;
-                            return;
-                        }
-                    }
+                    if (SetComboValue(fsm, MidWeighted))
+                        return;
                     fsm.BossCombo = 1;
                     break;
                 case BossFSM.Distance.Long:
-
-                     weighted = SharedMethods.GetWeightedRandomRes(LongWeighted.Weighted).WeightedName;
-                    for (int i = 0; i < ShortWeighted.Weighted.Length; i++)
-                    {
-                        if (weighted == ShortWeighted.Weighted[i].WeightedName)
-                        {
-                            fsm.BossCombo = ShortWeighted.Weighted[i].ComboNumber;
-                            return;
-                        }
-                    }
+                    if (SetComboValue(fsm, LongWeighted))
+                        return;
                     fsm.BossCombo = 1;
                     break;
                 case BossFSM.Distance.VLong:
@@ -87,5 +63,20 @@ namespace Souls.AI
                 return;
             }
         }
+
+        bool SetComboValue(BossFSM fsm,BossAttackWeighted weighted)
+        {
+            var value = SharedMethods.GetWeightedRandomRes(weighted.Weighted).WeightedName;
+            for (int i = 0; i < ShortWeighted.Weighted.Length; i++)
+            {
+                if (value == ShortWeighted.Weighted[i].WeightedName)
+                {
+                    fsm.BossCombo = ShortWeighted.Weighted[i].ComboNumber;
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

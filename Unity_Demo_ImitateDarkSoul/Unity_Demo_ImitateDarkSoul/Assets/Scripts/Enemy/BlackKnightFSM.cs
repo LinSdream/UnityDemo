@@ -8,6 +8,9 @@ using UnityEngine.AI;
 
 namespace Souls.AI
 {
+
+    #region strcut Weighted-Value
+
     [System.Serializable]
     public struct WeightedRandomValue : SharedMethods.IWeightedPair
     {
@@ -19,8 +22,13 @@ namespace Souls.AI
         public int WeightedValue => Value;
     }
 
+    #endregion
+
     public class BlackKnightFSM : EnemyBaseFSM
     {
+
+        #region Fields
+
         public enum Stauts
         {
             None,
@@ -28,7 +36,9 @@ namespace Souls.AI
             Defence
         }
 
-          [HideInInspector] public AIController AICol;
+        public Transform[] PartorlPoints;
+        [HideInInspector] public int PartorlPointsIndex = 0;
+        [HideInInspector] public AIController AICol;
         [HideInInspector] public Stauts FsmStatus = Stauts.None;
         //权重状态
         [HideInInspector] public WeightedRandomValue[] WeightedStatus;
@@ -41,6 +51,8 @@ namespace Souls.AI
 
         int _timer;//计时
         int _frame;//延迟帧数
+
+        #endregion
 
         #region Callbacks
         protected override void OnStart()

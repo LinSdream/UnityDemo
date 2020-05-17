@@ -13,7 +13,7 @@ namespace Souls.AI
     {
 
         [Tooltip("向量表示范围，平方表示 0-10,10-50，,50-60")]
-        public Vector3 Offset = new Vector3(100f, 2500f, 3600f);
+        public Vector2 Offset = new Vector2(100f, 2500f);
         public float SqrDistanceToPlayer = 25f;
 
         public override void Act(FSMBase controller)
@@ -47,8 +47,8 @@ namespace Souls.AI
                 fsm.SetForwardAnimator(2);
             }
             else
-                return;
-                //fsm.TransitionToState();
+                fsm.TransitionToState(fsm.EnterState);
+                //fsm.TransitionToSt
         }
     }
 

@@ -9,8 +9,8 @@ namespace Souls.AI
     [CreateAssetMenu(menuName = "Souls/EnemyAI/Decision/PlayerInArea")]
     public class PlayerAreaDecision : Decision
     {
-        [Tooltip("向量表示范围，平方表示 0-10,10-50，,50-60")]
-        public Vector3 Offset = new Vector3(100f, 2500f, 3600f);
+        [Tooltip("向量表示范围，平方表示 0-10,10-50")]
+        public Vector2 Offset = new Vector2(100f, 2500f);
 
         public override bool Decide(FSMBase controller)
         {

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca573c9f6c338224d86bddfeb33eeb0b, type: 3}
-  m_Name: PlayerInfo
+  m_Script: {fileID: 11500000, guid: f0a3a5b0fe8f59d488a90a4f1daae33a, type: 3}
+  m_Name: IsBossDie
   m_EditorClassIdentifier: 
-  HP: 150
-  Damage: 5

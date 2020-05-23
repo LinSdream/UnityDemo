@@ -19,6 +19,11 @@ namespace Souls
             CustomSceneManager.Instance.CustomLoadSceneAsync("01_Main");
         }
 
+        public void Btn_Exit()
+        {
+            Application.Quit();
+        }
+
     }
 
 }

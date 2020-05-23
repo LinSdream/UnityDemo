@@ -75,6 +75,7 @@ namespace LS.Test.AI.States
                 return false;
             return true;
         }
+
         #endregion
 
         #region ScriptableObject Callbacks

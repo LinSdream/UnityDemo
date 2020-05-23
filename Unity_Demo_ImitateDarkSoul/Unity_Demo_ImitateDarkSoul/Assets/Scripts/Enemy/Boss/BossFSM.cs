@@ -54,7 +54,7 @@ namespace Souls.AI
             BossCol = Controller as BossController;
             DistanceType = Distance.None;
             TargetGameObject = GameObject.Find("Player");
-            CurrentBehaviourFrequency = UnityEngine.Random.Range(BossCol.BossIF.BehaviourFrequency.x, BossCol.BossIF.BehaviourFrequency.y + 0.01f);//做闭区间
+            CurrentBehaviourFrequency = UnityEngine.Random.Range(BossCol.Freq.x, BossCol.Freq.y + 0.01f);//做闭区间
             BossCombo = 1;
         }
 

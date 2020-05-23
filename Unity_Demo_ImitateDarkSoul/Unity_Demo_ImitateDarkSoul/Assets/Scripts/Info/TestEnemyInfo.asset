@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestEnemyInfo
   m_EditorClassIdentifier: 
   HP: 100
-  Damage: 0
+  Damage: 10

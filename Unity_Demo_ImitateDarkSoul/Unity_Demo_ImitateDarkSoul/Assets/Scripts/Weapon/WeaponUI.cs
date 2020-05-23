@@ -20,6 +20,12 @@ namespace Souls
             MessageCenter.Instance.AddListener("WeaponAdd", WeaponAdd);
         }
 
+        private void OnDestroy()
+        {
+            MessageCenter.Instance.RemoveListener("WeaponUIChange", WeaponUIChange);
+            MessageCenter.Instance.RemoveListener("WeaponAdd", WeaponAdd);
+        }
+
         private void WeaponAdd(GameObject render, EventArgs e)
         {
 

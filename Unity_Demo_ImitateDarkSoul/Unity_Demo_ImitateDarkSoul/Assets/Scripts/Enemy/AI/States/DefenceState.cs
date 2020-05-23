@@ -11,7 +11,7 @@ namespace Souls.AI
     {
 
         [Tooltip("举盾时长")]
-        public float DefenceTime = 5f;
+        public float DefenceTime = 3f;
         public State NextState;
 
         public override void OnEnter(FSMBase controller)

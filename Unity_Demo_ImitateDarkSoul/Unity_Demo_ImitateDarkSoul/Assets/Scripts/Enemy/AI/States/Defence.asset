@@ -21,5 +21,5 @@ MonoBehaviour:
   - Condition: {fileID: 11400000, guid: 63c3e508b9e35fc40ae72bf85b1ed329, type: 2}
     TrueState: {fileID: 0}
     FalseState: {fileID: 11400000, guid: a10fcc6af217edd4798a94cefbd15fe9, type: 2}
-  DefenceTime: 5
+  DefenceTime: 2
   NextState: {fileID: 11400000, guid: a10fcc6af217edd4798a94cefbd15fe9, type: 2}

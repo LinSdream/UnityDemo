@@ -13,12 +13,14 @@ namespace Souls
         public Slider BossHP;
         BossActorManager _bossAM;
         public  BossInfo BossIF;
+        [HideInInspector] public Vector2 Freq;
 
         protected override void Awake()
         {
             base.Awake();
             _bossAM = GetComponent<BossActorManager>();
             BossIF = Info as BossInfo;
+            Freq = BossIF.BehaviourFrequency;
         }
 
 

@@ -89,6 +89,11 @@ namespace Souls
         {
             return _player.SM.CharacterState.IsDie;
         }
+
+        public void Btn_ReturnMenu()
+        {
+            CustomSceneManager.Instance.CustomLoadSceneAsync("00_Menu");
+        }
         #endregion
 
         #region Messages 

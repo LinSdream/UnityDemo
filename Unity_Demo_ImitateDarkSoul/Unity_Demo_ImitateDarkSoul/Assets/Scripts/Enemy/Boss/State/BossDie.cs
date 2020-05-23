@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Souls.AI
 {
+    [CreateAssetMenu(menuName = "Souls/EnemyAI/State/Boss/Die")]
     public class BossDie : State
     {
         public override void OnEnter(FSMBase controller)

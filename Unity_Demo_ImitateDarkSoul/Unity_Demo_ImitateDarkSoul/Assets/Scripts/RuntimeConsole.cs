@@ -1,4 +1,5 @@
-﻿using Souls.AI;
+﻿using LS.Common;
+using Souls.AI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Souls
         public const string PlayerCommand = "player";
         public const string EnemyCommand = "enemy";
         public const string BossCommand = "boss";
+        public const string AudioCommand = "audio";
 
         public InputField IF;
         bool _active = false;
@@ -75,6 +77,18 @@ namespace Souls
                                 break;
                             case "add_hp":
                                 TryDo(() => { float value = float.Parse(cmds[2]); pc.GetComponent<ActorManager>().SM.AddHP(value); }, error);
+                                break;
+                        }
+                    }
+                    else if(cmds[0]==AudioCommand)
+                    {
+                        switch(cmds[1])
+                        {
+                            case "music":
+                                TryDo(() => { float value = float.Parse(cmds[2]); AudioManager.Instance.SetMusicVolume(value); }, error);
+                                break;
+                            case "sfx":
+                                TryDo(() => { float value = float.Parse(cmds[2]); AudioManager.Instance.SetSFXVolume(value); }, error);
                                 break;
                         }
                     }

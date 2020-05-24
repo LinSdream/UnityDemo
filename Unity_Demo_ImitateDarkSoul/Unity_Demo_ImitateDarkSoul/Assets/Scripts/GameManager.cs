@@ -25,6 +25,10 @@ namespace Souls
         #region Mono Callbacks
         protected override void Init()
         {
+            ////隐藏鼠标
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+
             //keyValuePairs.Add("Falchion", new WeaponValue() { ATK = 20, DEF = 30,Type=WeaponType.Sword});
             //keyValuePairs.Add("Sword", new WeaponValue() { ATK = 10, DEF = 10,Type = WeaponType.Sword });
             //keyValuePairs.Add("Mace", new WeaponValue() { ATK = 50, DEF = 30, Type = WeaponType.WoodenClub });
@@ -62,6 +66,11 @@ namespace Souls
            
         }
 
+        private void OnDisable()
+        {
+            MessageCenter.Instance.RemoveListener("ChangeWeapon", ChangeWeapon);
+        }
+
         #endregion
 
         #region Public Methods
@@ -76,12 +85,20 @@ namespace Souls
             if(isWin)
             {
                 _winText.gameObject.SetActive(true);
+                AudioManager.Instance.StopMusic();
+                AudioManager.Instance.PlaySFX("Victory", () => {
+                    AudioManager.Instance.StopAudio();
+                    CustomSceneManager.Instance.CustomLoadScene("00_Menu"); 
+                });
             }
             else 
             {
                 _loseText.gameObject.SetActive(true);
-                AudioManager.Instance.StopMusic();
-                CustomSceneManager.Instance.CustomLoadScene("00_Menu");
+                AudioManager.Instance.PlaySFX("Die", () => {
+                    AudioManager.Instance.StopAudio();
+                    CustomSceneManager.Instance.CustomLoadScene("00_Menu");
+                });
+                
             }
         }
 

@@ -17,6 +17,9 @@ namespace Souls.AI
         {
             var fsm = controller as BossFSM;
 
+            if (fsm.Controller.CheckAnimatorStateTag("Attack"))
+                return false;
+
             switch (fsm.DistanceType)
             {
                 case BossFSM.Distance.Mid:

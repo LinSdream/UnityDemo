@@ -16,7 +16,7 @@ namespace Souls
         [Tooltip("翻滚速度")] public Vector2 RollVelocity;
         [Tooltip("后跳速度,x分量为up，y分量为back")] public Vector2 JabVerlocity;
         [Tooltip("高处落地硬值以落地速度计算")] public float HightFallStiff = 5f;
-        [Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
+        //[Tooltip("从高处落下后死亡高度，以落地速度计算")] public float HightFallDead = 15f;
         [Tooltip("持续状态的冲量系数")] [Range(0, 1)] public float DurationThrustMultiplier;
         [Tooltip("血条")] public Slider HPSlider;
         [Tooltip("UI")] public GameObject UI;
@@ -187,7 +187,7 @@ namespace Souls
                 {
                     _anim.SetTrigger("Attack");
                     _anim.SetBool("AttackMirror", false);
-                    AudioManager.Instance.PlaySFX("Sword");
+                    AudioManager.Instance.PlaySFX("attack");
                 }
 
             }
@@ -205,7 +205,8 @@ namespace Souls
             SetInputLock(true);
             CameraCol.RelesaseLockOn();
             GetComponent<ActorManager>().BM.CloseCollider();
-            AudioManager.Instance.PlaySFX("Die", ()=> { GameManager.Instance.Settlement(false); });
+            GameManager.Instance.Settlement(false);
+            
         }
 
         public override void HeavyAttack()

@@ -13,11 +13,9 @@ namespace Souls
         struct EnemyStatus
         {
             public BlackKnightFSM FSM;
-            public bool Active;
             public EnemyStatus(BlackKnightFSM fsm)
             {
                 FSM = fsm;
-                Active = false;
             }
         }
 
@@ -47,7 +45,7 @@ namespace Souls
                 Debug.LogWarning("GameManager/AddEnemies Warning : the fsm already exist ");
                 return -1;
             }
-            _enemies.Add(new EnemyStatus() { FSM = fsm, Active = false });
+            _enemies.Add(new EnemyStatus() { FSM = fsm});
             return _enemies.Count - 1;
         }
 
@@ -76,7 +74,6 @@ namespace Souls
             for(int i=0;i<arr.Length;i++)
             {
                 arr[i].FSM.IsReady = !arr[i].FSM.IsReady;
-                arr[i].Active = !arr[i].Active;
             }
             
         }

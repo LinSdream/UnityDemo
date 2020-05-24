@@ -122,7 +122,7 @@ namespace LS.Common
                     Debug.LogError("AudioManager/GetAudioClip Error :can't find the audioClip ,the name is " + name);
                     return null;
                 }
-                AudioClip ac = Resources.Load(_audioPath[name]) as AudioClip;//开始从audioPath中中加载音频文件到audioClip集合中
+                AudioClip ac = Resources.Load<AudioClip>(_audioPath[name]);//开始从audioPath中中加载音频文件到audioClip集合中
                 _audioClip.Add(name, ac);
             }
             return _audioClip[name];

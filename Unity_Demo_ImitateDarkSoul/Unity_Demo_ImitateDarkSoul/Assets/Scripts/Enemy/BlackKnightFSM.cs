@@ -43,7 +43,8 @@ namespace Souls.AI
         //权重状态
         [HideInInspector] public WeightedRandomValue[] WeightedStatus;
         /// <summary> 当前攻击敌人中，在GameManager中的Enemies的Index </summary>
-        [HideInInspector] public bool IsReady;
+        [HideInInspector] public bool IsReady = false;
+        [HideInInspector] public bool IsActive = false;
         [HideInInspector] public bool CanAttack;
         [HideInInspector] public int CurrentEnemiesIndex = -1;
         //计时器给DefenceState状态使用
@@ -77,7 +78,13 @@ namespace Souls.AI
         {
             Show = CurrentState;
 
-           if (IsReady)//接收到可以准备的指令后
+            if(IsReady)
+            {
+                IsActive = true;
+                IsReady = false;
+            }
+
+           if (IsActive)//接收到可以准备的指令后
             {
                 if(_timer>=_frame)//延迟n帧后开始攻击
                 {
@@ -96,6 +103,7 @@ namespace Souls.AI
                     //重置
                     _timer = 0;
                     _frame = Random.Range(0, 2);
+                    IsActive = false;
                 }
                 else
                 {

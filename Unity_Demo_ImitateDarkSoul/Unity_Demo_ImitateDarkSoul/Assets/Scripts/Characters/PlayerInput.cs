@@ -42,9 +42,15 @@ namespace Souls
         {
             //鼠标隐藏
             if (LockCursor)
+            {
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
             else
+            {
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
 
             IsEsc = Input.GetButtonDown(LockCursorButton);
             if (IsEsc)

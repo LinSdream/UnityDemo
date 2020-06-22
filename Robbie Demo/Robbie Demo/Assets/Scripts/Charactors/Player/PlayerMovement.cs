@@ -18,7 +18,9 @@ namespace Game
             /// <summary> 是否下蹲 </summary>
             public bool IsCrouch;
             ///<summary>是否在地面上</summary>
-            public bool IsInGround;
+            public bool IsOnGround;
+            ///<summary>是否在跳跃</summary>
+            public bool IsJump;
         }
 
         /// <summary> 下蹲Or站立的时候的Collider的数据</summary>
@@ -33,7 +35,7 @@ namespace Game
         #endregion
 
         #region Public Methods
-
+        
         /// <summary> 刚体 </summary>
         public Rigidbody2D Body;
         /// <summary> 碰撞器 </summary>
@@ -47,7 +49,7 @@ namespace Game
         [Tooltip("下蹲的移动速度")] public float CrouchSpeedDivisor = 3f;
 
         [Header("跳跃设置")]
-        [Tooltip("向上的力，注意改Project已经修改过重力的数值了，重力=重力*重力系数(系数在Rigidbody中修改)，现在重力为50，默认9.81")]
+        [Tooltip("向上的力，注意改Project已经修改过重力的数值了，实际重力=重力*重力系数(系数在Rigidbody中修改)，现在重力为50，默认9.81")]
         public float JumpForce = 6.3f;
         /// <summary> 跳跃后的持续力 </summary>
         [Tooltip("跳跃后的持续力")] public float JumpHoldForce = 1.9f;
@@ -56,6 +58,9 @@ namespace Game
         ///<summary>下蹲后的跳跃的额外加成</summary>
         [Tooltip("下蹲后的跳跃的额外加成")] public float CrouchJumpBoost = 2.5f;
 
+
+        [Header("其他设置")]
+        [Tooltip("环境检测层")] public LayerMask GroundLayer;
         /// <summary>角色状态</summary>
         public States State;
         /// <summary> Collider的数据</summary>
@@ -83,10 +88,11 @@ namespace Game
             ColliderSizeInfo.ColliderCrouchOffset = new Vector2(Coll.offset.x, Coll.offset.y / 2f);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void FixedUpdate()
         {
+            CheckGround();
             GroundMovement();
+            MidAirMovement();
         }
 
         #endregion
@@ -97,12 +103,13 @@ namespace Game
         /// </summary>
         void GroundMovement()
         {
-            if (UserInput.IsCrouch)
+            if (UserInput.IsCrouch && !State.IsCrouch && State.IsOnGround)
                 Crouch();
             //如果没有按下下蹲键，并且当前处于下蹲状态，自动起立
-            else if(!UserInput.IsCrouch && State.IsCrouch){
+            else if (!UserInput.IsCrouch && State.IsCrouch)
                 StandUp();
-            }
+            else if (!State.IsOnGround && State.IsCrouch)//如果不在地面，并且在下蹲状态
+                StandUp();
 
             _xVelocity = UserInput.Horizontal;
 
@@ -146,6 +153,44 @@ namespace Game
             Coll.size = ColliderSizeInfo.ColliderStandSize;
             Coll.offset = ColliderSizeInfo.ColliderStandOffset;
         }
+
+        void MidAirMovement()
+        {
+            if(State.IsOnGround&&UserInput.JumpPressed&&!State.IsJump)
+            {
+                if(State.IsCrouch)
+                {
+                    StandUp();
+                    Body.AddForce(new Vector2(0f, CrouchJumpBoost), ForceMode2D.Impulse);
+                }
+
+                State.IsOnGround = false;
+                State.IsJump = true;
+
+                _jumpTime = JumpHoldDuration;
+
+                Body.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+            }else if (State.IsJump)
+            {
+                _jumpTime -= Time.fixedDeltaTime;
+                if(UserInput.JumpHeld)
+                    Body.AddForce(new Vector2(0f, JumpHoldForce), ForceMode2D.Impulse);
+                if (_jumpTime <=0)
+                    State.IsJump = false;
+            }
+        }
+
+        /// <summary>
+        /// 物理检测
+        /// </summary>
+        void CheckGround()
+        {
+            if (Coll.IsTouchingLayers(GroundLayer))
+                State.IsOnGround = true;
+            else
+                State.IsOnGround = false;
+        }
+
         #endregion
 
     }

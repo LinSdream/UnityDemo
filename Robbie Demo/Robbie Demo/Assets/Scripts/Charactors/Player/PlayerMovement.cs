@@ -21,6 +21,8 @@ namespace Game
             public bool IsOnGround;
             ///<summary>是否在跳跃</summary>
             public bool IsJump;
+            ///<summary>头顶有障碍物</summary>
+            public bool IsHeadBlock;
         }
 
         /// <summary> 下蹲Or站立的时候的Collider的数据</summary>
@@ -61,6 +63,13 @@ namespace Game
 
         [Header("其他设置")]
         [Tooltip("环境检测层")] public LayerMask GroundLayer;
+        /// <summary> 左右两个脚的距离，Collider的一半(x轴) </summary>
+        [HideInInspector] public float FootOffesst;
+        /// <summary>头顶的检测距离 </summary>
+        [Tooltip("头顶的检测距离")] public float HeadClearance = 0.5f;
+        ///<summary>地面的检测距离</summary>
+        [Tooltip("地面的检测距离")] public float GroundDistance = 0.2f;
+
         /// <summary>角色状态</summary>
         public States State;
         /// <summary> Collider的数据</summary>
@@ -86,11 +95,13 @@ namespace Game
 
             ColliderSizeInfo.ColliderCrouchSize = new Vector2(Coll.size.x, Coll.size.y / 2f);
             ColliderSizeInfo.ColliderCrouchOffset = new Vector2(Coll.offset.x, Coll.offset.y / 2f);
+
+            FootOffesst = Coll.size.x / 2f;
         }
 
         private void FixedUpdate()
         {
-            CheckGround();
+            PhysicsCheck();
             GroundMovement();
             MidAirMovement();
         }
@@ -106,7 +117,7 @@ namespace Game
             if (UserInput.IsCrouch && !State.IsCrouch && State.IsOnGround)
                 Crouch();
             //如果没有按下下蹲键，并且当前处于下蹲状态，自动起立
-            else if (!UserInput.IsCrouch && State.IsCrouch)
+            else if (!UserInput.IsCrouch && State.IsCrouch&&!State.IsHeadBlock)
                 StandUp();
             else if (!State.IsOnGround && State.IsCrouch)//如果不在地面，并且在下蹲状态
                 StandUp();
@@ -183,12 +194,36 @@ namespace Game
         /// <summary>
         /// 物理检测
         /// </summary>
-        void CheckGround()
+        void PhysicsCheck()
         {
-            if (Coll.IsTouchingLayers(GroundLayer))
+
+            RaycastHit2D leftFoot = Raycast(new Vector2(-FootOffesst, 0f), Vector2.down, GroundDistance, GroundLayer);
+            RaycastHit2D rightFoot = Raycast(new Vector2(FootOffesst, 0f), Vector2.down, GroundDistance, GroundLayer);
+
+            var headCheck = Raycast(new Vector2(0f, Coll.size.y), Vector2.up, HeadClearance, GroundLayer);
+
+            if (leftFoot||rightFoot)
                 State.IsOnGround = true;
             else
                 State.IsOnGround = false;
+
+            if (headCheck)
+                State.IsHeadBlock = true;
+            else
+                State.IsHeadBlock = false;
+        }
+
+        RaycastHit2D Raycast(Vector2 offset,Vector2 rayDiractionNormalized,float length,LayerMask layer)
+        {
+            Vector2 pos = transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(pos + offset, rayDiractionNormalized, length, layer);
+
+#if UNITY_EDITOR
+            Color color = hit ? Color.red : Color.green;
+            Debug.DrawRay(pos + offset, rayDiractionNormalized * length ,color); ;
+#endif
+
+            return hit;
         }
 
         #endregion

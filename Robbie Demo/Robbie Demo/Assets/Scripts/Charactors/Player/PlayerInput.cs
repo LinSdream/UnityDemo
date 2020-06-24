@@ -37,7 +37,7 @@ namespace Game
             Vertical = Input.GetAxisRaw(VerticalRaw);
 
             IsCrouch = Input.GetButton(CrouchButton);
-            CrouchPressed = Input.GetButton(CrouchButton);
+            CrouchPressed = Input.GetButtonDown(CrouchButton);
 
             JumpPressed = Input.GetButtonDown(JumpButton);
             JumpHeld = Input.GetButton(JumpButton);

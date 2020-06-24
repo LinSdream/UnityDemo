@@ -199,7 +199,6 @@ namespace Game
                 {
                     Body.bodyType = RigidbodyType2D.Dynamic;
                     Body.AddForce(new Vector2(0f, HangingJumpForce), ForceMode2D.Impulse);
-                    Body.velocity = new Vector2(_xVelocity * Speed, Body.velocity.y);
                     State.IsHanging = false;
                     _nextActionAfterHangingCacheTime = 0;
                 }
@@ -212,9 +211,9 @@ namespace Game
             }
 
             //如果在地面且按下跳跃键，而且不处于正在跳跃状态
-            if (State.IsOnGround && UserInput.JumpPressed && !State.IsJump)
+            if (State.IsOnGround && UserInput.JumpPressed && !State.IsJump&&!State.IsHeadBlock)
             {
-                if (State.IsCrouch && !State.IsHeadBlock)//如果下蹲
+                if (State.IsCrouch)//如果下蹲
                 {
                     StandUp();
                     Body.AddForce(new Vector2(0f, CrouchJumpBoost), ForceMode2D.Impulse);

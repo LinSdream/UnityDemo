@@ -11490,7 +11490,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317544976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.23, y: -6.53, z: 0}
+  m_LocalPosition: {x: 1.01, y: 7.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11520,7 +11520,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.8}
+  m_Size: {x: 0.8, y: 1.9}
   m_EdgeRadius: 0
 --- !u!50 &1317544980
 Rigidbody2D:
@@ -11564,18 +11564,25 @@ MonoBehaviour:
   JumpHoldForce: 1.9
   JumpHoldDuration: 0.15
   CrouchJumpBoost: 2.5
+  HangingJumpForce: 15
+  NextActionAfterHangingCacheTime: 0.05
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  FootOffesst: 0.4
+  HeadClearance: 0.5
+  GroundDistance: 0.2
+  EyesHeight: 1.5
+  GrabDistance: 0.4
+  ReachOffset: 0.7
+  CheckHangingRayOffset: -0.05
+  HaningOffset: -0.05
   State:
     IsCrouch: 0
     IsOnGround: 0
     IsJump: 0
-  ColliderSizeInfo:
-    ColliderStandSize: {x: 0, y: 0}
-    ColliderStandOffset: {x: 0, y: 0}
-    ColliderCrouchSize: {x: 0, y: 0}
-    ColliderCrouchOffset: {x: 0, y: 0}
+    IsHeadBlock: 0
+    IsHanging: 0
 --- !u!114 &1317544982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11598,6 +11605,7 @@ MonoBehaviour:
   CrouchButton: Crouch
   JumpButton: Jump
   IsCrouch: 0
+  CrouchPressed: 0
   JumpPressed: 0
   JumpHeld: 0
 --- !u!1 &1484632296

@@ -14,9 +14,14 @@ namespace Game
         [Tooltip("跳跃")] public string JumpButton = "Jump";
 
         /// <summary>
-        /// 下蹲
+        /// 持续下蹲
         /// </summary>
         [HideInInspector] public bool IsCrouch = false;
+        /// <summary>
+        /// 单次按下下蹲
+        /// </summary>
+        [HideInInspector] public bool CrouchPressed;
+
         /// <summary>
         /// 单次按下跳跃键
         /// </summary>
@@ -32,6 +37,7 @@ namespace Game
             Vertical = Input.GetAxisRaw(VerticalRaw);
 
             IsCrouch = Input.GetButton(CrouchButton);
+            CrouchPressed = Input.GetButton(CrouchButton);
 
             JumpPressed = Input.GetButtonDown(JumpButton);
             JumpHeld = Input.GetButton(JumpButton);

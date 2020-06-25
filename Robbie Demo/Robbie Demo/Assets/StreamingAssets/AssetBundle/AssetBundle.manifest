@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 3242918128
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: audio/ambience.u3d
+      Dependencies: {}
+    Info_1:
+      Name: audio/effects.u3d
+      Dependencies: {}
+    Info_2:
+      Name: audio/movement.u3d
+      Dependencies: {}

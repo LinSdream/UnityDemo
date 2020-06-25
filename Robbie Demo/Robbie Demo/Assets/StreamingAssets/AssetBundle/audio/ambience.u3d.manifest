@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 3571000684
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 21d7ae61fa2ee371ea6bf07d0161c4dd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Audio/Music/Main Music.ogg
+- Assets/Audio/Ambience/Wind_stones.wav
+Dependencies: []

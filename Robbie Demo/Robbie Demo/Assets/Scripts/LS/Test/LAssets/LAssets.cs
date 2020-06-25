@@ -33,7 +33,7 @@ namespace LS.AssetsFrameWork
     /// <summary>
     /// 资源加载
     /// </summary>
-    public class LAssets : MonoSingletonBasis<LAssets>
+    public class LAssets : MonoSingletionBasisDontClear<LAssets>
     {
         public enum AssetsType
         {

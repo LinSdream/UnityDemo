@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3836246826
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 352b62a6abc86a58815d6e9279dfe3d9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Audio/Movement/Footstep_light_4.wav
+- Assets/Audio/Movement/Footstep_light_1.wav
+- Assets/Audio/Movement/Footstep_1.wav
+- Assets/Audio/Movement/Footstep_light_2.wav
+- Assets/Audio/Movement/Jump.wav
+- Assets/Audio/Movement/Footstep_light_3.wav
+- Assets/Audio/Movement/Footstep_3.wav
+- Assets/Audio/Movement/Footstep_2.wav
+- Assets/Audio/Movement/Footstep_4.wav
+- Assets/Audio/Voices/Jump Voice.wav
+Dependencies: []

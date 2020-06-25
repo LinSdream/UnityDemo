@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1458875705
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6b774b845e9c0b51726a4b8b3e8cca7f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Audio/Effects/Death Pop.mp3
+- Assets/Audio/Voices/Death Voice.wav
+- Assets/Audio/Effects/Orb_return.wav
+- Assets/Audio/Voices/Laughing_5.wav
+- Assets/Audio/Effects/Orb Collection.wav
+- Assets/Audio/Voices/Robbie_coin.wav
+- Assets/Audio/Effects/stoneDoor_snd.mp3
+- Assets/Audio/Effects/Win FX.wav
+- Assets/Audio/Effects/Level Start.wav
+Dependencies: []

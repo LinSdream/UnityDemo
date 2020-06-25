@@ -31,7 +31,7 @@ namespace LS.Test.Others
     /// </summary>
     public class AudioManager : MonoSingletonBasis<AudioManager>
     {
-        #region Private Methods
+        #region Private Fields
         /// <summary>音频集合 </summary>
         Dictionary<string, AudioClip> _audios = new Dictionary<string, AudioClip>();
         /// <summary> 背景音</summary>
@@ -103,29 +103,7 @@ namespace LS.Test.Others
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// 获取音频资源
-        /// </summary>
-        /// <param name="audioName"></param>
-        AudioClip GetAudioClip(string audioName)
-        {
-            if (_audios.ContainsKey(audioName))
-                return _audios[audioName];
-
-            foreach (AudioAssetsLoader asset in _assets)
-            {
-                var tmp = asset.GetAudio(audioName);
-                if (tmp != null)
-                {
-                    _audios.Add(audioName, tmp);
-                    return _audios[audioName];
-                }
-            }
-
-            Debug.LogError($"AudioManager/GetAudioClip Error : Can't find the audio,name is {audioName}");
-            return null;
-        }
-
+        
         /// <summary> 将未使用的音源集合中提取第一个  要使用的音源文件   到已使用集合中</summary>
         /// <returns> 要使用的音源文件 </returns>
         private AudioSource UnusedToUsed()
@@ -376,6 +354,29 @@ namespace LS.Test.Others
                 _usedSoundAudioSourceList[i].volume = volume;
             foreach (AudioSource audioSource in _playingSounds)
                 audioSource.volume = volume;
+        }
+
+        /// <summary>
+        /// 获取音频资源
+        /// </summary>
+        /// <param name="audioName"></param>
+        public AudioClip GetAudioClip(string audioName)
+        {
+            if (_audios.ContainsKey(audioName))
+                return _audios[audioName];
+
+            foreach (AudioAssetsLoader asset in _assets)
+            {
+                var tmp = asset.GetAudio(audioName);
+                if (tmp != null)
+                {
+                    _audios.Add(audioName, tmp);
+                    return _audios[audioName];
+                }
+            }
+
+            Debug.LogError($"AudioManager/GetAudioClip Error : Can't find the audio,name is {audioName}");
+            return null;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LS.InputFramework;
+using LS.Test.Others;
 
 namespace Game
 {
@@ -51,6 +52,8 @@ namespace Game
         /// <summary>正常的移动速度</summary>
         [Header("移动参数")]
         [Tooltip("正常的移动速度")] public float Speed = 8f;
+        /// <summary>x轴速度</summary>
+        [HideInInspector] public float XVelocity;
         /// <summary>下蹲的移动速度 </summary>
         [Tooltip("下蹲的移动速度")] public float CrouchSpeedDivisor = 3f;
 
@@ -95,8 +98,6 @@ namespace Game
         public States State;
         /// <summary> Collider的数据</summary>
         private StandupOrCrouchColliderInfo _colliderSizeInfo;
-        /// <summary>x轴速度</summary>
-        private float _xVelocity;
         /// <summary> 跳跃时间</summary>
         private float _jumpTime;
 
@@ -142,12 +143,12 @@ namespace Game
             else if (!State.IsOnGround && State.IsCrouch)//如果不在地面，并且在下蹲状态
                 StandUp();
 
-            _xVelocity = UserInput.Horizontal;
+            XVelocity = UserInput.Horizontal;
 
             if (State.IsCrouch)
-                _xVelocity /= CrouchSpeedDivisor;
+                XVelocity /= CrouchSpeedDivisor;
 
-            Body.velocity = new Vector2(_xVelocity * Speed, Body.velocity.y);
+            Body.velocity = new Vector2(XVelocity * Speed, Body.velocity.y);
             FilpDirction();
         }
 
@@ -156,10 +157,10 @@ namespace Game
         /// </summary>
         void FilpDirction()
         {
-            if (_xVelocity < 0)
-                transform.localScale = new Vector2(-1, 1);
-            else if (_xVelocity > 0)//排除0的结果
-                transform.localScale = new Vector2(1, 1);
+            if (XVelocity < 0)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else if (XVelocity > 0)//排除0的结果
+                transform.localScale = new Vector3(1, 1, 1);
 
         }
 
@@ -225,6 +226,11 @@ namespace Game
                 _jumpTime = JumpHoldDuration;
 
                 Body.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+
+                //播放音效
+                AudioManager.Instance.PlaySFX("Jump");
+                AudioManager.Instance.PlaySFX("Jump Voice");
+
             }
             else if (State.IsJump)//如果是在跳跃状态，实际上是完成蓄力跳的功能
             {
